@@ -1,0 +1,5 @@
+# Merge columns and aggregate
+
+```
+data11<-aggregate(salin~ dist_m, data = data10, mean)
+```
