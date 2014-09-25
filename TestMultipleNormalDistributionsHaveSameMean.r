@@ -21,9 +21,9 @@ hist(c)
 
 FAILED
 
-?ks.test
-?ad.test
-t.test(t)
-anova.test(t)
-pearson.test(t)
-t.test(t)
+
+t.test(c(a,b,c))
+
+# ks.test(t)
+# anova.test(t)
+# pearson.test(t)
