@@ -1,5 +1,7 @@
 # How to create a random normal distribution?
 
+![Histogram of the normal distribution](CreateRandomNormalDistribution.png)
+
 ```
 my_mean = 100.0
 my_sd = 10.0
