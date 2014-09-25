@@ -1,3 +1,6 @@
+# Clear the working memory
+rm(list = ls())
+
 # Characterics of the normal distrubution
 my_mean = 100.0
 my_sd = 10.0
