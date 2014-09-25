@@ -1,29 +1,43 @@
 # Clear the working memory
 rm(list = ls())
 
+# Do a Shapiro-Wilk normality test on data known to follow a normal distribution
+shapiro.test(rnorm(1000, mean = 5, sd = 3))
+# Possible output:
+#
+# Shapiro-Wilk normality test
+#
+# data:  rnorm(1000, mean = 5, sd = 3)
+# W = 0.998, p-value = 0.2915
+
+# Do a Shapiro-Wilk normality test on data known to follow a uniform (non-normal) distribution
+shapiro.test(runif(1000, min = 2, max = 4))
+# Possible output:
+# Shapiro-Wilk normality test
+#
+# data:  runif(1000, min = 2, max = 4)
+# W = 0.9499, p-value < 2.2e-16
+
+
 # Characterics of the normal distrubution
 my_mean_expected = 100.0
 my_sd_expected = 10.0
 
-# Parameters for creating a normal distribution
-# my_lower = my_mean_expected - (3.0 * my_sd_expected)
-# my_upper = my_mean_expected + (3.0 * my_sd_expected)
-# my_resolution = 10.0
-# my_step = (my_upper - my_lower) / my_resolution
+# Shapiro-Wilk must have between 3 and 5000 values
+n_values = 1000
 
 # Generate the xs, ys
-# my_xs = x=seq(my_lower,my_upper,my_step)
-my_ys_expected = rnorm(10000,my_mean_expected,my_sd_expected)
-my_ys_measured = my_ys_expected + runif(length(my_ys_expected))
+my_ys = rnorm(n_values,my_mean_expected,my_sd_expected)
 
-my_table <- data.frame(cbind(my_ys_measured,my_ys_expected))
+
+my_table <- data.frame(cbind(my_ys))
 my_table
 
-my_mean_measured <- mean(my_table$my_ys_measured)
-my_sd_measured <- sd(my_table$my_ys_measured)
+my_mean <- mean(my_table$my_ys)
+my_sd <- sd(my_table$my_ys)
 
 hist(
-	my_table$my_ys_measured,
+	my_table$my_ys,
 	breaks = seq(50,150,1),
 	freq=FALSE,
 	main="Histogram of measured values",
@@ -31,11 +45,27 @@ hist(
 	ylab="Relative frequency"
 )
 curve(
-	dnorm(x,mean=my_mean_measured,sd=my_sd_measured),
+	dnorm(x,mean=my_mean,sd=my_sd),
 	col=rgb(1.0,0.75,0.0), #Orange
 	lwd=3,
-	add=T
+	add=TRUE
 )
 
-bartlett.test(redox_calib ~ habitat, data = data6)
+shapiro.test(my_table$my_ys)
+# Shapiro-Wilk normality test
+# 
+# data:  my_table$my_ys_measured
+# W = 0.998, p-value = 0.3031
+
+shapiro.test(my_table$my_ys)
+# Shapiro-Wilk normality test
+# 
+# data:  my_table$my_ys_expected
+# W = 0.9984, p-value = 0.4669
+
+# Conclusions:
+# p: the chance the data follows a normal distribution
+# p <  0.05: reject that data does follow a normal distribution
+# p >= 0.05: cannot reject that data does follow a normal distribution, 
+#            or: 'data probably follows a normal distribution'
 
