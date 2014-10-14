@@ -2,22 +2,32 @@
 rm(list = ls())
 
 # Do a Shapiro-Wilk normality test on data known to follow a normal distribution
-shapiro.test(rnorm(1000, mean = 5, sd = 3))
+t <- shapiro.test(rnorm(1000, mean = 5, sd = 3))
+print(t)
+if (t$p >= 0.05) { print("Cannot reject distribution is normal") }
+if (t$p < 0.05)  { print("Reject distribution is normal") }
 # Possible output:
 #
 # Shapiro-Wilk normality test
 #
 # data:  rnorm(1000, mean = 5, sd = 3)
 # W = 0.998, p-value = 0.2915
+#
+# [1] "Cannot reject distribution is normal"
 
 # Do a Shapiro-Wilk normality test on data known to follow a uniform (non-normal) distribution
-shapiro.test(runif(1000, min = 2, max = 4))
+t <- shapiro.test(runif(1000, min = 2, max = 4))
+print(t)
+if (t$p >= 0.05) { print("Cannot reject distribution is normal") }
+if (t$p < 0.05)  { print("Reject distribution is normal") }
 # Possible output:
+#
 # Shapiro-Wilk normality test
 #
 # data:  runif(1000, min = 2, max = 4)
 # W = 0.9499, p-value < 2.2e-16
-
+#
+# [1] "Reject distribution is normal"
 
 # Characterics of the normal distrubution
 my_mean_expected = 100.0

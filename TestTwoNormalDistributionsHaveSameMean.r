@@ -18,6 +18,7 @@ plot(b)
 hist(a)
 hist(b)
 hist(c)
+t.test(a,b) #Show a low p value, as means are the same
 t.test(a,b)
 t.test(a,c)
 t.test(b,c)
