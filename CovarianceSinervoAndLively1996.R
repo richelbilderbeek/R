@@ -10,19 +10,15 @@ source('Genetics.R')
 #
 t <- matrix(0,0,2)
 t
-#for (pA in seq(0.1,0.9,0.1))
-#{
-	pA <- 0.5
+for (pA in seq(0.0,1.0,0.1))
+{
+	# pA <- 0.5
 	genotype_frequencies_fathers <- GetGenotypeFrequenciesFromAlleleFrequencies(CreateAlleleFrequencies(pA))
 	genotype_frequencies_fathers
-	#genotype_frequencies_fathers <- CreateGenotypeFrequencies(0.25,0.5,0.25)
-	#genotype_frequencies_fathers <- CreateGenotypeFrequencies(pAA,0.5 * (1.0 - pAA),0.5 * (1.0 - pAA))
 	gamete_allele_frequencies <- GetAlleleFrequenciesFromGenotypeFrequencies(genotype_frequencies_fathers)
-	genotype_frequencies_hardy_weinberg <- GetGenotypeFrequenciesFromAlleleFrequencies(gamete_allele_frequencies)
 
 	gff <- genotype_frequencies_fathers
 	gaf <- gamete_allele_frequencies
-	gfs <- genotype_frequencies_hardy_weinberg
 
 	m <- data.frame(matrix(0,3,3))
 	colnames(m) <- c("AA","Aa","aa")
@@ -73,9 +69,16 @@ t
 		# Aa: 1
 		# aa: 2
 		score_y <- 0
-		if (son_genotype == 1) { score_y <-  1 } # AA
-		if (son_genotype == 2) { score_y <- -1 } # Aa
-		if (son_genotype == 3) { score_y <-  0 } # aa
+		
+		if (son_genotype == 1) { score_y <-  0 } # AA
+		if (son_genotype == 2) { score_y <-  0.5 } # Aa
+		if (son_genotype == 3) { score_y <-  0.9 } # aa
+# 		if (son_genotype == 1) { score_y <-  0 } # AA
+# 		if (son_genotype == 2) { score_y <-  1 } # Aa
+# 		if (son_genotype == 3) { score_y <-  2 } # aa
+# 		if (son_genotype == 1) { score_y <-  1 } # AA
+# 		if (son_genotype == 2) { score_y <- -1 } # Aa
+# 		if (son_genotype == 3) { score_y <-  0 } # aa
 	  for (father_genotype in 1:3)	
 	  {
 	  	n_sons <- n[son_genotype,father_genotype]
@@ -84,9 +87,15 @@ t
 		  	for (i in 1:n_sons)
 		  	{
 		  		score_x <- 0
-					if (father_genotype == 1) { score_x <-  1 } # AA
-					if (father_genotype == 2) { score_x <- -1 } # Aa
-					if (father_genotype == 3) { score_x <-  0 } # aa
+					if (father_genotype == 1) { score_x <-  0 } # AA
+					if (father_genotype == 2) { score_x <-  0.5 } # Aa
+					if (father_genotype == 3) { score_x <-  0.9 } # aa
+# 					if (father_genotype == 1) { score_x <-  0 } # AA
+# 					if (father_genotype == 2) { score_x <-  1 } # Aa
+# 					if (father_genotype == 3) { score_x <-  2 } # aa
+# 					if (father_genotype == 1) { score_x <-  1 } # AA
+# 					if (father_genotype == 2) { score_x <- -1 } # Aa
+# 					if (father_genotype == 3) { score_x <-  0 } # aa
 			  	c <- rbind(c,t(c(score_x,score_y)))
 		  	}
 	  	}
@@ -104,15 +113,17 @@ t
   	xlab="Phenotype score father (0:AA, 1:Aa, 2:aa)",
   	ylab="Phenotype score sons (0:AA, 1:Aa, 2:aa)"
   )
-	t <- rbind(t,t(c(genotype_frequencies_fathers$AA,my_slope)))
-# }
-# t
-# plot(
-# 	t,
-# 	main="Slopes for different allele frequencies",
-# 	xlab="pA",
-# 	ylab="Slope",
-# 	t="b"
-# )
-# 	
+	t <- rbind(t,t(c(pA,my_slope * 2)))
+
+} #Next pA
+
+t
+plot(
+	t,
+	main="Heritabilities for different allele frequencies",
+	xlab="pA",
+	ylab="Heritability",
+	t="b"
+)
+	
 
