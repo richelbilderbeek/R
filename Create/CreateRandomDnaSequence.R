@@ -1,20 +1,44 @@
-CreateRandomDnaSequence <- function(n_sequences)
+library(testit)
+
+CreateRandomBase <- function()
 {
-  if (n_sequences < 1)
-  {
-    print("ERROR: CreateRandomDnaSequence: n_sequences cannot be less than 1")
-    return ()
-  }
-  # define which bases will make up your sequences
-  bases <- c(rep('A', 5), rep('C',5), rep('G',5), rep('T',5))
-  # set how many sequences you want to produce
-  # initialize empty object
-  sequences <- rep (NA, n_sequences)
-  # populate the object by shuffling and joining your bases
-  for (i in 1:n_sequences){
-      sequences[i] <- paste(sample(bases, length(bases)), collapse = '')
-  }
-  return (sequences)
+  i <- sample(1:4,1)
+  if (i == 1) { return ("A"); }
+  if (i == 2) { return ("C"); }
+  if (i == 3) { return ("G"); }
+  if (i == 4) { return ("T"); }
+  print("ERROR: CreateRandomBase")
+  return (NULL)
 }
 
-print(CreateRandomDnaSequence(1))
+CreateRandomDnaSequence <- function(n_bases)
+{
+  if (n_bases < 1)
+  {
+    print("ERROR: CreateRandomDnaSequence: n_bases cannot be less than 1")
+    return ()
+  }
+  sequence <- NULL
+  for (i in 1:n_bases)
+  {
+    sequence <- paste(CreateRandomBase(),sequence,sep="")
+  }
+  return (sequence)
+}
+
+Test <- function()
+{
+  {
+    b <- CreateRandomBase()
+    assert(nchar(b) == 1)
+  }
+
+  {
+    n_bases <- 10
+    s <- CreateRandomDnaSequence(n_bases)
+    assert(nchar(s) == n_bases)
+  }
+  print("Testing done")
+}
+
+Test()
