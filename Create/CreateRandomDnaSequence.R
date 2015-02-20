@@ -18,7 +18,7 @@ CreateRandomDnaSequence <- function(n_bases)
   if (n_bases < 1)
   {
     print("ERROR: CreateRandomDnaSequence: n_bases cannot be less than 1")
-    return ()
+    return (NULL)
   }
   sequence <- NULL
   for (i in 1:n_bases)
