@@ -4,7 +4,6 @@ library(ape);
 library(testit)
 
 N <- 10
-mutation_rate <- 0.1
 phylogeny <- rcoal(N)
 
 svg(filename="CalculateLikelihoodCoalescent.svg")
@@ -14,7 +13,7 @@ par(mfrow=c(n_rows,n_cols))
 
 plot(
   phylogeny,
-  main=paste("Random coalescent tree with N = ",N,", and mutation rate = ",mutation_rate,sep="")
+  main=paste("Random coalescent tree with N = ",N,sep="")
 )
 
 # theta = 2 * N * nu
@@ -33,11 +32,10 @@ for (this_mutation_rate in mutation_rates)
     likelihoods <- c(likelihoods,likelihood)
   }
 }
-plot(likelihoods ~ mutation_rates,type="lines",
+plot(likelihoods ~ mutation_rates,
   main=paste("Likelihoods calculated using dcoal \n(theta = 2.0 * N * mutation rate), for N=",N,sep=""),
   xlab="Mutation rate",
   ylab="Likelihood"
 )
-abline(v=mutation_rate, lty = 3)
 par(mfrow=c(1,1))
 dev.off()
