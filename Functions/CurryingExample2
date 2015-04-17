@@ -1,0 +1,12 @@
+rm(list=ls())
+
+library(roxygen2)
+library(testit)
+
+newfunc <- Curry(oldfunc,x=5)
+
+aplusb <- function(a,b) {
+  a + 2*b
+}
+oneplusb <- Curry(aplusb,1)
+oneplusb(2)

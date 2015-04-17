@@ -1,5 +1,6 @@
 
 path_to_add <- "/home/richel/R/i686-pc-linux-gnu-library/3.1"
+path_to_add <- "/home/p230198/.rkward/library"
 
 print(.libPaths())
 

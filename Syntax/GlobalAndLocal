@@ -1,0 +1,17 @@
+library(testit)
+
+x <- 123
+y <- 123
+
+f <- function()
+{
+  x  <- 42 # Local
+  y <<- 42 # Global
+}
+
+
+assert("",x == 123)
+assert("",y == 123)
+f()
+assert("",x == 123)
+assert("",y ==  42)
