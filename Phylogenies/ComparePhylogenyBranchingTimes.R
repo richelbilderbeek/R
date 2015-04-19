@@ -39,7 +39,7 @@ hist(model2,main="Coalescent Model")
 par(mfrow=c(1,1))
 dev.off()
 
-svg(filename="ComparePhylogenyBranchLengths.svg")
+svg(filename="ComparePhylogenyBranchingTimes.svg")
 p1 <- hist(model1)
 p2 <- hist(model2)
 minx <- 0

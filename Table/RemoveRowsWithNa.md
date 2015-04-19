@@ -2,5 +2,5 @@
 
 ```
 # remove cases with missing values for any variable
-data_abio<-na.omit(data21)
+data_abio <- na.omit(data21)
 ```
