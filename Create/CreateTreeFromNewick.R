@@ -64,3 +64,5 @@ newick <- "((F:2,G:2):1,H:3);" # OK
 phylogeny <- read.tree(text = newick)
 plot(phylogeny)
 
+
+phylogeny <- read.tree(text = "((A:0.3,B:0.3):0.7,(C:0.6,D:0.6):0.4);"); plot(phylogeny) 
