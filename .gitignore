@@ -10,3 +10,6 @@
 # RStudio files
 .Rproj.user/
 *.rkward_autosave
+Packages/PBD.pdf
+*.kate-swp
+Packages/PBD/*
