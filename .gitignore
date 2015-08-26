@@ -14,3 +14,8 @@ Packages/PBD.pdf
 *.kate-swp
 Packages/PBD/*
 MyFavoritePackages/*
+PBD.pdf
+PBD/*.*
+PBD_1.0.tar.gz
+/PBD/*.*
+/PBD/
