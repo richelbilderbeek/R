@@ -35,8 +35,6 @@ fi
 
 PLYR_FILE=plyr_1.8.3.tar.gz
 
-
-
 if [ ! -e MyFavoritePackages/$PLYR_FILE ]
 then
   echo "Downloading plyr tar"
@@ -56,12 +54,39 @@ else
   echo "plyr tar already unpacked"
 fi
 
-## Hack dependencies to 3.0.2
+# Hack dependencies to 3.0.2
 echo "Hack plyr dependencies to 3.0.2"
 
 cd MyFavoritePackages
 rm $PLYR_FILE
 sed -i plyr/DESCRIPTION -e 's/Depends: R (>= 3.1.0)/Depends: R (>= 3.0.2)/'
 tar cvzf $PLYR_FILE plyr/*
+
+#
+# phyloch
+#
+
+
+PHYLOCH_FILE=phyloch_1.5-5.tar.gz
+
+if [ ! -e MyFavoritePackages/$PLYR_FILE ]
+then
+  echo "Downloading phyloch tar"
+  wget http://www.christophheibl.de/$PHYLOCH_FILE
+  mv $PHYLOCH_FILE MyFavoritePackages/$PHYLOCH_FILE
+else
+  echo "phyloch tar already on disc"
+fi
+
+if [ ! -d MyFavoritePackages/phyloch ]
+then
+  echo "Unpacking phyloch tar"
+  cd MyFavoritePackages
+  tar zxvf $PHYLOCH_FILE
+  cd ..
+else
+  echo "phyloch tar already unpacked"
+fi
+
 
 
