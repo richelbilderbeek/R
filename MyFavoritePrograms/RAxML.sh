@@ -1,0 +1,1 @@
+git clone https://github.com/stamatak/standard-RAxML.git
