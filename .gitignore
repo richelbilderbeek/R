@@ -19,4 +19,7 @@ PBD/*.*
 PBD_1.0.tar.gz
 /PBD/*.*
 /PBD/
-MyFavoritePrograms/standard-RAxML/
+MyFavoritePrograms/standard-RAxML/*.R.save
+MyFavoritePrograms/standard-RAxML/*
+.R.save
+Packages/InstallPackage.R.save
