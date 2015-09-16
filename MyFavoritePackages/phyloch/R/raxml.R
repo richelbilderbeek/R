@@ -1,6 +1,7 @@
 raxml <- function(x, runs = 10, partition = NULL, outgroup = NULL, 
                   backbone = NULL, optimize = FALSE, clear = TRUE, 
-                  file = "fromR", path = "/Applications/RAxML-7.0.4"){
+                  file = "fromR", path = "/Applications/RAxML-7.0.4",
+                  seed = 42){
 				
 	# definitions:
 	# ------------
@@ -178,10 +179,10 @@ raxml <- function(x, runs = 10, partition = NULL, outgroup = NULL,
 		else
 			g <- " "
 		# prepare calls
-		if ( optimize ) call.phy <- paste("./raxmlHPC -f d -i ", i, 
+		if ( optimize ) call.phy <- paste("./raxmlHPC -p ",seed," -f d -i ", i, 
 			" -c ", numcat, " -m GTRCAT", q,"-s ", file , 			" -# ", runs, g," -n ", file, ".tre", sep = "")
-		else call.phy <- paste("./raxmlHPC -f d -m GTRCAT", q, 			"-s ", file ," -# ", runs, g, " -n ", file, 			".tre", sep = "")
-		
+		else call.phy <- paste("./raxmlHPC -p ",seed," -f d -m GTRCAT", q, 			"-s ", file ," -# ", runs, g, " -n ", file, 			".tre", sep = "")
+	
 		# execute calls
 		cat("\nFind best ML tree ...")
 		system(call.phy)
@@ -195,7 +196,8 @@ raxml <- function(x, runs = 10, partition = NULL, outgroup = NULL,
 			cat(paste("\nE(logLik) with fixed rearrangement", 				" settings:", FIXED))
 			cat(paste("\nE(logLik) with automatic rearrangement", 				" settings:", AUTO))
 		}
-		cat("\nRAxML was called as follows:\n")
+
+		cat("\n(1) RAxML was called as follows:\n")
 		# call raxml
 		cat(call.phy)
 		 
@@ -328,7 +330,7 @@ raxml <- function(x, runs = 10, partition = NULL, outgroup = NULL,
 		PATH <- paste(rwd, "/RAxML.", file, current, "/", 			sep = "")
 		TREENAME <- paste(PATH, "bootstrap.", file, sep = "")
 		
-		cat("\nRAxML was called as follows:")
+		cat("\n(2) RAxML was called as follows:")
 		cat(paste("\n", call.phy, sep = ""))
 		cat(paste("\n", call.bs, sep = ""))
 		cat(paste("\n", call.bip, sep = ""))
