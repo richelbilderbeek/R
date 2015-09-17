@@ -49,4 +49,4 @@ rm $PLYR_FILE
 tar cvzf $PLYR_FILE plyr/*
 ```
 
-This is the bare-bone version of the full script in [DownloadMyFavoritePackages.sh](DownloadMyFavoritePackages.sh).
+This is the bare-bone version of the full script in [DownloadPlyr.sh](DownloadPlyr.sh).
