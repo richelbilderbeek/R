@@ -1,5 +1,5 @@
 #!/bin/bash
 
-./DownloadApe
+./DownloadApe.sh
 
 R CMD INSTALL ./MyFavoritePackages/ape
