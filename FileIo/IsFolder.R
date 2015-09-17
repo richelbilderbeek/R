@@ -1,4 +1,4 @@
-# From https://github.com/richelbilderbeek/R
+#From https://github.com/richelbilderbeek/R/blob/master/FileIo/IsFolder.R
 IsFolder <- function(folder_name) 
 {
   is_folder <- file.info(folder_name)[1,"isdir"]
