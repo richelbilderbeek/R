@@ -27,6 +27,6 @@ else
 fi
 
 # Apply fix to newer version of RAxML that need anm additional parameter
-wget https://github.com/richelbilderbeek/R/blob/master/MyFavoritePackages/phyloch/R/raxml.R
+wget https://raw.githubusercontent.com/richelbilderbeek/R/master/MyFavoritePackages/phyloch/R/raxml.R
 
 mv -f raxml.R MyFavoritePackages/phyloch/R/raxml.R
