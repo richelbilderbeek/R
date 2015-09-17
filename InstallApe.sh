@@ -20,7 +20,12 @@ fi
 if [ "pg-login" == "$HOSTNAME" ]
 then
   echo "Peregine login computer"
-  module load R/3.1.2-goolfc-2.7.11-default
+  echo "To install a package, type: "
+  echo " "
+  echo "  module load R/3.1.2-goolfc-2.7.11-default"
+  echo "  R"
+  echo 'install.packages("ape", repos="http://cran.r-project.org")'
+
   R CMD INSTALL ./MyFavoritePackages/ape
 else
   echo "This is not my working computer"
