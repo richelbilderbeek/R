@@ -8,5 +8,4 @@
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --partition=short
 module load R/3.1.2-goolfc-2.7.11-default
-Rscript GitHubs/R/Packages/InstallPackage.R
 Rscript script.R
