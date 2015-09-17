@@ -4,28 +4,29 @@ then
   mkdir MyFavoritePackages
 fi
 
-#
-# phyloch
-#
+FILE=phyloch_1.5-5.tar.gz
+FOLDER=phyloch
 
-
-PHYLOCH_FILE=phyloch_1.5-5.tar.gz
-
-if [ ! -e MyFavoritePackages/$PLYR_FILE ]
+if [ ! -e MyFavoritePackages/$FILE ]
 then
-  echo "Downloading phyloch tar"
-  wget http://www.christophheibl.de/$PHYLOCH_FILE
-  mv $PHYLOCH_FILE MyFavoritePackages/$PHYLOCH_FILE
+  echo "Downloading tar"
+  wget http://www.christophheibl.de/$FILE
+  mv $FILE MyFavoritePackages/$FILE
 else
-  echo "phyloch tar already on disc"
+  echo "Tar already on disc"
 fi
 
-if [ ! -d MyFavoritePackages/phyloch ]
+if [ ! -d MyFavoritePackages/$FOLDER ]
 then
-  echo "Unpacking phyloch tar"
+  echo "Unpacking tar"
   cd MyFavoritePackages
-  tar zxvf $PHYLOCH_FILE
+  tar zxvf $FILE
   cd ..
 else
-  echo "phyloch tar already unpacked"
+  echo "Tar already unpacked"
 fi
+
+# Apply fix to newer version of RAxML that need anm additional parameter
+wget https://github.com/richelbilderbeek/R/blob/master/MyFavoritePackages/phyloch/R/raxml.R
+
+mv -f raxml.R MyFavoritePackages/phyloch/R/raxml.R
