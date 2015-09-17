@@ -5,8 +5,8 @@ then
   mkdir MyFavoritePackages
 fi
 
-FILE=ape_3.3.tar.gz
-FOLDER=ape
+FILE=geiger_2.0.6.tar.gz
+FOLDER=geiger
 
 if [ ! -e MyFavoritePackages/$FILE ]
 then

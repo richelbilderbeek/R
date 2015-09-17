@@ -5,8 +5,8 @@ then
   mkdir MyFavoritePackages
 fi
 
-FILE=ape_3.3.tar.gz
-FOLDER=ape
+FILE=deSolve_1.12.tar.gz
+FOLDER=deSolve
 
 if [ ! -e MyFavoritePackages/$FILE ]
 then

@@ -5,8 +5,8 @@ then
   mkdir MyFavoritePackages
 fi
 
-FILE=ape_3.3.tar.gz
-FOLDER=ape
+FILE=phangorn_1.99.14.tar.gz
+FOLDER=phangorn
 
 if [ ! -e MyFavoritePackages/$FILE ]
 then
