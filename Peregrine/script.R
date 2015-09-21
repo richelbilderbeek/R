@@ -12,8 +12,8 @@ library(phangorn);
 # Model parameters
 birth_rate <- 0.2
 death_rate <- 0.1
-time_stop <- 10
-sequence_length <- 100
+time_stop <- 16
+sequence_length <- 10000
 
 # File paths for RaXML
 raxml_folder <- "/home/p230198/GitHubs/R/MyFavoritePrograms"
@@ -35,7 +35,7 @@ plot(
 )
 
 # Create simulated DNA from tree
-alignments_phydat <- simSeq(phylogeny,l=sequence_length, rate = 0.05)
+alignments_phydat <- simSeq(phylogeny,l=sequence_length, rate = 0.01)
 alignments_dnabin <- as.DNAbin(alignments_phydat)
 image(alignments_dnabin)
 
