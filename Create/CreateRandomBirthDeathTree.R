@@ -1,10 +1,5 @@
-rm(list=ls());
 library(ape);
 library(geiger);
-
-n_cols <- 2
-n_rows <- 2
-
 
 # # Birth-Death model that stops after a certain time
 # birth_rate <- 0.2

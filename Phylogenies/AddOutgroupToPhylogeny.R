@@ -1,0 +1,43 @@
+library(ape)
+library(PBD);
+
+# Adds an outgroup to phylogeny
+# From www.github.com/richelbilderbeek/R
+AddOutgroupToPhylogeny <- function(
+  phylogeny,
+  stem_length,
+  outgroup_name="Outgroup"
+) 
+{
+  n_taxa <- length(phylogeny$tip.label)
+  crown_age <- dist.nodes(phylogeny)[ n_taxa + 1][1]
+  phylogeny$root.edge <- stem_length
+  # Add an outgroup
+  # Thanks to Liam J. Revell, http://grokbase.com/t/r/r-sig-phylo/12bfqfb93a/adding-a-branch-to-a-tree
+  tip<-list(
+    edge=matrix(c(2,1),1,2),
+    tip.label="Outgroup",
+    edge.length=crown_age + stem_length,
+    Nnode=1
+  )
+  class(tip)<-"phylo"
+  # Attach to any node, in this case to the root. Note: order matters
+  phylogeny<-bind.tree(tip,phylogeny)
+}
+
+
+# Using the function
+phylogeny <- read.tree(text = "(t2:2.286187509,(t5:0.3145724408,((t1:0.08394513325,t4:0.08394513325):0.1558558349,t3:0.2398009682):0.07477147256):1.971615069);")
+plot(phylogeny)
+new_phylogeny <- AddOutgroupToPhylogeny(phylogeny,stem_length = crown_age)
+plot(new_phylogeny)
+
+# Plot the two trees
+n_cols <- 1
+n_rows <- 2
+par(mfrow=c(n_rows,n_cols))
+plot(phylogeny,main = "AddOutgroupToPhylogeny")
+add.scale.bar(x=0,y=5)
+plot(new_phylogeny)
+add.scale.bar(x=0,y=6)
+par(mfrow=c(1,1))

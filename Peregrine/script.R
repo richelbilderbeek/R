@@ -1,18 +1,30 @@
+# The tarball must be extracted to check if the install will succeed
+# system("R CMD check ~/GitHubs/Wip/RampalEtienne/R/PBD")
+# system("R CMD INSTALL ~/GitHubs/Wip/RampalEtienne/R/PBD_1.1.tar.gz")
+
 library(ape)
 library(DDD)
 library(plyr)
 #library(phyloch) # From http://www.christophheibl.de/Rpackages.html
-source("~/GitHubs/R/MyFavoritePackages/phyloch/R/write.phy.R")
-#source("~/GitHubs/R/MyFavoritePackages/phyloch/R/raxml.R")
-source("~/GitHubs/R/MyFavoritePackages/phyloch/R/raxml2.R")
+source("~/GitHubs/R/MyFavoritePackages/phyloch/R/write.phy.R") #Fixed bug
+#source("~/GitHubs/R/MyFavoritePackages/phyloch/R/raxml.R") #Fixed bug
+source("~/GitHubs/R/MyFavoritePackages/phyloch/R/raxml2.R") #Calls 'x' instead of './x'
 library(geiger)
 library(testit)
 library(phangorn);
+library(ape);
+library(geiger);
+library(phytools);
+library(PBD);
+
 
 # Model parameters
-birth_rate <- 0.2
-death_rate <- 0.1
-time_stop <- 16
+b_1  <- 0.2 #the speciation-initiation rate of good species
+la_1 <- 1.0 #the speciation-completion rate 
+b_2  <- 0.2 # the speciation-initiation rate of incipient species 
+mu_1 <- 0.1 # the extinction rate of good species 
+mu_2 <- 0.1 # the extinction rate of incipient species 
+age <- 15
 sequence_length <- 10000
 
 # File paths for RaXML
@@ -23,16 +35,34 @@ raxml_result_path <- paste(raxml_folder,"/RAxML_bestTree.",raxml_result_file,".t
 
 assert(file.exists(raxml_path))
 
-# Create reconstructed simulated tree
-phylogeny <- sim.bdtree(birth_rate, death_rate, stop="time",t=time_stop)
-phylogeny <- drop.fossil(phylogeny)
-plot(
-  phylogeny,
-  main=paste(
-    "sim.bdtree(birth_rate=",birth_rate,", ",
-    "death_rate=",death_rate,", t=time_stop=",time_stop,", stop=\"time\")"
-  )
+# Create reconstructed protracted simulated tree
+tree_full <-pbd_sim(c(b_1,la_1,b_2,mu_1,mu_2),age,soc=2,plot=0)
+par(mfrow=c(1,1)) # Bug fix of https://github.com/richelbilderbeek/Wip/issues/20
+
+phylogeny <- tree_full$tree
+assert(is.rooted(phylogeny))
+assert(is.ultrametric(phylogeny))
+plot(phylogeny,main="True tree")
+add.scale.bar()
+
+
+# Add a stem to connect the outgroup to
+new_phylogeny <- phylogeny
+stem_length <- age
+new_phylogeny$root.edge <- stem_length
+
+# Add an outgroup
+# Thanks to Liam J. Revell, http://grokbase.com/t/r/r-sig-phylo/12bfqfb93a/adding-a-branch-to-a-tree
+tip<-list(
+  edge=matrix(c(2,1),1,2),
+  tip.label="Outgroup",
+  edge.length=age + stem_length,
+  Nnode=1
 )
+class(tip)<-"phylo"
+# Attach to any node, in this case to the root. Note: order matters
+new_phylogeny<-bind.tree(tip,new_phylogeny)
+plot(new_phylogeny)
 
 # Create simulated DNA from tree
 alignments_phydat <- simSeq(phylogeny,l=sequence_length, rate = 0.01)
@@ -52,14 +82,12 @@ phylogeny_inferred <- read.tree(raxml_result_path)
 plot(phylogeny_inferred)
 
 # Plot the two trees
-#png(filename="~/script.png")
 n_cols <- 1
 n_rows <- 2
 par(mfrow=c(n_rows,n_cols))
 plot(phylogeny,main="Truth")
 plot(phylogeny_inferred,main="Inferred")
 par(mfrow=c(1,1))
-#dev.off()
 
 # Compare simulated with best fitting tree
 
