@@ -12,7 +12,7 @@ Wayne Pfeiffer (SDSC)
 Akifumi S. Tanabe (Univ. Tsukuba)
 
 
-Alignment has 4461 distinct alignment patterns
+Alignment has 577 distinct alignment patterns
 
 Proportion of gaps and completely undetermined characters in this alignment: 0.00%
 
@@ -31,7 +31,7 @@ Likelihood of final tree will be evaluated and optimized under GAMMA
 GAMMA Model parameters will be estimated up to an accuracy of 0.1000000000 Log Likelihood units
 
 Partition: 0
-Alignment Patterns: 4461
+Alignment Patterns: 577
 Name: No Name Provided
 DataType: DNA
 Substitution Matrix: GTR
@@ -41,56 +41,56 @@ Substitution Matrix: GTR
 
 RAxML was called as follows:
 
-raxmlHPC -p 42 -f d -m GTRCAT -s tmp.txt -# 10 -n tmp.txt.tre 
+raxmlHPC -f d -m GTRCAT -s tmp.txt -# 10 -n tmp.txt.tre 
 
 
-Inference[0]: Time 10.807980 CAT-based likelihood -82005.147006, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735905 0.870208 0.832606 0.836198 0.844712 1.000000 
-Inference[1]: Time 10.636325 CAT-based likelihood -82005.136788, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735949 0.870228 0.832659 0.836217 0.844763 1.000000 
-Inference[2]: Time 11.331142 CAT-based likelihood -82005.147667, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735914 0.870222 0.832620 0.836209 0.844723 1.000000 
-Inference[3]: Time 10.709382 CAT-based likelihood -82005.132191, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735959 0.870229 0.832666 0.836223 0.844773 1.000000 
-Inference[4]: Time 10.856355 CAT-based likelihood -82005.146987, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735905 0.870208 0.832607 0.836199 0.844712 1.000000 
-Inference[5]: Time 11.313687 CAT-based likelihood -82005.146320, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735967 0.870222 0.832713 0.836160 0.844763 1.000000 
-Inference[6]: Time 11.111641 CAT-based likelihood -82005.158209, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735875 0.870205 0.832572 0.836196 0.844677 1.000000 
-Inference[7]: Time 11.175750 CAT-based likelihood -82005.147511, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735909 0.870213 0.832611 0.836202 0.844716 1.000000 
-Inference[8]: Time 11.288128 CAT-based likelihood -82005.130718, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735914 0.870145 0.832566 0.836217 0.844740 1.000000 
-Inference[9]: Time 11.354878 CAT-based likelihood -82005.131874, best rearrangement setting 5
-alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.735961 0.870232 0.832669 0.836226 0.844777 1.000000 
+Inference[0]: Time 1.186241 CAT-based likelihood -7280.485777, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.664026 0.780107 0.829334 0.690795 0.755430 1.000000 
+Inference[1]: Time 1.186520 CAT-based likelihood -7281.612209, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.663668 0.772094 0.836358 0.683021 0.760834 1.000000 
+Inference[2]: Time 1.200792 CAT-based likelihood -7280.485452, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.664034 0.780118 0.829345 0.690804 0.755440 1.000000 
+Inference[3]: Time 1.196934 CAT-based likelihood -7281.612117, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.663671 0.772097 0.836361 0.683024 0.760836 1.000000 
+Inference[4]: Time 1.205245 CAT-based likelihood -7280.487361, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.663985 0.780053 0.829278 0.690748 0.755382 1.000000 
+Inference[5]: Time 1.194324 CAT-based likelihood -7280.487272, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.664018 0.780121 0.829348 0.690783 0.755418 1.000000 
+Inference[6]: Time 1.197103 CAT-based likelihood -7280.484985, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.664047 0.780132 0.829360 0.690817 0.755457 1.000000 
+Inference[7]: Time 1.203669 CAT-based likelihood -7280.488075, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.663966 0.780030 0.829255 0.690728 0.755358 1.000000 
+Inference[8]: Time 1.206636 CAT-based likelihood -7281.544463, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.664294 0.772038 0.836021 0.683842 0.761549 1.000000 
+Inference[9]: Time 1.201948 CAT-based likelihood -7280.491751, best rearrangement setting 5
+alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 0.663861 0.779944 0.829121 0.690657 0.755232 1.000000 
 
 
 Conducting final model optimizations on all 10 trees under GAMMA-based models ....
 
 Testing which likelihood implementation to use
-Standard Implementation full tree traversal time: 0.049219
-Subtree Equality Vectors for gap columns full tree traversal time: 0.049257
+Standard Implementation full tree traversal time: 0.005302
+Subtree Equality Vectors for gap columns full tree traversal time: 0.005740
 ... using standard implementation
 
-Inference[0] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.0
-Inference[1] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.1
-Inference[2] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.2
-Inference[3] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.3
-Inference[4] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.4
-Inference[5] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.5
-Inference[6] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.6
-Inference[7] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.7
-Inference[8] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.8
-Inference[9] final GAMMA-based Likelihood: -87698.683221 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.9
+Inference[0] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.0
+Inference[1] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.1
+Inference[2] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.2
+Inference[3] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.3
+Inference[4] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.4
+Inference[5] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.5
+Inference[6] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.6
+Inference[7] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.7
+Inference[8] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.8
+Inference[9] final GAMMA-based Likelihood: -7850.251976 tree written to file /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_result.tmp.txt.tre.RUN.9
 
 
-Starting final GAMMA-based thorough Optimization on tree 8 likelihood -87698.683221 .... 
+Starting final GAMMA-based thorough Optimization on tree 2 likelihood -7850.251976 .... 
 
-Final GAMMA-based Score of best tree -87698.683221
+Final GAMMA-based Score of best tree -7850.251976
 
 Program execution info written to /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_info.tmp.txt.tre
 Best-scoring ML tree written to: /home/p230198/GitHubs/R/MyFavoritePrograms/RAxML_bestTree.tmp.txt.tre
 
-Overall execution time: 137.503272 secs or 0.038195 hours or 0.001591 days
+Overall execution time: 14.734658 secs or 0.004093 hours or 0.000171 days
 
