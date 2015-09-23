@@ -23,3 +23,5 @@ MyFavoritePrograms/standard-RAxML/*.R.save
 MyFavoritePrograms/standard-RAxML/*
 .R.save
 Packages/InstallPackage.R.save
+tmp.txt
+*.tre.RUN.*
