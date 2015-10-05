@@ -1,0 +1,22 @@
+rm(list=ls());
+library(ape);
+library(geiger);
+library(phangorn);
+
+# One of the many ways to create a random phylogeny
+CreateRandomPhylogeny <- function(n_taxa)
+{
+  phylogeny <- rcoal(n_taxa)
+}
+
+# Convert a phylogeny to a random DNA alignment
+ConvertPhylogenyToRandomAlignments <- function(phylogeny,sequence_length) 
+{
+  alignments_phydat <- simSeq(phylogeny,l=sequence_length)
+  alignments_dnabin <- as.DNAbin(alignments_phydat)
+}
+
+
+phylogeny <- CreateRandomPhylogeny(n_taxa= 5)
+alignment <- ConvertPhylogenyToRandomAlignments(phylogeny,sequence_length = 10)
+image(alignment)
