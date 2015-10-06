@@ -30,7 +30,7 @@ mu_1 <- 0.1 # the extinction rate of good species
 mu_2 <- 0.1 # the extinction rate of incipient species 
 age <- 15
 mutation_rate <- 0.1
-sequence_length <- 1000
+sequence_length <- 100
 n_tree_searches <- 10
 n_bootstrap_replicates <- 10
 mcmc_chainlength <- 10000
@@ -89,7 +89,12 @@ ConvertPhylogenyToRandomAlignments <- function(
 
 # Create a random FASTA file text
 ConvertAlignmentsToFasta <- function(alignments_dnabin,filename) {
-  write.phyDat(alignments_dnabin, file=filename, format="fasta")
+  write.phyDat(
+    # x = alignments_dnabin, 
+    alignments_dnabin, 
+    file=filename, 
+    format="fasta"
+  )
 }
 
 ###############################
@@ -123,13 +128,12 @@ image(alignments)
 
 # Save to FASTA file
 ConvertAlignmentsToFasta(alignments,fasta_filename)
-  
+
 # Create BEAST2 parameter file
 cmd <- paste(
   beast_scripter_path, 
   " --fasta ",fasta_filename,
   " --mcmc_length ",mcmc_chainlength,
-  #" --tree_prior ","coalescent_constant_population",
   " --tree_prior ","birth_death",
   " --output_file ",beast_filename,
   " --silent",
@@ -137,13 +141,11 @@ cmd <- paste(
 )
 system(cmd)
 assert(file.exists(beast_filename))
-birth_death_0.xml
 
 # Run BEAST
 cmd <- paste(
   beast_path, 
-  #" ",beast_filename,
-  " ","birth_death_1_20151005.xml",
+  " ",beast_filename,
   sep=""
 )
 system(cmd)
