@@ -11,15 +11,28 @@ source("~/GitHubs/R/MyFavoritePackages/phyloch/R/write.phy.R") #Fixed bug
 source("~/GitHubs/R/MyFavoritePackages/phyloch/R/raxml2.R") #Calls 'x' instead of './x'
 library(geiger)
 library(testit)
-library(phangorn)
 library(ape)
 library(geiger)
 library(phytools)
 library(PBD)
 library(testit)
+library(RColorBrewer)
+library(data.table)
+library(phangorn)
 
-library(devtools)
-install_github("olli0601/rBEAST")
+can_install_devtools <- FALSE
+if (can_install_devtools) {
+  library(devtools)
+  install_github("olli0601/rBEAST")
+  print("olli0601 his rBEAST package installed from his GitHub")
+} else {
+  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
+  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
+  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
+  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.treeannotator.R")
+  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
+  print("olli0601 his rBEAST package loaded from this GitHub")
+}
 
 ###############################
 #
@@ -52,8 +65,6 @@ beast_state_filename <- paste(base_filename,".xml.state",sep="");
 
 assert(file.exists(beast_scripter_path))
 assert(file.exists(beast_path))
-
-
 
 ###############################
 #
@@ -152,7 +163,9 @@ assert(file.exists(beast_filename))
 
 # Run BEAST
 # Prevent BEAST prompting the user whether to overwrite the log file
+if (file.exists(beast_trees_filename)) { file.remove(beast_trees_filename) }
 if (file.exists(beast_log_filename)) { file.remove(beast_log_filename) }
+if (file.exists(beast_state_filename)) { file.remove(beast_state_filename) }
 
 cmd <- paste(
   beast_path, 
@@ -165,20 +178,22 @@ assert(file.exists(beast_log_filename))
 assert(file.exists(beast_state_filename))
 
 # Analyse posterior
+# Read all trees from the BEAST2 posterior
+all_trees <- beast2out.read.trees(beast_trees_filename)
+phylogeny_inferred <- tail(all_trees,n=1)[[1]]
 
-
-
-
-# Plot the two trees
+# Plot the original and one of the posterior's tree
 n_cols <- 1
 n_rows <- 2
 par(mfrow=c(n_rows,n_cols))
 plot(phylogeny_with_outgroup,main="Truth")
-add.scale.bar(x=0,y=10)
+add.scale.bar()
 plot(phylogeny_inferred,main="Inferred")
 add.scale.bar()
 par(mfrow=c(1,1))
 
-# Compare simulated with best fitting tree
+# for (tree in all_trees) { plot(tree) }
 
-
+# Plot concensus tree
+# densiTree(all_trees)
+# ?densiTree
