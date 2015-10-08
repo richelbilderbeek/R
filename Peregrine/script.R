@@ -19,6 +19,10 @@ library(testit)
 library(RColorBrewer)
 library(data.table)
 library(phangorn)
+source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
+source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignments.R")
+source("~/GitHubs/R/Phylogenies/ConvertAlignmentsToFasta.R")
+
 
 can_install_devtools <- FALSE
 if (can_install_devtools) {
@@ -40,8 +44,8 @@ if (can_install_devtools) {
 #
 ###############################
 b_1  <- 0.2 #the speciation-initiation rate of good species
-la_1 <- 1.0 #the speciation-completion rate 
 b_2  <- 0.2 # the speciation-initiation rate of incipient species 
+la_1 <- 1.0 #the speciation-completion rate 
 mu_1 <- 0.1 # the extinction rate of good species 
 mu_2 <- 0.1 # the extinction rate of incipient species 
 age <- 15
@@ -65,56 +69,6 @@ beast_state_filename <- paste(base_filename,".xml.state",sep="");
 
 assert(file.exists(beast_scripter_path))
 assert(file.exists(beast_path))
-
-###############################
-#
-# Model functions
-#
-###############################
-
-# Adds an outgroup to phylogeny
-# From www.github.com/richelbilderbeek/R
-AddOutgroupToPhylogeny <- function(
-  phylogeny,
-  stem_length,
-  outgroup_name="Outgroup"
-) {
-  n_taxa <- length(phylogeny$tip.label)
-  crown_age <- dist.nodes(phylogeny)[ n_taxa + 1][1]
-  phylogeny$root.edge <- stem_length
-  # Add an outgroup
-  # Thanks to Liam J. Revell, http://grokbase.com/t/r/r-sig-phylo/12bfqfb93a/adding-a-branch-to-a-tree
-  tip<-list(
-    edge=matrix(c(2,1),1,2),
-    tip.label="Outgroup",
-    edge.length=crown_age + stem_length,
-    Nnode=1
-  )
-  class(tip)<-"phylo"
-  # Attach to any node, in this case to the root. Note: order matters
-  phylogeny<-bind.tree(tip,phylogeny)
-}
-
-# Convert a phylogeny to a random DNA alignment
-ConvertPhylogenyToRandomAlignments <- function(
-  phylogeny,
-  sequence_length,
-  mutation_rate
-) 
-{
-  alignments_phydat <- simSeq(phylogeny,l=sequence_length,rate=mutation_rate)
-  alignments_dnabin <- as.DNAbin(alignments_phydat)
-}
-
-# Create a random FASTA file text
-ConvertAlignmentsToFasta <- function(alignments_dnabin,filename) {
-  write.phyDat(
-    # x = alignments_dnabin, 
-    alignments_dnabin, 
-    file=filename, 
-    format="fasta"
-  )
-}
 
 ###############################
 #
@@ -148,7 +102,7 @@ image(alignments)
 # Save to FASTA file
 ConvertAlignmentsToFasta(alignments,fasta_filename)
 
-# Create BEAST2 parameter file
+# Create BEAST2 parameter file from FASTA file and aparameters
 cmd <- paste(
   beast_scripter_path, 
   " --fasta ",fasta_filename,
@@ -161,7 +115,7 @@ cmd <- paste(
 system(cmd)
 assert(file.exists(beast_filename))
 
-# Run BEAST
+# Run BEAST2, needs the BEAST2 .XML parameter file
 # Prevent BEAST prompting the user whether to overwrite the log file
 if (file.exists(beast_trees_filename)) { file.remove(beast_trees_filename) }
 if (file.exists(beast_log_filename)) { file.remove(beast_log_filename) }

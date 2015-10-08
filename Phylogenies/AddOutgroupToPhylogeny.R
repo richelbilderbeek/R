@@ -7,8 +7,7 @@ AddOutgroupToPhylogeny <- function(
   phylogeny,
   stem_length,
   outgroup_name="Outgroup"
-) 
-{
+) {
   n_taxa <- length(phylogeny$tip.label)
   crown_age <- dist.nodes(phylogeny)[ n_taxa + 1][1]
   phylogeny$root.edge <- stem_length
@@ -26,18 +25,24 @@ AddOutgroupToPhylogeny <- function(
 }
 
 
-# Using the function
-phylogeny <- read.tree(text = "(t2:2.286187509,(t5:0.3145724408,((t1:0.08394513325,t4:0.08394513325):0.1558558349,t3:0.2398009682):0.07477147256):1.971615069);")
-plot(phylogeny)
-new_phylogeny <- AddOutgroupToPhylogeny(phylogeny,stem_length = crown_age)
-plot(new_phylogeny)
+DemonstrateAddOutgroupToPhylogeny <- function()
+{
+  # Using the function
+  phylogeny <- read.tree(text = "(t2:2.286187509,(t5:0.3145724408,((t1:0.08394513325,t4:0.08394513325):0.1558558349,t3:0.2398009682):0.07477147256):1.971615069);")
+  plot(phylogeny)
+  new_phylogeny <- AddOutgroupToPhylogeny(phylogeny,stem_length = crown_age)
+  plot(new_phylogeny)
+  
+  # Plot the two trees
+  n_cols <- 1
+  n_rows <- 2
+  par(mfrow=c(n_rows,n_cols))
+  plot(phylogeny,main = "AddOutgroupToPhylogeny")
+  add.scale.bar(x=0,y=5)
+  plot(new_phylogeny)
+  add.scale.bar(x=0,y=6)
+  par(mfrow=c(1,1))
+}
 
-# Plot the two trees
-n_cols <- 1
-n_rows <- 2
-par(mfrow=c(n_rows,n_cols))
-plot(phylogeny,main = "AddOutgroupToPhylogeny")
-add.scale.bar(x=0,y=5)
-plot(new_phylogeny)
-add.scale.bar(x=0,y=6)
-par(mfrow=c(1,1))
+# Uncomment this to view the function demonstration
+# DemonstrateAddOutgroupToPhylogeny()

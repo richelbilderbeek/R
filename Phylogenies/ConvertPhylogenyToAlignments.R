@@ -1,4 +1,3 @@
-rm(list=ls());
 library(ape);
 library(geiger);
 library(phangorn);
@@ -17,6 +16,12 @@ ConvertPhylogenyToRandomAlignments <- function(phylogeny,sequence_length)
 }
 
 
-phylogeny <- CreateRandomPhylogeny(n_taxa= 5)
-alignment <- ConvertPhylogenyToRandomAlignments(phylogeny,sequence_length = 10)
-image(alignment)
+DemonstrateConvertPhylogenyToRandomAlignments <- function() 
+{
+  phylogeny <- CreateRandomPhylogeny(n_taxa= 5)
+  alignment <- ConvertPhylogenyToRandomAlignments(phylogeny,sequence_length = 10)
+  image(alignment)
+}
+
+# Uncomment this to view the function demonstration
+#DemonstrateConvertPhylogenyToRandomAlignments()

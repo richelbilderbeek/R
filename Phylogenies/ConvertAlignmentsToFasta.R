@@ -1,4 +1,3 @@
-rm(list=ls());
 library(ape);
 library(geiger);
 library(phangorn);
@@ -21,10 +20,15 @@ ConvertAlignmentsToFasta <- function(alignments_dnabin,filename) {
 }
 
 
-alignment <- CreateRandomAlignments(n_taxa = 5,sequence_length = 10)
-image(alignment)
+DemonstrateConvertAlignmentsToFasta <- function() {
 
-filename <- "ConvertAlignmentsToFasta.fasta"
-ConvertAlignmentsToFasta(alignment,filename)
-file.show(filename)
+  alignment <- CreateRandomAlignments(n_taxa = 5,sequence_length = 10)
+  image(alignment)
+  
+  filename <- "ConvertAlignmentsToFasta.fasta"
+  ConvertAlignmentsToFasta(alignment,filename)
+  file.show(filename)
+}
 
+# Uncomment this to view the function demonstration
+#DemonstrateConvertAlignmentsToFasta()
