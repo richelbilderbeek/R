@@ -19,6 +19,7 @@ library(testit)
 library(RColorBrewer)
 library(data.table)
 library(phangorn)
+library(nLTT);
 source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
 source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignments.R")
 source("~/GitHubs/R/Phylogenies/ConvertAlignmentsToFasta.R")
@@ -43,9 +44,12 @@ if (can_install_devtools) {
 # Model parameters
 #
 ###############################
-b_1  <- 0.2 #the speciation-initiation rate of good species
+rng_seed <- 42
+
+
+b_1  <- 0.2 # the speciation-initiation rate of good species
 b_2  <- 0.2 # the speciation-initiation rate of incipient species 
-la_1 <- 1.0 #the speciation-completion rate 
+la_1 <- 1.0 # the speciation-completion rate 
 mu_1 <- 0.1 # the extinction rate of good species 
 mu_2 <- 0.1 # the extinction rate of incipient species 
 age <- 15
@@ -54,7 +58,6 @@ sequence_length <- 100
 n_tree_searches <- 10
 n_bootstrap_replicates <- 10
 mcmc_chainlength <- 10000
-
 
 # File paths for BeastScripter
 beast_scripter_path <- "~/Programs/BeastScripter/BeastScripterConsole"
@@ -66,7 +69,6 @@ beast_log_filename <- paste(base_filename,".log",sep="");
 beast_trees_filename <- paste(base_filename,".trees",sep="");
 beast_state_filename <- paste(base_filename,".xml.state",sep="");
 
-
 assert(file.exists(beast_scripter_path))
 assert(file.exists(beast_path))
 
@@ -75,7 +77,7 @@ assert(file.exists(beast_path))
 # Model script
 #
 ###############################
-
+set.seed(rng_seed)
 
 # Create reconstructed protracted simulated tree
 tree_full <-pbd_sim(c(b_1,la_1,b_2,mu_1,mu_2),age,soc=2,plot=0)
@@ -123,6 +125,7 @@ if (file.exists(beast_state_filename)) { file.remove(beast_state_filename) }
 
 cmd <- paste(
   beast_path, 
+  " -seed ",rng_seed,
   " ",beast_filename,
   sep=""
 )
@@ -134,15 +137,23 @@ assert(file.exists(beast_state_filename))
 # Analyse posterior
 # Read all trees from the BEAST2 posterior
 all_trees <- beast2out.read.trees(beast_trees_filename)
-phylogeny_inferred <- tail(all_trees,n=1)[[1]]
+last_tree <- tail(all_trees,n=1)[[1]]
+plot(last_tree,main="Last tree in posterior")
 
-# Plot the original and one of the posterior's tree
+all_nltt_stats <- NULL
+for (tree in all_trees)
+{
+  all_nltt_stats = c(all_nltt_stats,nLTTstat(phylogeny_with_outgroup,tree))
+}
+hist(all_nltt_stats)
+
+# Plot the original and last of the posterior's tree
 n_cols <- 1
 n_rows <- 2
 par(mfrow=c(n_rows,n_cols))
 plot(phylogeny_with_outgroup,main="Truth")
 add.scale.bar()
-plot(phylogeny_inferred,main="Inferred")
+plot(last_tree,main="Inferred")
 add.scale.bar()
 par(mfrow=c(1,1))
 
