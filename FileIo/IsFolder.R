@@ -9,9 +9,15 @@ IsFolder <- function(folder_name)
 
 library(testit)
 
-# Home folder always exists under Linux
-assert(IsFolder("~"))
+DemonstrateIsFolder <- function() {
 
-# Home folder always exists under Linux
-assert(IsFolder("~/GitHubs"))
-assert(!IsFolder("~/GitHub"))
+  # Home folder always exists under Linux
+  assert(IsFolder("~"))
+
+  # Home folder always exists under Linux
+  assert(IsFolder("~/GitHubs"))
+  assert(!IsFolder("~/GitHub"))
+}
+
+# Uncomment this to view the function demonstration
+#DemonstrateIsFolder()

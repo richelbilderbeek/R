@@ -8,7 +8,14 @@ FunctionToFile <- function(function_name,file_name)
 
 library(testit)
 
-temp_filename <- "~/tmp.txt"
-FunctionToFile(assert,temp_filename)
-FunctionToFile(FunctionToFile,temp_filename)
+DemonstrateFunctionToFile <- function() {
+  temp_filename <- "~/tmp.txt"
+  # Write the function to file
+  FunctionToFile(FunctionToFile,temp_filename)
+  # Show the file its content
+  readLines(temp_filename)
+}
 
+
+# Uncomment this to view the function demonstration
+#DemonstrateFunctionToFile()
