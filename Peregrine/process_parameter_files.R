@@ -69,8 +69,6 @@ mu_2 <- 0.1 # the extinction rate of incipient species
 age <- 15
 mutation_rate <- 0.1
 sequence_length <- 100
-n_tree_searches <- 10
-n_bootstrap_replicates <- 10
 mcmc_chainlength <- 10000
 
 # File paths for BeastScripter
