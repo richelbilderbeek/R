@@ -19,4 +19,5 @@ DemonstrateDataFrameWithFactors <- function() {
   rownames(my_new_table)[1] <- "Furthest"
 }
 
-DemonstrateDataFrameWithFactors()
+# Uncomment this to view the function demonstration
+#DemonstrateDataFrameWithFactors()

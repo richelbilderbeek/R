@@ -29,4 +29,5 @@ DemonstrateSaveDataFrame <- function() {
   #assert(my_data_frame == my_data_frame_again)
 }
 
-DemonstrateSaveDataFrame()
+# Uncomment this to view the function demonstration
+#DemonstrateSaveDataFrame()

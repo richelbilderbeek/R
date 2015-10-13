@@ -7,4 +7,5 @@ DemonstrateAddColumn <- function() {
   my_table
 }
 
-DemonstrateAddColumn()
+# Uncomment this to view the function demonstration
+#DemonstrateAddColumn()

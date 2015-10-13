@@ -9,9 +9,13 @@ CreateRandomPhylogeny <- function(n_taxa)
 }
 
 # Convert a phylogeny to a random DNA alignment
-ConvertPhylogenyToRandomAlignments <- function(phylogeny,sequence_length) 
+ConvertPhylogenyToRandomAlignments <- function(
+  phylogeny,
+  sequence_length,
+  mutation_rate = 1
+) 
 {
-  alignments_phydat <- simSeq(phylogeny,l=sequence_length)
+  alignments_phydat <- simSeq(phylogeny,l=sequence_length,rate=mutation_rate)
   alignments_dnabin <- as.DNAbin(alignments_phydat)
 }
 
