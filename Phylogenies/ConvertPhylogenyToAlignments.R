@@ -15,7 +15,11 @@ ConvertPhylogenyToRandomAlignments <- function(
   mutation_rate = 1
 ) 
 {
-  alignments_phydat <- simSeq(phylogeny,l=sequence_length,rate=mutation_rate)
+  alignments_phydat <- simSeq(
+    phylogeny,
+    l=sequence_length,
+    rate=mutation_rate
+  )
   alignments_dnabin <- as.DNAbin(alignments_phydat)
 }
 

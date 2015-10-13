@@ -11,46 +11,7 @@ if (!file.exists(parameters_filename)) {
   quit()
 }
 
-# The tarball must be extracted to check if the install will succeed
-# system("R CMD check ~/GitHubs/Wip/RampalEtienne/R/PBD")
-# system("R CMD INSTALL ~/GitHubs/Wip/RampalEtienne/R/PBD_1.1.tar.gz")
-
-library(ape)
-library(DDD)
-library(plyr)
-#library(phyloch) # From http://www.christophheibl.de/Rpackages.html
-source("~/GitHubs/R/MyFavoritePackages/phyloch/R/write.phy.R") #Fixed bug
-#source("~/GitHubs/R/MyFavoritePackages/phyloch/R/raxml.R") #Fixed bug
-source("~/GitHubs/R/MyFavoritePackages/phyloch/R/raxml2.R") #Calls 'x' instead of './x'
-library(geiger)
-library(testit)
-library(ape)
-library(geiger)
-library(phytools)
-library(PBD)
-library(testit)
-library(RColorBrewer)
-library(data.table)
-library(phangorn)
-library(nLTT);
-source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignments.R")
-source("~/GitHubs/R/Phylogenies/ConvertAlignmentsToFasta.R")
-
-
-can_install_devtools <- FALSE
-if (can_install_devtools) {
-  library(devtools)
-  install_github("olli0601/rBEAST")
-  print("olli0601 his rBEAST package installed from his GitHub")
-} else {
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.treeannotator.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
-  print("olli0601 his rBEAST package loaded from this GitHub")
-}
+ReadLibraries()
 
 ReadParameters <- function(parameters_filename)
 {
@@ -63,6 +24,9 @@ RunExperiment <- function(
   do_plot = FALSE
 )
 {
+  #parameters_filename <- "~/1.txt"
+  #do_plot = FALSE
+
   ###############################
   #
   # Read parameters from file
@@ -125,8 +89,9 @@ RunExperiment <- function(
   
   # Create simulated DNA from tree
   alignments <- ConvertPhylogenyToRandomAlignments(
-    phylogeny_with_outgroup,sequence_length, 
-    mutation_rate = 0.01
+    phylogeny_with_outgroup,
+    sequence_length, 
+    mutation_rate = as.numeric(parameters$mutation_rate[2])
   )
 
   if (do_plot) {
@@ -178,36 +143,11 @@ RunExperiment <- function(
     
   my_list <- list(
     parameters,
+    phylogeny_with_outgroup,
     all_trees
   )
-  names(my_list) <- c("parameters","posterior")
+  names(my_list) <- c("parameters","phylogeny_with_outgroup","posterior")
   saveRDS(my_list,file=output_filename)
-  
-  # last_tree <- tail(all_trees,n=1)[[1]]
-  # plot(last_tree,main="Last tree in posterior")
-  # 
-  # all_nltt_stats <- NULL
-  # for (tree in all_trees)
-  # {
-  #   all_nltt_stats = c(all_nltt_stats,nLTTstat(phylogeny_with_outgroup,tree))
-  # }
-  # hist(all_nltt_stats)
-  # 
-  # # Plot the original and last of the posterior's tree
-  # n_cols <- 1
-  # n_rows <- 2
-  # par(mfrow=c(n_rows,n_cols))
-  # plot(phylogeny_with_outgroup,main="Truth")
-  # add.scale.bar()
-  # plot(last_tree,main="Inferred")
-  # add.scale.bar()
-  # par(mfrow=c(1,1))
-  
-  # for (tree in all_trees) { plot(tree) }
-  
-  # Plot concensus tree
-  # densiTree(all_trees)
-  # ?densiTree
 }
 
 RunExperiment("~/1.txt")
