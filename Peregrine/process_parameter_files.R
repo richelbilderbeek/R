@@ -146,7 +146,7 @@ RunExperiment <- function(
 }
 
 for (parameter_filename in CollectParameterFiles()) {
-  RunExperiment(paste("~/",parameter_filename)  
+  RunExperiment(paste("~/",parameter_filename,sep=""))  
 }
 
 

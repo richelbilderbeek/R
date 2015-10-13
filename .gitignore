@@ -26,3 +26,6 @@ Packages/InstallPackage.R.save
 tmp.txt
 *.tre.RUN.*
 olli_rBEAST/
+_results.txt
+_result.txt
+_parameters.txt
