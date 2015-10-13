@@ -1,3 +1,7 @@
+source("~/GitHubs/R/Peregrine/install_libraries.R")
+source("~/GitHubs/R/Peregrine/read_libraries.R")
+
+# InstallLibraries()
 ReadLibraries()
 
 CollectParameterFiles <- function() {
@@ -148,6 +152,3 @@ RunExperiment <- function(
 for (parameter_filename in CollectParameterFiles()) {
   RunExperiment(paste("~/",parameter_filename,sep=""))  
 }
-
-
-
