@@ -61,7 +61,7 @@ TestCreateParametersFiles <- function() {
   mutation_rate <- 0.1
   sequence_length <- 100
   mcmc_chainlength <- 10000
-  filename <- "1.txt"
+  filename <- "1_tmp.txt"
   SaveParametersToFile(
     rng_seed = rng_seed,
     b_1 = b_1, # the speciation-initiation rate of good species
@@ -89,6 +89,7 @@ TestCreateParametersFiles <- function() {
   assert(mutation_rate == as.numeric(parameters$mutation_rate[2]))
   assert(sequence_length == as.numeric(parameters$sequence_length[2]))
   assert(mcmc_chainlength == as.numeric(parameters$mcmc_chainlength[2]))
+  file.remove(filename) # Get rid of that test file
 }
 
 
