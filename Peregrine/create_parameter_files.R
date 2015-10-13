@@ -98,17 +98,17 @@ CreateParametersFiles <- function () {
 
   file_index <- 0
 
-  for (rng_seed in c(42,314)) {
-    for (b_1 in c(0,1,3)) { # the speciation-initiation rate of good species
+  for (rng_seed in c(42)) {
+    for (b_1 in c(1)) { # the speciation-initiation rate of good species
       b_2 <- b_1 # the speciation-initiation rate of incipient species
-      for (la_1 in c(0.1,1000000.0)) { # the speciation-completion rate
-        for (mu_1 in c(0.0,0.1,0.2)) {
+      for (la_1 in c(0.01,0.1,1,10,100,1000,10000)) { # the speciation-completion rate
+        for (mu_1 in c(0.1)) {
           mu_2 <- mu_1
-          for (age in c(5,15)) {
-            for (mutation_rate in c(0.1,0.01)) {
-              for (sequence_length in c(1000,10000)) {
+          for (age in c(5)) {
+            for (mutation_rate in c(0.01)) {
+              for (sequence_length in c(10000)) {
                 mcmc_chainlength <- 1000000
-                filename <- paste(file_index,".txt",sep="")
+                filename <- paste(file_index,"_parameters.txt",sep="")
                 SaveParametersToFile(
                   rng_seed,
                   b_1, 
@@ -132,3 +132,5 @@ CreateParametersFiles <- function () {
   }
 }    
     
+
+CreateParametersFiles()

@@ -1,17 +1,11 @@
-if (length(commandArgs(TRUE)) != 1) {
-  print("Need one command-line argument.")
-  print("Use, for example 'Rscript process_parameter_files parameters.txt'")
-  quit()
-}
-
-parameters_filename <- commandArgs(TRUE)[1]
-
-if (!file.exists(parameters_filename)) {
-  print(paste("Parameters file ",parameters_filename," not found",sep=""))
-  quit()
-}
-
 ReadLibraries()
+
+CollectParameterFiles <- function() {
+  result_files <- list.files(
+    path = ".", 
+    pattern = "_parameters.txt",
+  )
+}
 
 ReadParameters <- function(parameters_filename)
 {
@@ -37,7 +31,8 @@ RunExperiment <- function(
   mutation_rate <- as.numeric(parameters$mutation_rate[2])
   sequence_length <- as.numeric(parameters$sequence_length[2])
   mcmc_chainlength <- as.numeric(parameters$mcmc_chainlength[2])
-  output_filename <- gsub(".txt","_results.txt",parameters_filename)
+  output_filename <- gsub("_parameters.txt","_results.txt",parameters_filename)
+  if (file.exists(output_filename)) return
     
   # File paths for BeastScripter
   beast_scripter_path <- "~/Programs/BeastScripter/BeastScripterConsole"
@@ -150,4 +145,9 @@ RunExperiment <- function(
   saveRDS(my_list,file=output_filename)
 }
 
-RunExperiment("~/1.txt")
+for (parameter_filename in CollectParameterFiles()) {
+  RunExperiment(paste("~/",parameter_filename)  
+}
+
+
+
