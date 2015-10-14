@@ -1,24 +1,29 @@
+# Step #3
+# Reads data file '[number]_data.txt' and
+# creates files with filename [number]_result.txt that
+# contain the results
+
 source("~/GitHubs/R/Peregrine/install_libraries.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 
 # InstallLibraries()
 ReadLibraries()
 
-CollectParameterFiles <- function() {
+CollectDataFiles <- function() {
   result_files <- list.files(
     path = ".", 
-    pattern = "_parameters.txt",
+    pattern = "_data.txt",
   )
 }
 
-ReadParameters <- function(parameters_filename)
+ReadData <- function(data_filename)
 {
-  assert(file.exists(parameters_filename))
-  parameters <- readRDS(parameters_filename)
+  assert(file.exists(data_filename))
+  data <- readRDS(data_filename)
 }
 
 RunExperiment <- function(
-  parameters_filename,
+  data_filename,
   do_plot = FALSE
 )
 {

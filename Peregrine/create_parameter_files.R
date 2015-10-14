@@ -1,3 +1,6 @@
+# Step #1
+# Creates files with filename [number].txt that
+# contain the parameters of interest.
 library(testit)
 
 LoadParametersFromFile <- function(filename) {
@@ -31,23 +34,29 @@ SaveParametersToFile <- function(
   my_table[, "sequence_length"] <- c("DNA sequence length",sequence_length)
   my_table[, "mcmc_chainlength"] <- c("MCMC chain length",mcmc_chainlength)
   
-  saveRDS(my_table,file=filename)
+  my_list <- list(my_table)
+  names(my_list) <- c("parameters")
+  assert(my_list$parameters == my_table)
+  
+  
+  saveRDS(my_list,file=filename)
   assert(file.exists(filename))
   
-  my_table_again <- readRDS(filename)
+  my_list_again <- readRDS(filename)
   # Check that the original and loaded data frame were identical
-  assert(my_table == my_table_again)
+  assert(length(my_list) == length(my_list_again))
+  assert(my_list$parameters == my_list_again$parameters)
 
-  assert(rng_seed == as.numeric(my_table$rng_seed[2]))
-  assert(b_1  == as.numeric(my_table$b_1[2]))
-  assert(b_2  == as.numeric(my_table$b_2[2]))
-  assert(la_1 == as.numeric(my_table$la_1[2]))
-  assert(mu_1 == as.numeric(my_table$mu_1[2]))
-  assert(mu_2 == as.numeric(my_table$mu_2[2]))
-  assert(age == as.numeric(my_table$age[2]))
-  assert(mutation_rate == as.numeric(my_table$mutation_rate[2]))
-  assert(sequence_length == as.numeric(my_table$sequence_length[2]))
-  assert(mcmc_chainlength == as.numeric(my_table$mcmc_chainlength[2]))
+  assert(rng_seed == as.numeric(my_list$parameters$rng_seed[2]))
+  assert(b_1  == as.numeric(my_list$parameters$b_1[2]))
+  assert(b_2  == as.numeric(my_list$parameters$b_2[2]))
+  assert(la_1 == as.numeric(my_list$parameters$la_1[2]))
+  assert(mu_1 == as.numeric(my_list$parameters$mu_1[2]))
+  assert(mu_2 == as.numeric(my_list$parameters$mu_2[2]))
+  assert(age == as.numeric(my_list$parameters$age[2]))
+  assert(mutation_rate == as.numeric(my_list$parameters$mutation_rate[2]))
+  assert(sequence_length == as.numeric(my_list$parameters$sequence_length[2]))
+  assert(mcmc_chainlength == as.numeric(my_list$parameters$mcmc_chainlength[2]))
 }
 
 TestCreateParametersFiles <- function() {
@@ -77,18 +86,18 @@ TestCreateParametersFiles <- function() {
   )
   
   assert(file.exists(filename))
-  parameters <- LoadParametersFromFile(filename)
+  parametersfile <- LoadParametersFromFile(filename)
   
-  assert(rng_seed == as.numeric(parameters$rng_seed[2]))
-  assert(b_1  == as.numeric(parameters$b_1[2]))
-  assert(b_2  == as.numeric(parameters$b_2[2]))
-  assert(la_1 == as.numeric(parameters$la_1[2]))
-  assert(mu_1 == as.numeric(parameters$mu_1[2]))
-  assert(mu_2 == as.numeric(parameters$mu_2[2]))
-  assert(age == as.numeric(parameters$age[2]))
-  assert(mutation_rate == as.numeric(parameters$mutation_rate[2]))
-  assert(sequence_length == as.numeric(parameters$sequence_length[2]))
-  assert(mcmc_chainlength == as.numeric(parameters$mcmc_chainlength[2]))
+  assert(rng_seed == as.numeric(parametersfile$parameters$rng_seed[2]))
+  assert(b_1  == as.numeric(parametersfile$parameters$b_1[2]))
+  assert(b_2  == as.numeric(parametersfile$parameters$b_2[2]))
+  assert(la_1 == as.numeric(parametersfile$parameters$la_1[2]))
+  assert(mu_1 == as.numeric(parametersfile$parameters$mu_1[2]))
+  assert(mu_2 == as.numeric(parametersfile$parameters$mu_2[2]))
+  assert(age == as.numeric(parametersfile$parameters$age[2]))
+  assert(mutation_rate == as.numeric(parametersfile$parameters$mutation_rate[2]))
+  assert(sequence_length == as.numeric(parametersfile$parameters$sequence_length[2]))
+  assert(mcmc_chainlength == as.numeric(parametersfile$parameters$mcmc_chainlength[2]))
   file.remove(filename) # Get rid of that test file
 }
 
@@ -100,7 +109,7 @@ CreateParametersFiles <- function () {
   file_index <- 0
 
   for (rng_seed in c(42)) {
-    for (b_1 in c(1)) { # the speciation-initiation rate of good species
+    for (b_1 in c(0.5)) { # the speciation-initiation rate of good species
       b_2 <- b_1 # the speciation-initiation rate of incipient species
       for (la_1 in c(0.01,0.1,1,10,100,1000,10000)) { # the speciation-completion rate
         for (mu_1 in c(0.1)) {
@@ -109,7 +118,7 @@ CreateParametersFiles <- function () {
             for (mutation_rate in c(0.01)) {
               for (sequence_length in c(10000)) {
                 mcmc_chainlength <- 1000000
-                filename <- paste(file_index,"_parameters.txt",sep="")
+                filename <- paste(file_index,".RDa",sep="")
                 SaveParametersToFile(
                   rng_seed,
                   b_1, 
