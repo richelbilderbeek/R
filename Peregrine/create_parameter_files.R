@@ -1,5 +1,5 @@
 # Step #1
-# Creates files with filename [number].txt that
+# Creates files with filename [number].RDa that
 # contain the parameters of interest.
 library(testit)
 
@@ -17,6 +17,7 @@ SaveParametersToFile <- function(
   mu_2, # the extinction rate of incipient species 
   age,
   mutation_rate,
+  n_alignments,
   sequence_length,
   mcmc_chainlength,
   filename
@@ -31,6 +32,7 @@ SaveParametersToFile <- function(
   my_table[, "mu_2"] <- c("Extinction rate of incipient species",mu_2)
   my_table[, "age"] <- c("Phylogenetic tree age",age)
   my_table[, "mutation_rate"] <- c("DNA mutation rate",mutation_rate)
+  my_table[, "n_alignments"] <- c("Number of DNA alignments",n_alignments)
   my_table[, "sequence_length"] <- c("DNA sequence length",sequence_length)
   my_table[, "mcmc_chainlength"] <- c("MCMC chain length",mcmc_chainlength)
   
@@ -54,6 +56,7 @@ SaveParametersToFile <- function(
   assert(mu_1 == as.numeric(my_list$parameters$mu_1[2]))
   assert(mu_2 == as.numeric(my_list$parameters$mu_2[2]))
   assert(age == as.numeric(my_list$parameters$age[2]))
+  assert(n_alignments == as.numeric(my_list$parameters$n_alignments[2]))
   assert(mutation_rate == as.numeric(my_list$parameters$mutation_rate[2]))
   assert(sequence_length == as.numeric(my_list$parameters$sequence_length[2]))
   assert(mcmc_chainlength == as.numeric(my_list$parameters$mcmc_chainlength[2]))
@@ -68,6 +71,7 @@ TestCreateParametersFiles <- function() {
   mu_2 <- 0.1 # the extinction rate of incipient species 
   age <- 15
   mutation_rate <- 0.1
+  n_alignments <- 10
   sequence_length <- 100
   mcmc_chainlength <- 10000
   filename <- "1_tmp.txt"
@@ -80,6 +84,7 @@ TestCreateParametersFiles <- function() {
     mu_2 = mu_2, # the extinction rate of incipient species 
     age = age,
     mutation_rate = mutation_rate,
+    n_alignments = n_alignments,
     sequence_length = sequence_length,
     mcmc_chainlength = mcmc_chainlength,
     filename = filename
@@ -96,6 +101,7 @@ TestCreateParametersFiles <- function() {
   assert(mu_2 == as.numeric(parametersfile$parameters$mu_2[2]))
   assert(age == as.numeric(parametersfile$parameters$age[2]))
   assert(mutation_rate == as.numeric(parametersfile$parameters$mutation_rate[2]))
+  assert(n_alignments == as.numeric(parametersfile$parameters$n_alignments[2]))
   assert(sequence_length == as.numeric(parametersfile$parameters$sequence_length[2]))
   assert(mcmc_chainlength == as.numeric(parametersfile$parameters$mcmc_chainlength[2]))
   file.remove(filename) # Get rid of that test file
@@ -116,23 +122,26 @@ CreateParametersFiles <- function () {
           mu_2 <- mu_1
           for (age in c(5)) {
             for (mutation_rate in c(0.01)) {
-              for (sequence_length in c(10000)) {
-                mcmc_chainlength <- 1000000
-                filename <- paste(file_index,".RDa",sep="")
-                SaveParametersToFile(
-                  rng_seed,
-                  b_1, 
-                  b_2,  
-                  la_1,  
-                  mu_1,
-                  mu_2,
-                  age,
-                  mutation_rate,
-                  sequence_length,
-                  mcmc_chainlength,
-                  filename
-                )
-                file_index <- file_index + 1
+              for (n_alignments in c(2)) {
+                for (sequence_length in c(1000)) {
+                  mcmc_chainlength <- 1000000
+                  filename <- paste(file_index,".RDa",sep="")
+                  SaveParametersToFile(
+                    rng_seed = rng_seed,
+                    b_1 = b_1, 
+                    b_2 = b_2,  
+                    la_1 = la_1,  
+                    mu_1 = mu_1,
+                    mu_2 = mu_2,
+                    age = age,
+                    mutation_rate = mutation_rate,
+                    n_alignments = n_alignments,
+                    sequence_length = sequence_length,
+                    mcmc_chainlength = mcmc_chainlength,
+                    filename = filename
+                  )
+                  file_index <- file_index + 1
+                }
               }
             }
           }

@@ -39,6 +39,7 @@ DemonstrateSaveList <- function() {
   # Create a list
   my_list <- CreateInitialList()
   assert(my_list$parameters == my_list$parameters)
+  assert(is.null(my_list$results))
   
   # Save it to file
   saveRDS(my_list,file=filename)
