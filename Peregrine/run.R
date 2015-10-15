@@ -25,8 +25,8 @@ for (filename in CollectFiles()) {
   AddAlignments(paste("~/",filename,sep=""))  
 }
 
-#print("#3: Show the alignments")
-#for (filename in CollectFiles()) { ShowAlignments(paste("~/",filename,sep="")) }
+print("#3: Show the alignments")
+for (filename in CollectFiles()) { ShowAlignments(paste("~/",filename,sep="")) }
 
 AddPosteriors("~/1.RDa")
 

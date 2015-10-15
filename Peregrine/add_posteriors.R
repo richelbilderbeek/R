@@ -37,6 +37,7 @@ AddPosteriors <- function(
       mcmc_chainlength = mcmc_chainlength,
       rng_seed = rng_seed
     )
+    assert(!is.null(posterior))
     assert(all.equal(posterior,posterior))
     posteriors <- c(posteriors,posterior)
   }

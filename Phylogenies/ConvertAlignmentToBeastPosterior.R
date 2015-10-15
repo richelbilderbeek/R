@@ -1,29 +1,15 @@
 library(ape);
 library(geiger);
 library(phangorn);
+source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignment.R")
+source("~/GitHubs/R/Phylogenies/CreateRandomAlignment.R")
 source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
+source("~/GitHubs/R/Phylogenies/ConvertAlignmentToFasta.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.treeannotator.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
-
-# One of the many ways to create a random phylogeny
-CreateRandomPhylogeny <- function(n_taxa) {
-  phylogeny <- rcoal(n_taxa)
-}
-
-# Create a random alignment
-CreateRandomAlignment <- function(n_taxa,sequence_length) {
-  phylogeny <- CreateRandomPhylogeny(n_taxa)
-  alignment_phydat <- simSeq(phylogeny,l=sequence_length)
-  alignment_dnabin <- as.DNAbin(alignment_phydat)
-}
-
-# Create a random FASTA file text
-ConvertAlignmentToFasta <- function(alignment_dnabin,filename) {
-  write.phyDat(alignment_dnabin, file=filename, format="fasta")
-}
 
 # alignment_dnabin <- CreateRandomAlignment(5,10)
 # mcmc_chainlength = 10000
@@ -93,9 +79,14 @@ ConvertAlignmentToBeastPosterior <- function(
 
 
 DemonstrateConvertAlignmentToBeastPosterior <- function() {
+
   phylogeny_without_outgroup <- CreateRandomPhylogeny(n_taxa = 5)
-  HEIRO phylogeny_with_outgroup <- AddOutgroupToPhylogeny(phylogeny_without_outgroup)
-  alignment <- CreateAlignmentFromPhylogeny(
+
+  phylogeny_with_outgroup <- AddOutgroupToPhylogeny(
+    phylogeny_without_outgroup,
+    stem_length = 0
+  )
+  alignment <- ConvertPhylogenyToAlignment(
     phylogeny = phylogeny_with_outgroup,
     sequence_length = 10
   )
@@ -118,4 +109,4 @@ DemonstrateConvertAlignmentToBeastPosterior <- function() {
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateConvertAlignmentToBeastPosterior()
+DemonstrateConvertAlignmentToBeastPosterior()
