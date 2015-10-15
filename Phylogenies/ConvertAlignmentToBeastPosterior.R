@@ -47,7 +47,7 @@ ConvertAlignmentToBeastPosterior <- function(
   assert(file.exists(beast_path))
 
   # Save to FASTA file
-  ConvertAlignmentsToFasta(alignment_dnabin,fasta_filename)
+  ConvertAlignmentToFasta(alignment_dnabin,fasta_filename)
   
   # Create BEAST2 parameter file from FASTA file and parameters
   cmd <- paste(

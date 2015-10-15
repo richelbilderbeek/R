@@ -181,7 +181,7 @@ AddPosteriors <- function(
   parameters <- file$parameters
   mcmc_chainlength <- as.numeric(parameters$mcmc_chainlength[2])
   alignments <- file$alignments
-  assert(length(n_alignments) > 0)
+  assert(length(alignments) > 0)
 
   posteriors <- NULL
   for (alignment in alignments) {
