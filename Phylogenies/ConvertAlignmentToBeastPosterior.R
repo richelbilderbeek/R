@@ -1,6 +1,7 @@
 library(ape);
 library(geiger);
 library(phangorn);
+source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
@@ -92,8 +93,12 @@ ConvertAlignmentToBeastPosterior <- function(
 
 
 DemonstrateConvertAlignmentToBeastPosterior <- function() {
-
-  alignment <- CreateRandomAlignment(n_taxa = 5,sequence_length = 10)
+  phylogeny_without_outgroup <- CreateRandomPhylogeny(n_taxa = 5)
+  HEIRO phylogeny_with_outgroup <- AddOutgroupToPhylogeny(phylogeny_without_outgroup)
+  alignment <- CreateAlignmentFromPhylogeny(
+    phylogeny = phylogeny_with_outgroup,
+    sequence_length = 10
+  )
   image(alignment)
   posterior <- ConvertAlignmentToBeastPosterior(
     alignment,

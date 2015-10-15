@@ -1,6 +1,4 @@
-source("~/GitHubs/R/Peregrine/install_libraries.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
-source("~/GitHubs/R/Peregrine/collect_files.R")
 
 # InstallLibraries()
 ReadLibraries()
@@ -18,6 +16,7 @@ AddPosteriors <- function(
     print(paste("file ",filename," already has its posteriors",sep=""))
     return ()
   }
+  print(paste("Adding posterior to file ",filename,sep=""))
   
   assert(!is.null(file$parameters))
   assert(!is.null(file$phylogeny_with_outgroup))
@@ -25,12 +24,14 @@ AddPosteriors <- function(
   assert(is.null(file$posterior))
 
   parameters <- file$parameters
+  rng_seed <- as.numeric(parameters$rng_seed[2])
   mcmc_chainlength <- as.numeric(parameters$mcmc_chainlength[2])
   alignments <- file$alignments
   assert(length(alignments) > 0)
 
   posteriors <- NULL
   for (alignment in alignments) {
+    assert(class(alignment) == "DNAbin")
     posterior <- ConvertAlignmentToBeastPosterior(
       alignment = alignment,
       mcmc_chainlength = mcmc_chainlength,

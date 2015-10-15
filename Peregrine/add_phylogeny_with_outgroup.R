@@ -1,6 +1,4 @@
-source("~/GitHubs/R/Peregrine/install_libraries.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
-source("~/GitHubs/R/Peregrine/collect_files.R")
 
 # InstallLibraries()
 ReadLibraries()

@@ -1,6 +1,4 @@
-source("~/GitHubs/R/Peregrine/install_libraries.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
-source("~/GitHubs/R/Peregrine/collect_files.R")
 
 # InstallLibraries()
 ReadLibraries()
@@ -32,31 +30,37 @@ AddAlignments <- function(filename)
 
   # Create simulated DNA from tree
   alignments <- NULL
-  for (i in n_alignments) {
-    alignment <- ConvertPhylogenyToRandomAlignments(
+  for (i in seq(1,n_alignments)) {
+    alignment <- ConvertPhylogenyToAlignment(
       phylogeny = file$phylogeny_with_outgroup,
       sequence_length = sequence_length, 
       mutation_rate = mutation_rate
     )
     assert(alignment == alignment)
-    print(paste("#123",mode(alignment)))
-    alignments <- c(alignments,alignment)
+    assert(class(alignment)=="DNAbin")
+    image(alignment)
+    alignments <- c(alignments,list(alignment))
   }
-  assert(alignments == alignments)
+  
+  assert(length(alignments) == n_alignments)
+  assert(class(alignments[[1]])=="DNAbin")
   
   # Add it to the file
   file <- c(file,list(alignments))
   names(file)[ length(file) ] <- "alignments"
   names(file)
   assert(file$parameters == parameters)
-  assert(file$alignments == alignments)
+  assert(length(file$alignments) == length(alignments))
+  assert(class(alignments[[1]])=="DNAbin")
+  assert(class(file$alignments[[1]])=="DNAbin")
 
   # Save the file
   saveRDS(file,file=filename)
 
   file_again <- readRDS(filename)
   assert(file_again$parameters == parameters)
-  assert(file_again$alignments == alignments)
+  assert(length(file_again$alignments) == length(alignments))
+  assert(class(file_again$alignments[[1]])=="DNAbin")
 
   assert(!is.null(file$alignments))
   print(paste("file ",filename," has gotten its ", n_alignments, "alignments",sep=""))

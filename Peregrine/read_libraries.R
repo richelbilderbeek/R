@@ -18,8 +18,9 @@ ReadLibraries <- function() {
   library(data.table)
   library(phangorn)
   library(nLTT);
+
   source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
-  source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignments.R")
+  source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignment.R")
   source("~/GitHubs/R/Phylogenies/ConvertAlignmentToFasta.R")
   source("~/GitHubs/R/Phylogenies/ConvertAlignmentToBeastPosterior.R")
 }
