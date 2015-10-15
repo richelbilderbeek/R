@@ -9,7 +9,7 @@ CreateRandomPhylogeny <- function(n_taxa)
 }
 
 # Convert a phylogeny to a random DNA alignment
-ConvertPhylogenyToRandomAlignments <- function(
+ConvertPhylogenyToRandomAlignment <- function(
   phylogeny,
   sequence_length,
   mutation_rate = 1
@@ -24,7 +24,7 @@ ConvertPhylogenyToRandomAlignments <- function(
 }
 
 
-DemonstrateConvertPhylogenyToRandomAlignments <- function() 
+DemonstrateConvertPhylogenyToRandomAlignment <- function() 
 {
   phylogeny <- CreateRandomPhylogeny(n_taxa= 5)
   alignment <- ConvertPhylogenyToRandomAlignments(phylogeny,sequence_length = 10)
@@ -32,4 +32,4 @@ DemonstrateConvertPhylogenyToRandomAlignments <- function()
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateConvertPhylogenyToRandomAlignments()
+#DemonstrateConvertPhylogenyToRandomAlignment()

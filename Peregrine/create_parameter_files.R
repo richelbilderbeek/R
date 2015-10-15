@@ -107,9 +107,6 @@ TestCreateParametersFiles <- function() {
   file.remove(filename) # Get rid of that test file
 }
 
-
-TestCreateParametersFiles()
-
 CreateParametersFiles <- function () {
 
   file_index <- 0
@@ -152,4 +149,6 @@ CreateParametersFiles <- function () {
 }    
     
 
-CreateParametersFiles()
+TestCreateParametersFiles()
+
+#CreateParametersFiles()
