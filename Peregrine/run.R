@@ -36,6 +36,5 @@ for (parameter_filename in CollectFiles()) {
 }
 
 print("#5: Show the posteriors")
-for (parameter_filename in CollectFiles()) {
-  AddPosteriors(paste("~/",parameter_filename,sep=""))  
-}
+for (parameter_filename in CollectFiles()) { ShowPosteriors(paste("~/",parameter_filename,sep="")) }
+
