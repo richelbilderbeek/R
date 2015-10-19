@@ -31,4 +31,5 @@ DemonstrateCreateRandomAlignment <- function() {
   par(mfrow=c(1,1))
 }
 
-DemonstrateCreateRandomAlignment()
+# Uncomment this to view the function demonstration
+#DemonstrateCreateRandomAlignment()

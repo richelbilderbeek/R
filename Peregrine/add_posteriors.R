@@ -28,6 +28,8 @@ AddPosteriors <- function(
   mcmc_chainlength <- as.numeric(parameters$mcmc_chainlength[2])
   alignments <- file$alignments
   assert(length(alignments) > 0)
+  print(paste("AddPosteriors: rng_seed: ",rng_seed,sep=""))
+  print(paste("AddPosteriors: mcmc_chainlength: ",mcmc_chainlength,sep=""))
 
   posteriors <- NULL
   for (alignment in alignments) {

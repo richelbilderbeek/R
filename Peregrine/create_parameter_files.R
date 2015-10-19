@@ -73,7 +73,7 @@ TestCreateParametersFiles <- function() {
   mutation_rate <- 0.1
   n_alignments <- 10
   sequence_length <- 100
-  mcmc_chainlength <- 10000
+  mcmc_chainlength <- 1000000
   filename <- "1_tmp.txt"
   SaveParametersToFile(
     rng_seed = rng_seed,

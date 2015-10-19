@@ -63,5 +63,5 @@ AddAlignments <- function(filename)
   assert(class(file_again$alignments[[1]])=="DNAbin")
 
   assert(!is.null(file$alignments))
-  print(paste("file ",filename," has gotten its ", n_alignments, "alignments",sep=""))
+  print(paste("file ",filename," has gotten its ", n_alignments, " alignments",sep=""))
 }

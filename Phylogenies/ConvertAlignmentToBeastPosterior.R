@@ -35,6 +35,8 @@ ConvertAlignmentToBeastPosterior <- function(
 
   # Save to FASTA file
   ConvertAlignmentToFasta(alignment_dnabin,fasta_filename)
+
+  options(scipen = 20) # So that mcmc_chainlength is written as 1000000 instead of 1e+7
   
   # Create BEAST2 parameter file from FASTA file and parameters
   cmd <- paste(
@@ -43,9 +45,9 @@ ConvertAlignmentToBeastPosterior <- function(
     " --mcmc_length ",mcmc_chainlength,
     " --tree_prior ","birth_death",
     " --output_file ",beast_filename,
-    " --silent",
     sep=""
   )
+  print(paste("ConvertAlignmentToBeastPosterior: Executing command: ",cmd,sep=""))
   system(cmd)
   assert(file.exists(beast_filename))
   
@@ -109,4 +111,4 @@ DemonstrateConvertAlignmentToBeastPosterior <- function() {
 }
 
 # Uncomment this to view the function demonstration
-DemonstrateConvertAlignmentToBeastPosterior()
+#DemonstrateConvertAlignmentToBeastPosterior()
