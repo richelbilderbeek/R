@@ -41,7 +41,7 @@ AddPosteriors <- function(
     )
     assert(!is.null(posterior))
     assert(all.equal(posterior,posterior))
-    posteriors <- c(posteriors,posterior)
+    posteriors <- c(posteriors,list(posterior))
   }
   assert(all.equal(posteriors,posteriors))
   assert(length(posteriors) == length(alignments))

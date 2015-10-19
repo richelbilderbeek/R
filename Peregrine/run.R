@@ -29,13 +29,13 @@ for (filename in CollectFiles()) {
 print("#3: Show the alignments")
 for (filename in CollectFiles()) { ShowAlignments(paste("~/",filename,sep="")) }
 
-AddPosteriors("~/1.RDa")
-ShowPosteriors("~/1.RDa")
-
-stop()
-
-print("Creating posteriors from alignments")
+print("#4: Creating posteriors from alignments")
 for (parameter_filename in CollectFiles()) {
   AddPosteriors(paste("~/",parameter_filename,sep=""))  
   #RunExperiment(paste("~/",parameter_filename,sep=""))  
+}
+
+print("#5: Show the posteriors")
+for (parameter_filename in CollectFiles()) {
+  AddPosteriors(paste("~/",parameter_filename,sep=""))  
 }

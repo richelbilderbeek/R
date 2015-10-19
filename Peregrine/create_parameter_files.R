@@ -121,7 +121,7 @@ CreateParametersFiles <- function () {
             for (mutation_rate in c(0.01)) {
               for (n_alignments in c(2)) {
                 for (sequence_length in c(100)) {
-                  mcmc_chainlength <- 1000000
+                  mcmc_chainlength <- 10000
                   filename <- paste(file_index,".RDa",sep="")
                   SaveParametersToFile(
                     rng_seed = rng_seed,
