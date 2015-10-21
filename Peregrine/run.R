@@ -1,5 +1,5 @@
 source("~/GitHubs/R/Peregrine/install_libraries.R")
-# InstallLibraries() #Run once if a package is missing
+#InstallLibraries() #Run once if a package is missing
 
 source("~/GitHubs/R/Peregrine/add_posteriors.R")
 source("~/GitHubs/R/Peregrine/add_phylogeny_with_outgroup.R")

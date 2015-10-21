@@ -21,8 +21,7 @@ ShowAlignments <- function(filename)
   assert(!is.null(file$alignments))
 
   alignments <- file$alignments
-  print(mode(alignments))
-  #assert(mode(file) == "list")
+  assert(mode(file) == "list")
 
   assert(length(alignments) > 0)
 

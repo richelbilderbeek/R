@@ -30,6 +30,16 @@ ConvertAlignmentToBeastPosterior <- function(
   beast_trees_filename <- paste(base_filename,".trees",sep="");
   beast_state_filename <- paste(base_filename,".xml.state",sep="");
   
+  if (!file.exists(beast_scripter_path))
+  {
+    print(paste("BeastScripter not found at path '",beast_scripter_path,"'",sep=""))
+    stop()
+  }
+  if (!file.exists(beast_path))
+  {
+    print(paste("BEAST2 not found at path '",beast_path,"'",sep=""))
+    stop()
+  }
   assert(file.exists(beast_scripter_path))
   assert(file.exists(beast_path))
 
