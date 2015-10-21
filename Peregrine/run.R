@@ -1,15 +1,16 @@
+source("~/GitHubs/R/Peregrine/install_libraries.R")
+# InstallLibraries() #Run once if a package is missing
+
 source("~/GitHubs/R/Peregrine/add_posteriors.R")
 source("~/GitHubs/R/Peregrine/add_phylogeny_with_outgroup.R")
 source("~/GitHubs/R/Peregrine/add_alignments.R")
 source("~/GitHubs/R/Peregrine/show_alignments.R")
 source("~/GitHubs/R/Peregrine/create_parameter_files.R")
-source("~/GitHubs/R/Peregrine/install_libraries.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 source("~/GitHubs/R/Peregrine/read_file.R")
 source("~/GitHubs/R/Peregrine/show_posteriors.R")
 source("~/GitHubs/R/Peregrine/collect_files.R")
 
-# InstallLibraries()
 ReadLibraries()
 
 print("#1: Create parameter files")
