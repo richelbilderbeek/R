@@ -1,17 +1,13 @@
 library(ape)
-data(woodmouse)
+library(testit)
 
-png(filename="ShowAlignment1.png")
-image(woodmouse)
-dev.off()
+DemonstrateShowAlignment <- function() {
+  x <- structure(c("1", "2", "3", "4", "ACGTA", "ACGTC", "ACGTG", "ACGTT"), .Dim = c(4L, 2L))
+  y <- t(sapply(strsplit(x[,2],""), tolower))
+  rownames(y) <- x[,1]
+  alignments <- as.DNAbin(y)
+  assert(class(alignments) == "DNAbin")
+  image(alignments)
+}  
 
-
-x <- structure(c("1", "2", "3", "4", "ACGTA", "ACGTC", "ACGTG", "ACGTT"), .Dim = c(4L, 2L))
-y <- t(sapply(strsplit(x[,2],""), tolower))
-rownames(y) <- x[,1]
-alignments <- as.DNAbin(y)
-png(filename="ShowAlignment2.png")
-image(alignments)
-dev.off()
-
-
+DemonstrateShowAlignment()
