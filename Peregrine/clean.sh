@@ -2,3 +2,4 @@
 
 rm *.RDa
 rm *.txt
+rm *.out
