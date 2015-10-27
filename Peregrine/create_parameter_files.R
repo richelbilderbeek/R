@@ -137,6 +137,7 @@ CreateParametersFiles <- function () {
                     mcmc_chainlength = mcmc_chainlength,
                     filename = filename
                   )
+                  print(paste("Created file ",filename,sep=""))
                   file_index <- file_index + 1
                 }
               }
