@@ -20,8 +20,7 @@ ShowPosteriors <- function(filename)
   phylogeny_with_outgroup <- file$phylogeny_with_outgroup
   posteriors <- file$posteriors
   
-  print(mode(posteriors))
-  #assert(mode(file) == "list")
+  assert(mode(file) == "list")
 
   assert(length(posteriors) > 0)
 
