@@ -12,6 +12,12 @@ source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.treeannotator.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
+source("~/GitHubs/BeastScripter/BeastScripter.R")
+
+GetBeastScripterExePath <- function() {
+  return ("~/Programs/BeastScripter/BeastScripterConsole")
+}
+
 
 # Reads an alignment (a FASTA file) and with some
 # additional parameters create a BEAST2 XML input file
@@ -24,7 +30,7 @@ ConvertAlignmentToBeastInputFileUsingCppExecutable <- function(
 ) {
 
   # File paths for BeastScripter
-  beast_scripter_path <- "~/Programs/BeastScripter/BeastScripterConsole"
+  beast_scripter_path <- GetBeastScripterExePath()
   base_filename <- "test_output_1"
   fasta_filename <- paste(base_filename,".fasta",sep="");
   
@@ -65,34 +71,20 @@ ConvertAlignmentToBeastInputFileUsingRscript <- function(
   beast_filename
 ) {
 
-  # File paths for BeastScripter
-  beast_scripter_path <- "~/Programs/BeastScripter/BeastScripterConsole"
-  base_filename <- "test_output_1"
-  fasta_filename <- paste(base_filename,".fasta",sep="");
-  
-  if (!file.exists(beast_scripter_path))
-  {
-    print(paste("BeastScripter not found at path '",beast_scripter_path,"'",sep=""))
-    stop()
-  }
-  assert(file.exists(beast_scripter_path))
-
   # Save to FASTA file
+  fasta_filename <- "test_output_1.fasta"
   ConvertAlignmentToFasta(alignment_dnabin,fasta_filename)
 
   options(scipen = 20) # So that mcmc_chainlength is written as 1000000 instead of 1e+7
-  
-  # Create BEAST2 parameter file from FASTA file and parameters
-  cmd <- paste(
-    beast_scripter_path, 
-    " --fasta ",fasta_filename,
-    " --mcmc_length ",mcmc_chainlength,
-    " --tree_prior ","birth_death",
-    " --output_file ",beast_filename,
-    sep=""
+
+  BeastScripter(
+    input_fasta_filename = fasta_filename,
+    mcmc_chainlength = mcmc_chainlength,
+    tree_prior = "birth_death",
+    date_str = "20151027",
+    output_xml_filename = beast_filename
   )
-  print(paste("ConvertAlignmentToBeastPosterior: Executing command: ",cmd,sep=""))
-  system(cmd)
+
   assert(file.exists(beast_filename))
 }  
 
@@ -105,12 +97,22 @@ ConvertAlignmentToBeastInputFile <- function(
   rng_seed = 42,
   beast_filename
 ) {
-  ConvertAlignmentToBeastInputFileUsingCppExecutable(
-    alignment_dnabin = alignment_dnabin,
-    mcmc_chainlength = mcmc_chainlength,
-    rng_seed = rng_seed,
-    beast_filename = beast_filename
-  )
+  # Choose the fastest, iff present
+  if (file.exists(GetBeastScripterExePath())) {
+    ConvertAlignmentToBeastInputFileUsingCppExecutable(
+      alignment_dnabin = alignment_dnabin,
+      mcmc_chainlength = mcmc_chainlength,
+      rng_seed = rng_seed,
+      beast_filename = beast_filename
+    )
+  } else {
+    ConvertAlignmentToBeastInputFileUsingRscript(
+      alignment_dnabin = alignment_dnabin,
+      mcmc_chainlength = mcmc_chainlength,
+      rng_seed = rng_seed,
+      beast_filename = beast_filename
+    )
+  }
 }
 
 DemonstrateConvertAlignmentToBeastInputFile <- function() {
@@ -163,4 +165,4 @@ DemonstrateConvertAlignmentToBeastInputFile <- function() {
 }
 
 # Uncomment this to view the function demonstration
-DemonstrateConvertAlignmentToBeastInputFile()
+#DemonstrateConvertAlignmentToBeastInputFile()
