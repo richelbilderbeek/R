@@ -54,4 +54,4 @@ DemonstrateAddOutgroupToPhylogeny <- function()
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateAddOutgroupToPhylogeny()
+DemonstrateAddOutgroupToPhylogeny()
