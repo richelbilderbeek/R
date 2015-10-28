@@ -57,3 +57,5 @@ sampletree()
 # L0 is a matrix where the crown age is at 0; for internal use only 
 plot(tree_full$tree,main="Extant species")
 plot(tree_full$stree,main="One sample per extant species")
+
+
