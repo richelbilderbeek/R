@@ -1,6 +1,7 @@
 rm(list=ls())
 
 source("~/GitHubs/R/Phylogenies/GetPhylogenyCrownAge.R")
+source("~/GitHubs/R/Phylogenies/SampleSpeciesTreesFromRandomProtractedTree.R")
 
 library(ape) # As suggested in PBD issue #3
 
@@ -10,84 +11,67 @@ for (file in list.files(path = pbd_path)) {
   source(paste(pbd_path,"/",file,sep=""));
 }
 
-SampleSpeciesTreesFromRandomProtractedTree <- function(
-  n   , #How many?
-  b_1 , #the speciation-initiation rate of good species 
-  la_1, #the speciation-completion rate 
-  b_2 , #the speciation-initiation rate of incipient species 
-  mu_1, #the extinction rate of good species 
-  mu_2, #the extinction rate of incipient species 
-  age
-) {
-  random_protracted_tree <- pbd_sim(c(b_1,la_1,b_2,mu_1,mu_2),age)
-  species_trees <- SampleSpeciesTreesFromPbdSimOutput(
-    n,
-    random_protracted_tree
-  )
-  return (species_trees)
-}
+library(testit)
 
-# Does not use pbd_sim()$stree, but generates these like PBD does
-SampleSpeciesTreesFromPbdSimOutput <- function(
-  n, #How many?
-  result
-) {
-  crown_age <- GetPhylogenyCrownAge(result$tree)
-  absL = result$L0
-  absL[,2] = abs(result$L0[,2])
-  
-  species_trees <- NULL
-  for (i in c(1:n)) {
-    sL = sampletree(absL,crown_age)
-    species_tree = as.phylo(read.tree(text = detphy(sL,crown_age)))
-    species_trees <- c(species_trees,list(species_tree))
-  }
-  return (species_trees)
-}
 
-PlotSpeciesTrees <- function(species_trees,filename) {
-  png(filename=filename,width = 480, height = 480 * length(species_trees))
-  n_cols <- 1
-  n_rows <- length(species_trees)
-  par(mfrow=c(n_rows,n_cols))
+n <- 4
+age <- 25
+seed <- 320
 
-  for (species_tree in species_trees) {
-    plot(species_tree,cex = 2)
-  }
-  dev.off()
+set.seed(seed)
+b_1  <- 0.7 #runif(1,0.0,1.0) # b_1 , the speciation-initiation rate of good species 
+la_1 <- 0.2 #runif(1,0.0,1.0) # la_1, the speciation-completion rate 
+b_2  <- 0.6 #runif(1,0.0,1.0) # b_2 , the speciation-initiation rate of incipient species 
+mu_1 <- 1.0 #runif(1,0.0,1.0) # mu_1, the extinction rate of good species 
+mu_2 <- 0.6 #runif(1,0.0,1.0) # mu_2, the extinction rate of incipient species 
+pbd_sim_output <- pbd_sim(c(b_1,la_1,b_2,mu_1,mu_2),age)
+names(pbd_sim_output)
+
+full_tree <- pbd_sim_output$tree
+plot(full_tree)
+
+
+
+
+branch_lengths_species_trees <- NULL
+n_species_trees <- 0
+
+while (length(branch_lengths_species_trees) < length(full_tree$edge.length)) {
+  species_trees <- SampleSpeciesTreesFromPbdSimOutput(n=1,pbd_sim_output)
+  branch_lengths_species_trees <- c(branch_lengths_species_trees,species_trees[[1]]$edge.length)
+  n_species_trees <- n_species_trees + 1
 }
 
 
-DemonstrateSampleSpeciesTrees <- function() {
+# assert( identical(species_trees[[1]]$edge.length,species_trees[[1]]$edge.length))
+# assert( identical(species_trees[[1]]$edge.length,species_trees[[2]]$edge.length))
+# assert(!identical(species_trees[[1]]$edge.length,species_trees[[3]]$edge.length))
 
-  n <- 10
-  age <- 10
-  seed <- 320
-  
-  set.seed(seed)
-  b_1  <- 0.7 #runif(1,0.0,1.0) # b_1 , the speciation-initiation rate of good species 
-  la_1 <- 0.2 #runif(1,0.0,1.0) # la_1, the speciation-completion rate 
-  b_2  <- 0.6 #runif(1,0.0,1.0) # b_2 , the speciation-initiation rate of incipient species 
-  mu_1 <- 1.0 #runif(1,0.0,1.0) # mu_1, the extinction rate of good species 
-  mu_2 <- 0.6 #runif(1,0.0,1.0) # mu_2, the extinction rate of incipient species 
-  pbd_sim_output <- pbd_sim(c(b_1,la_1,b_2,mu_1,mu_2),age)
-  
-  species_trees <- SampleSpeciesTreesFromPbdSimOutput(n=n,pbd_sim_output)
-  PlotSpeciesTrees(species_trees,filename="~/1.png")
+p1 <- hist(full_tree$edge.length)
+p2 <- hist(branch_lengths_species_trees)
+plot( p1, col=rgb(0,0,1,1/4), xlim=c(0,30))
+plot( p2, col=rgb(1,0,0,1/4), xlim=c(0,30), add=T)
 
-  set.seed(seed)
-  species_trees <- SampleSpeciesTreesFromRandomProtractedTree(
-    n   , #How many?
-    b_1 , #the speciation-initiation rate of good species 
-    la_1, #the speciation-completion rate 
-    b_2 , #the speciation-initiation rate of incipient species 
-    mu_1, #the extinction rate of good species 
-    mu_2, #the extinction rate of incipient species 
-    age
-  )
-  PlotSpeciesTrees(species_trees,filename="~/2.png")
-}
+data1 <- data.frame(length = full_tree$edge.length)
+data2 <- data.frame(length = branch_lengths_species_trees)
 
+#Now, combine your two dataframes into one.  First make a new column in each.
+data1$tree <- 'Gene tree'
+data2$tree <- paste(n_species_trees,"species trees")
 
-# Uncomment this to view the function demonstration
-#DemonstrateSampleSpeciesTrees()
+#and combine into your new data frame vegLengths
+data <- rbind(data1,data2)
+names(data)
+
+myplot <- ggplot(
+  data, 
+  aes(length, fill = tree)) + geom_histogram(alpha = 0.25,aes(y = ..density..), 
+  position = 'identity', 
+  binwidth = 0.5
+) + xlab("Edge lengths") + 
+  ylab("Frequency") + 
+  ggtitle("Distribution of branch lengths of\n gene and (multiple) species trees") + 
+  theme(legend.position = 'bottom')
+
+grid.arrange(myplot)
+ggsave("~/InvestigateSampleSpeciesTreesFromProtractedTree.png")
