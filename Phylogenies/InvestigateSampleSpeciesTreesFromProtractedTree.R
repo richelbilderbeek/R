@@ -2,8 +2,13 @@ rm(list=ls())
 
 source("~/GitHubs/R/Phylogenies/GetPhylogenyCrownAge.R")
 
-library(ape)
-library(PBD)
+library(ape) # As suggested in PBD issue #3
+
+# Load all PBD functions
+pbd_path <- "~/GitHubs/PBD/PBD/R"
+for (file in list.files(path = pbd_path)) {
+  source(paste(pbd_path,"/",file,sep=""));
+}
 
 SampleSpeciesTreesFromRandomProtractedTree <- function(
   n   , #How many?
@@ -55,7 +60,7 @@ PlotSpeciesTrees <- function(species_trees,filename) {
 
 DemonstrateSampleSpeciesTrees <- function() {
 
-  n <- 6
+  n <- 10
   age <- 10
   seed <- 320
   
@@ -65,13 +70,11 @@ DemonstrateSampleSpeciesTrees <- function() {
   b_2  <- 0.6 #runif(1,0.0,1.0) # b_2 , the speciation-initiation rate of incipient species 
   mu_1 <- 1.0 #runif(1,0.0,1.0) # mu_1, the extinction rate of good species 
   mu_2 <- 0.6 #runif(1,0.0,1.0) # mu_2, the extinction rate of incipient species 
-  
-  # Work on the pbd_sim output  
   pbd_sim_output <- pbd_sim(c(b_1,la_1,b_2,mu_1,mu_2),age)
+  
   species_trees <- SampleSpeciesTreesFromPbdSimOutput(n=n,pbd_sim_output)
-  PlotSpeciesTrees(species_trees,filename="~/SampleSpeciesTreesFromRandomProtractedTree1.png")
+  PlotSpeciesTrees(species_trees,filename="~/1.png")
 
-  # Call pbd_sim in SampleSpeciesTreesFromRandomProtractedTree
   set.seed(seed)
   species_trees <- SampleSpeciesTreesFromRandomProtractedTree(
     n   , #How many?
@@ -82,7 +85,7 @@ DemonstrateSampleSpeciesTrees <- function() {
     mu_2, #the extinction rate of incipient species 
     age
   )
-  PlotSpeciesTrees(species_trees,filename="~/SampleSpeciesTreesFromRandomProtractedTree2.png")
+  PlotSpeciesTrees(species_trees,filename="~/2.png")
 }
 
 
