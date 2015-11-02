@@ -1,77 +1,52 @@
-rm(list=ls())
-
-source("~/GitHubs/R/Phylogenies/GetPhylogenyCrownAge.R")
-source("~/GitHubs/R/Phylogenies/SampleSpeciesTreesFromRandomProtractedTree.R")
+#rm(list=ls())
 
 library(ape)
+source("~/GitHubs/R/Phylogenies/ConvertEdgeLengthsToPhylogeny.R")
 
-# Load all PBD functions
-pbd_path <- "~/GitHubs/PBD/PBD/R"
-for (file in list.files(path = pbd_path)) {
-  source(paste(pbd_path,"/",file,sep=""));
+DemonstrateConvertEdgeLengthsToPhylogeny <- function() {
+  multiple_edgelengths <- list(c(1,2), c(3,4))
+  for (edgelengths in multiple_edgelengths) {
+    plot(ConvertEdgeLengthsToPhylogeny(edgelengths),main=paste(edgelengths,sep=""))
+  }
 }
 
-library(testit)
+# Assume a BD tree with a certain stem age
+# What is the most likely crown age?
+# Anwer: 0 years old
 
+stem_age <- 10
+log_likelihoods <- NULL
+crown_ages <- seq(from = stem_age,to = 0,by = -stem_age/10)
+for (crown_age in crown_ages)
+{
+  edge_lengths <- c(crown_age,crown_age)
+  phylogeny <- ConvertEdgeLengthsToPhylogeny(edge_lengths = edge_lengths, stem_length = stem_age - crown_age)
 
-n <- 4
-age <- 25
-seed <- 320
+  temp_filename <- "temp_file.R" # To remove output from bd_ML
+  sink(file=temp_filename) # To remove output from bd_ML
 
-set.seed(seed)
-b_1  <- 0.7 #runif(1,0.0,1.0) # b_1 , the speciation-initiation rate of good species 
-la_1 <- 0.2 #runif(1,0.0,1.0) # la_1, the speciation-completion rate 
-b_2  <- 0.6 #runif(1,0.0,1.0) # b_2 , the speciation-initiation rate of incipient species 
-mu_1 <- 1.0 #runif(1,0.0,1.0) # mu_1, the extinction rate of good species 
-mu_2 <- 0.6 #runif(1,0.0,1.0) # mu_2, the extinction rate of incipient species 
-pbd_sim_output <- pbd_sim(c(b_1,la_1,b_2,mu_1,mu_2),age)
-names(pbd_sim_output)
+  max_likelihood_estimations <- bd_ML(
+    brts = phylogeny$edge.length, 
+    cond = 1, # cond == 1 : conditioning on stem or crown age and non-extinction of the phylogeny 
+    btorph = 1, # Likelihood is for (0) branching times (1) phylogeny
+    soc = 1, # Sets whether stem age (1) or crown age (2) should be used
+    tdmodel = 0, # tdmodel == 0 : constant speciation and extinction rates 
+    idparsfix = c(3,4), # The ids of the parameters that should not be optimized, id == 3 corresponds to lamda1 (parameter controlling decline in speciation rate with time) , id == 4 corresponds to mu1 (parameter controlling decline in extinction rate with time)
+    parsfix = c(0.0,0.0) # The values of the parameters that should not be optimized
+  )
+  
+  sink() # To remove output from bd_ML
 
-full_tree <- pbd_sim_output$tree
-plot(full_tree)
+  log_likelihood <- max_likelihood_estimations$loglik
+  log_likelihoods <- c(log_likelihoods, log_likelihood)
 
+  plot(
+    phylogeny,
+    main=paste("crown_age: ",crown_age,", log_likelihood: ",log_likelihood,sep=""),
+    root.edge = TRUE
+  )
+  add.scale.bar()
 
-
-
-branch_lengths_species_trees <- NULL
-n_species_trees <- 0
-
-while (length(branch_lengths_species_trees) < length(full_tree$edge.length)) {
-  species_trees <- SampleSpeciesTreesFromPbdSimOutput(n=1,pbd_sim_output)
-  branch_lengths_species_trees <- c(branch_lengths_species_trees,species_trees[[1]]$edge.length)
-  n_species_trees <- n_species_trees + 1
 }
 
-
-# assert( identical(species_trees[[1]]$edge.length,species_trees[[1]]$edge.length))
-# assert( identical(species_trees[[1]]$edge.length,species_trees[[2]]$edge.length))
-# assert(!identical(species_trees[[1]]$edge.length,species_trees[[3]]$edge.length))
-
-p1 <- hist(full_tree$edge.length)
-p2 <- hist(branch_lengths_species_trees)
-plot( p1, col=rgb(0,0,1,1/4), xlim=c(0,30))
-plot( p2, col=rgb(1,0,0,1/4), xlim=c(0,30), add=T)
-
-data1 <- data.frame(length = full_tree$edge.length)
-data2 <- data.frame(length = branch_lengths_species_trees)
-
-#Now, combine your two dataframes into one.  First make a new column in each.
-data1$tree <- 'Gene tree'
-data2$tree <- paste(n_species_trees,"species trees")
-
-#and combine into your new data frame vegLengths
-data <- rbind(data1,data2)
-names(data)
-
-myplot <- ggplot(
-  data, 
-  aes(length, fill = tree)) + geom_histogram(alpha = 0.25,aes(y = ..density..), 
-  position = 'identity', 
-  binwidth = 0.5
-) + xlab("Edge lengths") + 
-  ylab("Frequency") + 
-  ggtitle("Distribution of branch lengths of\n gene and (multiple) species trees") + 
-  theme(legend.position = 'bottom')
-
-grid.arrange(myplot)
-ggsave("~/InvestigateSampleSpeciesTreesFromProtractedTree.png")
+plot(log_likelihoods, crown_ages)
