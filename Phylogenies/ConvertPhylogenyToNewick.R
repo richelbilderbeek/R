@@ -1,14 +1,21 @@
-rm(list=ls())
 library(ape)
-library(phangorn)
-library(phytools)
 library(testit)
 
-# Create a random tree
-phylogeny <- rcoal(10)
-plot(phylogeny)
+ConvertPhylogenyToNewick <- function(phylogeny) {
+  newick <- write.tree(phylogeny,file="")
+  return (newick)
+  
+}
 
-# Convert to newick
-newick <- write.tree(phylogeny,file="")
-print(newick)
+DemonstrateConvertPhylogenyToNewick <- function() {
+  # Create a random tree
+  phylogeny <- rcoal(10)
+  plot(phylogeny)
+
+  # Convert to newick
+  newick <- write.tree(phylogeny,file="")
+  print(newick)
+}
+
+DemonstrateConvertPhylogenyToNewick()
 
