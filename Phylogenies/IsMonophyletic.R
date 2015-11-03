@@ -60,27 +60,29 @@ IsMonophyletic <- function(phylogeny) {
   # Replace the tip labels by their tip IDs
   phylogeny$tip.label <- seq(1,n_original_tip_labels)
   unique_tip_labels <- phylogeny$tip.label
-  plot(phylogeny)
+
+  plot(phylogeny,show.node.label=TRUE,root.edge = TRUE)
+  nodelabels( , col = "black", bg = "gray")
   
   for (a in seq(1,n_original_tip_labels-2)) {
     assert(a >= 1 && a <= n_original_tip_labels)
     a_unique_name <- unique_tip_labels[a]
     a_original_name <- original_tip_labels[a]
-    print(paste(a,a_unique_name,a_original_name))
     
     for (b in seq(a + 1,n_original_tip_labels-1)) {
       assert(b >= 1 && b <= n_original_tip_labels)
       b_unique_name <- unique_tip_labels[b]
       b_original_name <- original_tip_labels[b]
-      print(paste(b,b_unique_name,b_original_name))
 
       for (c in seq(b + 1,n_original_tip_labels)) {
         assert(c >= 1 && c <= n_original_tip_labels)
         c_unique_name <- unique_tip_labels[c]
         c_original_name <- original_tip_labels[c]
-        print(paste(c,c_unique_name,c_original_name))
-        
+
+        # If species are (A,B,C) this cannot be a paraphyly
         if(AreAllUnique   (c(a_original_name,b_original_name,c_original_name))) { next }
+
+        # If species are (A,A,A) this cannot be a paraphyly
         if(AreAllIdentical(c(a_original_name,b_original_name,c_original_name))) { next }
 
         assert(AreAllUnique(c(a_unique_name,b_unique_name,c_unique_name)))
@@ -100,15 +102,9 @@ IsMonophyletic <- function(phylogeny) {
           sister_species_name <- c_unique_name
           other_species_name  <- a_unique_name
         }
-        print(paste("focal_species_name",focal_species_name))
-        print(paste("sister_species_name",sister_species_name))
-        print(paste("other_species_name",other_species_name))
         mrca_sister <- getMRCA(phylogeny,tip=c(focal_species_name,sister_species_name))
         mrca_other1 <- getMRCA(phylogeny,tip=c(other_species_name,focal_species_name))
         mrca_other2 <- getMRCA(phylogeny,tip=c(other_species_name,sister_species_name))
-        print(paste("mrca_sister",mrca_sister))
-        print(paste("mrca_other1",mrca_other1))
-        print(paste("mrca_other2",mrca_other2))
         if (mrca_other1 > mrca_sister) return (FALSE)
         if (mrca_other2 > mrca_sister) return (FALSE)
       }
@@ -132,7 +128,8 @@ DemonstrateIsMonophyletic <- function() {
   #  |
   #  +----------- A
   #
-  plot(phylogeny)
+  plot(phylogeny,show.node.label=TRUE,root.edge = TRUE)
+  nodelabels( , col = "black", bg = "gray")
   assert(IsMonophyletic(phylogeny))
 
   phylogeny <- read.tree(text="(A:2.0,(B:1.0,A:1.0):1.0):1.0;")
@@ -147,7 +144,8 @@ DemonstrateIsMonophyletic <- function() {
   #  |
   #  +----------- A
   #
-  plot(phylogeny)
+  plot(phylogeny,show.node.label=TRUE,root.edge = TRUE)
+  nodelabels( , col = "black", bg = "gray")
   assert(!IsMonophyletic(phylogeny))
   
   for (monophyletic_newick in GetCorrectTestNewicks()) {
@@ -164,7 +162,6 @@ DemonstrateIsMonophyletic <- function() {
     nodelabels( , col = "black", bg = "gray")
     assert(!IsMonophyletic(paraphyletic_phylogeny))
   }
-
 }
 
 DemonstrateIsMonophyletic()
