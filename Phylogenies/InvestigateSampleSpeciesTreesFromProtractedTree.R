@@ -2,6 +2,7 @@ rm(list=ls())
 
 source("~/GitHubs/R/Phylogenies/GetPhylogenyCrownAge.R")
 source("~/GitHubs/R/Phylogenies/SampleSpeciesTreesFromRandomProtractedTree.R")
+source("~/GitHubs/R/Phylogenies/HasParaphyly.R")
 
 library(ape)
 library(ggplot2)
@@ -30,14 +31,17 @@ pbd_sim_output <- pbd_sim(c(b_1,la_1,b_2,mu_1,mu_2),age)
 names(pbd_sim_output)
 
 full_tree <- pbd_sim_output$tree
-plot(full_tree)
 
-write.tree(full_tree,file="")
+# Strip the subspecies names
+species_tree <- pbd_sim_output$tree
+species_tree$tip.label <- StripSubspeciesLabelFromTipLabels(species_tree$tip.label)
+assert(HasParaphyly(species_tree))
+plot(species_tree,show.node.label=TRUE,root.edge = TRUE)
+nodelabels( , col = "black", bg = "gray")
 
 
 branch_lengths_species_trees <- NULL
 n_species_trees <- 0
-
 while (length(branch_lengths_species_trees) < length(full_tree$edge.length)) {
   species_trees <- SampleSpeciesTreesFromPbdSimOutput(n=1,pbd_sim_output)
   branch_lengths_species_trees <- c(branch_lengths_species_trees,species_trees[[1]]$edge.length)
