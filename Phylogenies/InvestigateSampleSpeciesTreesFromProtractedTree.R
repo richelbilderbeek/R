@@ -4,6 +4,8 @@ source("~/GitHubs/R/Phylogenies/GetPhylogenyCrownAge.R")
 source("~/GitHubs/R/Phylogenies/SampleSpeciesTreesFromRandomProtractedTree.R")
 
 library(ape)
+library(ggplot2)
+library(gridExtra)
 
 # Load all PBD functions
 pbd_path <- "~/GitHubs/PBD/PBD/R"
@@ -15,7 +17,7 @@ library(testit)
 
 
 n <- 4
-age <- 25
+age <- 5
 seed <- 320
 
 set.seed(seed)
@@ -30,7 +32,7 @@ names(pbd_sim_output)
 full_tree <- pbd_sim_output$tree
 plot(full_tree)
 
-
+write.tree(full_tree,file="")
 
 
 branch_lengths_species_trees <- NULL
