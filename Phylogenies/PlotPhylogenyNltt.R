@@ -1,6 +1,6 @@
-library(ape);
-library(geiger);
-library(nLTT);
+library(ape)
+library(geiger)
+library(nLTT)
 
 PlotPhylogenyNltt <- function(phylogeny)
 {
