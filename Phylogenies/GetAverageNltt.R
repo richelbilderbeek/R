@@ -71,6 +71,20 @@ StretchMatrix <- function(m,dt) {
   }
   #new_ns
   #print(paste(length(new_ns),length(new_ts),sep=" - "))
+  
+  #Workaround
+  if(length(new_ts) != length(new_ns))
+  {
+    print("Warning: workaround #1") 
+    length(new_ns) <- length(new_ts)
+  }
+  if(tail(new_ts,n=1) != 1.0) {
+    print("Warning: workaround #2") 
+    new_ts[ length(new_ts) ] = 1.0
+  }
+  
+  assert(tail(new_ts,n=1) == 1.0)
+  
   assert(length(new_ts) == length(new_ns))
   #es
   #assert(es == rs)
@@ -117,14 +131,14 @@ GetAverageNltt <- function(
   #print(xy)
   
   plot.default(xy, 
-    main = "Average", 
     xlab = "Normalized Time", 
     ylab = "Normalized Lineages", 
     xaxs = "r", 
     yaxs = "r", 
     type = "S",
     xlim=c(0,1),
-    ylim=c(0,1)
+    ylim=c(0,1),
+    ...
   )
 
   for (stretch_matrix in stretch_matrices) {
@@ -146,25 +160,22 @@ DemonstrateGetAverageNltt <- function()
   # Two different phylogenies
   newick1 <- "((((XD:1,ZD:1):1,CE:2):1,(FE:2,EE:2):1):4,((AE:1,BE:1):1,(WD:1,YD:1):1):5);"
   phylogeny1 <- read.tree(text = newick1)
-  #plot(phylogeny1)
 
   newick2 <- "((A:0.3,B:0.3):0.7,(C:0.6,D:0.6):0.4);"
   phylogeny2 <- read.tree(text = newick2)
-  #plot(phylogeny2)
+
+  plot(phylogeny1)
+  plot(phylogeny2)
   nLTT.plot(phylogeny1)
   nLTT.lines(phylogeny2,col = "gray")
   
   # Combine these
   phylogenies <- list(phylogeny1,phylogeny2)
-  GetAverageNltt(phylogenies,dt = 0.2)
-  nLTT.lines(phylogeny1,col="red")
-  nLTT.lines(phylogeny2,col="red")
-  GetAverageNltt(phylogenies,dt = 0.05)
-  nLTT.lines(phylogeny1,col="red")
-  nLTT.lines(phylogeny2,col="red")
-  GetAverageNltt(phylogenies,dt = 0.001)
-  nLTT.lines(phylogeny1,col="red")
-  nLTT.lines(phylogeny2,col="red")
+  for (dt in c(0.2,0.05,0.01)) {
+    GetAverageNltt(phylogenies,dt = dt,main=paste("dt:",dt))
+    nLTT.lines(phylogeny1,col="red")
+    nLTT.lines(phylogeny2,col="blue")
+  }
 }
 
 # Uncomment this to view the function demonstration
