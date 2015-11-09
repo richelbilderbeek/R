@@ -1,49 +1,112 @@
+rm(list = ls())
 library(ape)
 library(geiger)
 library(nLTT)
 
-GetAverageNltt1 <- function(
-  phy, 
-  xlab = "Normalized Time", 
-  ylab = "Normalized Lineages", 
-  ...
-)
-{
-  xy <- ltt.plot.coords(phy, backward = TRUE, tol = 1e-06)
+GetTestMatrix1 <- function() {
+  #       time    N
+  # [1,]  0.0 0.25
+  # [2,]  0.4 0.50
+  # [3,]  0.7 0.75
+  # [4,]  1.0 1.00
+  m <- matrix(
+    data = c(0.0,0.4,0.7,1.0,0.25,0.50,0.75,1.0),
+    nrow = 4,
+    ncol = 2,
+    byrow = FALSE,
+  )
+  colnames(m) <- c("time","N")
+  return (m);
+}
+
+GetTestMatrix2 <- function() {
+  #       time    N
+  # [1,]  0.0 0.25
+  # [2,]  0.2 0.50
+  # [3,]  0.5 0.75
+  # [4,]  0.8 1.00
+  n <- matrix(
+    data = c(0.0,0.2,0.5,0.8,0.25,0.50,0.75,1.0),
+    nrow = 4,
+    ncol = 2,
+    byrow = FALSE,
+  )
+  colnames(m) <- c("time","N")
+  return (m);
+}
+
+GetTestMatrix3 <- function() {
+  #       time    N
+  # [1,]  0.0 0.25
+  # [2,]  0.2 0.375
+  # [3,]  0.4 0.50
+  # [4,]  0.5 0.625
+  # [5,]  0.7 0.75
+  # [6,]  0.8 0.875
+  # [7,]  1.0 1.00
+  m <- matrix(
+    data = c(0.0,0.2,0.4,0.5,0.7,0.8,1.0,0.25,0.375,0.50,0.625,0.75,0.875,1.0),
+    nrow = 7,
+    ncol = 2,
+    byrow = FALSE,
+  )
+  colnames(m) <- c("time","N")
+  return (m);
+}
+
+
+MergeMatrices <- function(m,n) {
+  assert(colnames(m) == c("time","N"))
+  assert(colnames(n) == c("time","N"))
+  # Collect all times
+  times <- c(m[,1],n[,1])
+  times <- sort(times)
+  #Score how many Ns are at each time
+  ns <- c(m[,2],n[,2])
+  ns <- seq(min(ns),max(ns),(max(ns)-min(ns))/(length(ns)-1))
+  assert(length(ns) == length(times))
+  m <- matrix(
+    data = c(times,ns),
+    nrow = length(ns),
+    ncol = 2,
+    byrow = FALSE,
+  )
+  colnames(m) <- c("time","N")
+  return (m);
+}
+  
+GetPhylogenyNlttMatix <- function(phylogeny) {
+  xy <- ltt.plot.coords(phylogeny, backward = TRUE, tol = 1e-06)
   xy[, 2] <- xy[, 2]/max(xy[, 2])
   xy[, 1] <- xy[, 1] + abs(min(xy[, 1]))
   xy[, 1] <- xy[, 1]/max(xy[, 1])
-  plot.default(xy, xlab = xlab, ylab = ylab, xaxs = "r", yaxs = "r", type = "S", ...)
+  return (xy)
 }
 
 GetAverageNltt <- function(
-  phy, 
+  phylogeny1, 
+  phylogeny2, 
   xlab = "Normalized Time", 
   ylab = "Normalized Lineages", 
   ...
 )
 {
-  newick <- "((A:0.3,B:0.3):0.7,(C:0.6,D:0.6):0.4);"
-  phy <- read.tree(text = newick)
-  xys <- NULL
-  
-  xy <- ltt.plot.coords(phy, backward = TRUE, tol = 1e-06)
-  xy[, 2] <- xy[, 2]/max(xy[, 2])
-  xy[, 1] <- xy[, 1] + abs(min(xy[, 1]))
-  xy[, 1] <- xy[, 1]/max(xy[, 1])
+  m <- GetPhylogenyNlttMatix(phylogeny1)
+  print(m)
+  n <- GetPhylogenyNlttMatix(phylogeny2)
+  print(n)
 
-#       time    N
-# [1,]  0.0 0.25
-# [2,]  0.4 0.50
-# [3,]  0.7 0.75
-# [4,]  1.0 1.00
+  xy <- MergeMatrices(m,n)
+  print(xy)
   
-  assert(class(xy) == "matrix")
-  xys <- c(xys,xy)
-  xy
-  xys
-  plot.default(xy, xlab = "Normalized Time", ylab = "Normalized Lineages", xaxs = "r", yaxs = "r", type = "S")
-#  plot.default(xy, xlab = xlab, ylab = ylab, xaxs = "r", yaxs = "r", type = "S", ...)
+  plot.default(xy, 
+    main = "Average", 
+    xlab = "Normalized Time", 
+    ylab = "Normalized Lineages", xaxs = "r", yaxs = "r", type = "S"
+  )
+
+  lines.default(m,xaxs = "r", yaxs = "r", type = "S",col="grey")
+  lines.default(n,xaxs = "r", yaxs = "r", type = "S",col="grey")
 }
 
 DemonstrateGetAverageNltt <- function()
@@ -53,7 +116,7 @@ DemonstrateGetAverageNltt <- function()
   phylogeny1 <- read.tree(text = newick1)
   plot(phylogeny1)
   nLTT.plot(phylogeny1)
-  nLTT.plot
+  #nLTT.plot
   
 
   newick2 <- "((A:0.3,B:0.3):0.7,(C:0.6,D:0.6):0.4);"
@@ -62,9 +125,7 @@ DemonstrateGetAverageNltt <- function()
   nLTT.plot(phylogeny2)
   
   # Combine these
-  GetAverageNltt(phylogeny1)
-
-  nLTT.plot
+  GetAverageNltt(phylogeny1,phylogeny2)
 }
 
 # Uncomment this to view the function demonstration
