@@ -35,7 +35,7 @@ GetPhylogenyNlttMatix <- function(phylogeny) {
 #
 # becomes
 
-StretchMatrix <- function(m) {
+StretchMatrix <- function(m,dt) {
   #es <- c(rep(4,x=0.25),rep(3,x=0.5),rep(3,x=0.75),1.0)
   #m <- GetTestMatrix1()
   m
@@ -45,18 +45,20 @@ StretchMatrix <- function(m) {
   ts
 
   # Timestep
-  dt <- 0.2 
+  #dt <- 0.05
   
   # Number of repeats
   nreps <- ceiling(as.numeric( (ts[-1] - ts[-length(ts)]) / dt ))
   # Move the last repeat to a next category
-  nreps[ length(nreps) ] <- tail(nreps,n=1) - 1
-  nreps <- c(nreps,1)
+  #nreps[ length(nreps) ] <- tail(nreps,n=1) - 1
+  #nreps <- c(nreps,1)
   #print(paste("nreps:",nreps))
   new_ts <- seq(0,1,dt)
-  new_ts
+  new_ts <- c(new_ts,0.0)
 
   new_ns <- NULL
+  new_ns <- c(new_ns,ns[1])
+  ns <- ns[-1]
   for (i in seq(1,length(ns))) {
     this_n <- ns[i]
     #print(value)
@@ -83,8 +85,9 @@ StretchMatrix <- function(m) {
 
 GetAverageNltt <- function(
   phylogenies, 
+  dt,
   xlab = "Normalized Time", 
-  ylab = "Normalized Lineages", 
+  ylab = "Normalized Lineages",
   ...
 )
 {
@@ -99,7 +102,7 @@ GetAverageNltt <- function(
 
   stretch_matrices <- NULL
   for (nltt in nltts) {
-    stretch_matrix <- StretchMatrix(nltt)
+    stretch_matrix <- StretchMatrix(nltt,dt = dt)
     #print(stretch_matrix)
     stretch_matrices <- c(stretch_matrices,list(stretch_matrix))
   }
@@ -143,17 +146,25 @@ DemonstrateGetAverageNltt <- function()
   # Two different phylogenies
   newick1 <- "((((XD:1,ZD:1):1,CE:2):1,(FE:2,EE:2):1):4,((AE:1,BE:1):1,(WD:1,YD:1):1):5);"
   phylogeny1 <- read.tree(text = newick1)
-  plot(phylogeny1)
-  nLTT.plot(phylogeny1)
+  #plot(phylogeny1)
 
   newick2 <- "((A:0.3,B:0.3):0.7,(C:0.6,D:0.6):0.4);"
   phylogeny2 <- read.tree(text = newick2)
-  plot(phylogeny2)
-  nLTT.plot(phylogeny2)
+  #plot(phylogeny2)
+  nLTT.plot(phylogeny1)
+  nLTT.lines(phylogeny2,col = "gray")
   
   # Combine these
   phylogenies <- list(phylogeny1,phylogeny2)
-  GetAverageNltt(phylogenies)
+  GetAverageNltt(phylogenies,dt = 0.2)
+  nLTT.lines(phylogeny1,col="red")
+  nLTT.lines(phylogeny2,col="red")
+  GetAverageNltt(phylogenies,dt = 0.05)
+  nLTT.lines(phylogeny1,col="red")
+  nLTT.lines(phylogeny2,col="red")
+  GetAverageNltt(phylogenies,dt = 0.001)
+  nLTT.lines(phylogeny1,col="red")
+  nLTT.lines(phylogeny2,col="red")
 }
 
 # Uncomment this to view the function demonstration
