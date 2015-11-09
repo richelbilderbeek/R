@@ -83,6 +83,52 @@ GetPhylogenyNlttMatix <- function(phylogeny) {
   return (xy)
 }
 
+StretchMatrix <- function(m) {
+  #es <- c(rep(4,x=0.25),rep(3,x=0.5),rep(3,x=0.75),1.0)
+  #m <- GetTestMatrix1()
+  m
+  ns <- as.numeric(m[,2])
+  ns
+  ts <- as.numeric(m[,1])
+  ts
+
+  # Timestep
+  dt <- 0.001 
+  
+  # Number of repeats
+  nreps <- ceiling(as.numeric( (ts[-1] - ts[-length(ts)]) / dt ))
+  # Move the last repeat to a next category
+  nreps[ length(nreps) ] <- tail(nreps,n=1) - 1
+  nreps <- c(nreps,1)
+  nreps
+  new_ts <- seq(0,1,dt)
+  new_ts
+
+  new_ns <- NULL
+  for (i in seq(1,length(ns))) {
+    this_n <- ns[i]
+    #print(value)
+    times <- nreps[i]
+    if (times == 0) next
+    #print(times)
+    new_n <- rep(x = this_n,times = times)
+    #print(to_add)
+    new_ns <- c(new_ns,new_n)
+  }
+  #new_ns
+  #print(paste(length(new_ns),length(new_ts),sep=" - "))
+  assert(length(new_ts) == length(new_ns))
+  #es
+  #assert(es == rs)
+  n <- matrix(
+    data = c(new_ts,new_ns),
+    nrow = length(new_ts),
+    ncol = 2,
+    byrow = FALSE,
+  )
+  return (n)
+}
+
 GetAverageNltt <- function(
   phylogeny1, 
   phylogeny2, 
@@ -92,12 +138,12 @@ GetAverageNltt <- function(
 )
 {
   m <- GetPhylogenyNlttMatix(phylogeny1)
-  print(m)
+  m <- StretchMatrix(m)
+  
   n <- GetPhylogenyNlttMatix(phylogeny2)
-  print(n)
+  n <- StretchMatrix(n)
 
-  xy <- MergeMatrices(m,n)
-  print(xy)
+  xy <- (n + m) / 2
   
   plot.default(xy, 
     main = "Average", 
