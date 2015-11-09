@@ -82,6 +82,10 @@ StretchMatrix <- function(m,dt) {
     print("Warning: workaround #2") 
     new_ts[ length(new_ts) ] = 1.0
   }
+  if(tail(new_ns,n=1) != 1.0) {
+    print("Warning: workaround #3") 
+    new_ns[ length(new_ns) ] = 1.0
+  }
   
   assert(tail(new_ts,n=1) == 1.0)
   
@@ -100,6 +104,7 @@ StretchMatrix <- function(m,dt) {
 GetAverageNltt <- function(
   phylogenies, 
   dt,
+  plot_nltts = FALSE,
   xlab = "Normalized Time", 
   ylab = "Normalized Lineages",
   ...
@@ -130,7 +135,9 @@ GetAverageNltt <- function(
   xy <- (xy / sz)
   #print(xy)
   
-  plot.default(xy, 
+  # Set the shape of the plot
+  plot.default(
+    xy, 
     xlab = "Normalized Time", 
     ylab = "Normalized Lineages", 
     xaxs = "r", 
@@ -141,18 +148,31 @@ GetAverageNltt <- function(
     ...
   )
 
-  for (stretch_matrix in stretch_matrices) {
-    lines.default(
-      stretch_matrix,
-      xaxs = "r", 
-      yaxs = "r", 
-      type = "S",
-      col="grey",
-      xlim=c(0,1),
-      ylim=c(0,1)
-    )
-  }
-  
+  # Draw the nLTTS plots used
+  if (plot_nltts == TRUE) {
+    for (stretch_matrix in stretch_matrices) {
+      lines.default(
+        stretch_matrix,
+        xaxs = "r", 
+        yaxs = "r", 
+        type = "S",
+        col="grey",
+        xlim=c(0,1),
+        ylim=c(0,1)
+      )
+    }
+  }  
+
+  # Redraw the average nLTT plot
+  lines.default(
+    xy,
+    xaxs = "r", 
+    yaxs = "r", 
+    type = "S",
+    col="black",
+    xlim=c(0,1),
+    ylim=c(0,1)
+  )
 }
 
 DemonstrateGetAverageNltt <- function()
@@ -176,6 +196,22 @@ DemonstrateGetAverageNltt <- function()
     nLTT.lines(phylogeny1,col="red")
     nLTT.lines(phylogeny2,col="blue")
   }
+  
+  
+  # Now random trees
+  phylogenies <- NULL
+  for (i in seq(1,20)) {
+    phylogeny <- rcoal(n = 10)
+    phylogenies <- c(phylogenies,list(phylogeny))
+  }
+  
+  GetAverageNltt(
+    phylogenies,
+    dt = 0.01,
+    plot_nltts = TRUE,
+    main = "Average LTT of 20 coalescent trees"
+    
+  )
 }
 
 # Uncomment this to view the function demonstration
