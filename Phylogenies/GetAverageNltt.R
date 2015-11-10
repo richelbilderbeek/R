@@ -83,9 +83,20 @@ GetAverageNltt <- function(
   plot_nltts = FALSE,
   xlab = "Normalized Time", 
   ylab = "Normalized Lineages",
+  replot = FALSE,
   ...
 )
+#  phylogenies, 
+#  dt: delta t, resolution of the averaged nLTT, where smaller is a higher resolution
+#  plot_nltts = FALSE,
+#  xlab: label on x axis
+#  ylab: label on y axis
+#  replot: if FALSE, a new plot is started, if TRUE, the lines is drawn over an assumed-to-be-present plot
+#  ...
 {
+  assert(dt > 0.0)
+  assert(dt < 1.0)
+  
   sz <- length(phylogenies)
 
   nltts <- NULL
@@ -108,18 +119,20 @@ GetAverageNltt <- function(
   xy <- (xy / sz)
   
   # Set the shape of the plot
-  plot.default(
-    xy, 
-    xlab = "Normalized Time", 
-    ylab = "Normalized Lineages", 
-    xaxs = "r", 
-    yaxs = "r", 
-    type = "S",
-    xlim=c(0,1),
-    ylim=c(0,1),
-    ...
-  )
-
+  if (replot == FALSE) {
+    plot.default(
+      xy, 
+      xlab = "Normalized Time", 
+      ylab = "Normalized Lineages", 
+      xaxs = "r", 
+      yaxs = "r", 
+      type = "S",
+      xlim=c(0,1),
+      ylim=c(0,1),
+      ...
+    )
+  }
+  
   # Draw the nLTTS plots used
   if (plot_nltts == TRUE) {
     for (stretch_matrix in stretch_matrices) {
@@ -141,9 +154,9 @@ GetAverageNltt <- function(
     xaxs = "r", 
     yaxs = "r", 
     type = "S",
-    col="black",
     xlim=c(0,1),
-    ylim=c(0,1)
+    ylim=c(0,1),
+    ...
   )
 }
 
