@@ -33,26 +33,13 @@ GetPhylogenyNlttMatix <- function(phylogeny) {
 # 0.9 0.5
 # 1.0 1.0
 #
-# becomes
-
 StretchMatrix <- function(m,dt) {
-  #es <- c(rep(4,x=0.25),rep(3,x=0.5),rep(3,x=0.75),1.0)
-  #m <- GetTestMatrix1()
-  m
   ns <- as.numeric(m[,2])
-  ns
   ts <- as.numeric(m[,1])
-  ts
-
-  # Timestep
-  #dt <- 0.05
   
   # Number of repeats
   nreps <- ceiling(as.numeric( (ts[-1] - ts[-length(ts)]) / dt ))
   # Move the last repeat to a next category
-  #nreps[ length(nreps) ] <- tail(nreps,n=1) - 1
-  #nreps <- c(nreps,1)
-  #print(paste("nreps:",nreps))
   new_ts <- seq(0,1,dt)
   new_ts <- c(new_ts,0.0)
 
@@ -61,17 +48,11 @@ StretchMatrix <- function(m,dt) {
   ns <- ns[-1]
   for (i in seq(1,length(ns))) {
     this_n <- ns[i]
-    #print(value)
     times <- nreps[i]
-    #if (times == 0) next
-    #print(times)
     new_n <- rep(x = this_n,times = times)
-    #print(to_add)
     new_ns <- c(new_ns,new_n)
   }
-  #new_ns
-  #print(paste(length(new_ns),length(new_ts),sep=" - "))
-  
+
   #Workaround
   if(length(new_ts) != length(new_ns))
   {
@@ -90,8 +71,6 @@ StretchMatrix <- function(m,dt) {
   assert(tail(new_ts,n=1) == 1.0)
   
   assert(length(new_ts) == length(new_ns))
-  #es
-  #assert(es == rs)
   n <- matrix(
     data = c(new_ts,new_ns),
     nrow = length(new_ts),
@@ -215,4 +194,4 @@ DemonstrateGetAverageNltt <- function()
 }
 
 # Uncomment this to view the function demonstration
-DemonstrateGetAverageNltt()
+#DemonstrateGetAverageNltt()

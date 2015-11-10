@@ -14,7 +14,7 @@ set.seed(seed)
 differences_within <- NULL
 differences_between <- NULL
 
-for (i in seq(1,10000)) {
+for (i in seq(1,100)) {
   b_1  <- 0.5 # b_1 , the speciation-initiation rate of good species 
   la_1 <- 0.1 # la_1, the speciation-completion rate 
   b_2  <- 0.5 # b_2 , the speciation-initiation rate of incipient species 
@@ -32,7 +32,6 @@ for (i in seq(1,10000)) {
   differences_between <- c(differences_between, difference_between)
 }
 
-??PBD
 p1 <- hist(differences_within)
 p2 <- hist(differences_between)
 maxx <- max(c(differences_within,differences_between))

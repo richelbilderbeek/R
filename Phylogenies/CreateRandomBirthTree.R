@@ -1,6 +1,6 @@
-rm(list=ls());
-library(ape);
-library(geiger);
+rm(list=ls())
+library(ape)
+library(geiger)
 
 # Create a full tree
 # from a Birth-Death model 
