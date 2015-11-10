@@ -4,15 +4,17 @@ library(DDD)
 source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
 source("~/GitHubs/R/Phylogenies/CanDropExtinct.R")
 
-GetBirthDeathSpeciationModelAverageNltt <- function()
+GetBirthDeathSpeciationModelAverageNltt <- function(
+  birth_rate,
+  death_rate,
+  crown_age,
+  n_trees,
+  ...
+)
 {
   # Create a full tree
   # from a Birth-Death model 
   # that stops after a certain amount of time
-  birth_rate <- 0.3
-  death_rate <- 0.1
-  crown_age <- 15
-  n_trees <- 100
   
   # Now random trees
   phylogenies <- NULL
@@ -36,17 +38,43 @@ GetBirthDeathSpeciationModelAverageNltt <- function()
   
   GetAverageNltt(
     phylogenies,
-    dt = 0.001,
-    plot_nltts = TRUE,
+    ...
+  )
+}
+
+DemonstrateGetBirthDeathSpeciationModelAverageNltt <- function() {
+  birth_rate <- 0.3
+  death_rate <- 0.2
+  crown_age <- 15
+  n_trees <- 1000
+  
+  # Compare species tree and gene tree
+  GetBirthDeathSpeciationModelAverageNltt(
+    birth_rate = birth_rate,
+    death_rate = death_rate,
+    crown_age = crown_age,
+    n_trees = n_trees,
+    col = "red",
+    plot_nltts = FALSE,
     main = paste(
       "Average nLTT of ",n_trees,
-      " BD trees (birth rate: ",birth_rate,
+      " BD trees (birth rate: ",birth_rate, " (red) and ",birth_rate * 1.1," (blue)",
       ", death rate: ",death_rate,
       ", crown age: ",crown_age,")"
       ,sep=""
     )
   )
+  
+  GetBirthDeathSpeciationModelAverageNltt(
+    birth_rate = birth_rate * 1.1,
+    death_rate = death_rate,
+    crown_age = crown_age,
+    n_trees = n_trees,
+    col = "blue",
+    plot_nltts = FALSE,
+    replot = TRUE #Overlay this on a current plot
+  )
 }
 
 # Uncomment this to view the function demonstration
-GetBirthDeathSpeciationModelAverageNltt()
+DemonstrateGetBirthDeathSpeciationModelAverageNltt()

@@ -1,4 +1,4 @@
-rm(list = ls())
+#rm(list = ls())
 library(PBD)
 
 source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
@@ -31,12 +31,15 @@ GetProtractedSpeciationModelAverageNltt <- function(
   
   GetAverageNltt(
     phylogenies,
-    dt = 0.001,
     ...
   )
 }
 
-DemonstrateGetProtractedSpeciationModelAverageNltt <- function() {
+DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
+  #
+  # Compare gene tree and species tree
+  #  
+  
   speciation_initiation_rate_good_species <- 0.2
   speciation_completion_rate <- 0.1
   speciation_initiation_rate_incipient_species <- 0.2
@@ -85,5 +88,63 @@ DemonstrateGetProtractedSpeciationModelAverageNltt <- function() {
   )
 }
 
+DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
+  #
+  # Species tree become more like BD for higher speciation completion rates
+  #  
+  
+  speciation_initiation_rate_good_species <- 0.2
+  speciation_completion_rates <- rep(x=0.01,times=5)
+  speciation_initiation_rate_incipient_species <- 0.2
+  extinction_rate_good_species <- 0.1
+  extinction_rate_incipient_species <- 0.1
+  crown_age <- 15
+  n_trees <- 10
+  
+  # Compare species tree and gene tree
+  GetProtractedSpeciationModelAverageNltt(
+    b_1  = speciation_initiation_rate_good_species,
+    la_1 = speciation_completion_rates[1],
+    b_2  = speciation_initiation_rate_incipient_species,
+    mu_1 = extinction_rate_good_species,
+    mu_2 = extinction_rate_incipient_species,
+    crown_age = crown_age,
+    n_trees = n_trees,
+    gene_tree_of_species_tree = "species_tree",
+    col = "blue",
+    plot_nltts = FALSE,
+    main = paste(
+      "Average nLTT of ",n_trees,
+      " PBD species trees (red) and gene trees (blue).\n",
+      "  b_1: ",speciation_initiation_rate_good_species,
+      ", b_2: ",speciation_initiation_rate_incipient_species,
+      ", la_s: variable",
+      ", mu_1: ",extinction_rate_good_species,
+      ", mu_2: ",extinction_rate_incipient_species,
+      ", crown age: ",crown_age,")"
+      ,sep=""
+    ),
+  )
+  
+  speciation_completion_rates <- speciation_completion_rates[-1]
+  
+  for (speciation_completion_rate in speciation_completion_rates) {
+    GetProtractedSpeciationModelAverageNltt(
+      b_1  = speciation_initiation_rate_good_species,
+      la_1 = speciation_completion_rate,
+      b_2  = speciation_initiation_rate_incipient_species,
+      mu_1 = extinction_rate_good_species,
+      mu_2 = extinction_rate_incipient_species,
+      crown_age = crown_age,
+      n_trees = n_trees,
+      gene_tree_of_species_tree = "gene_tree",
+      col = "blue",
+      plot_nltts = FALSE,
+      replot = TRUE #Overlay this on a current plot
+    )
+  }
+}
+
 # Uncomment this to view the function demonstration
-DemonstrateGetProtractedSpeciationModelAverageNltt()
+DemonstrateGetProtractedSpeciationModelAverageNltt1()
+DemonstrateGetProtractedSpeciationModelAverageNltt2()

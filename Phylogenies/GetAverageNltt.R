@@ -79,21 +79,21 @@ StretchMatrix <- function(m,dt) {
 
 GetAverageNltt <- function(
   phylogenies, 
-  dt,
+  dt = 0.001,
   plot_nltts = FALSE,
   xlab = "Normalized Time", 
   ylab = "Normalized Lineages",
   replot = FALSE,
   ...
 )
-#  phylogenies, 
-#  dt: delta t, resolution of the averaged nLTT, where smaller is a higher resolution
-#  plot_nltts = FALSE,
-#  xlab: label on x axis
-#  ylab: label on y axis
-#  replot: if FALSE, a new plot is started, if TRUE, the lines is drawn over an assumed-to-be-present plot
-#  ...
 {
+  #  phylogenies, 
+  #  dt: delta t, resolution of the averaged nLTT, where smaller is a higher resolution
+  #  plot_nltts = FALSE,
+  #  xlab: label on x axis
+  #  ylab: label on y axis
+  #  replot: if FALSE, a new plot is started, if TRUE, the lines is drawn over an assumed-to-be-present plot
+  #  ...
   assert(dt > 0.0)
   assert(dt < 1.0)
   
@@ -212,7 +212,6 @@ DemonstrateGetAverageNltt <- function()
   
   GetAverageNltt(
     phylogenies,
-    dt = 0.01,
     plot_nltts = TRUE,
     main = "Average LTT of 20 coalescent trees"
     
