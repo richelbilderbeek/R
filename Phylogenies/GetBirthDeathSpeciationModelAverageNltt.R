@@ -2,28 +2,36 @@
 library(DDD)
 
 source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
+source("~/GitHubs/R/Phylogenies/CanDropExtinct.R")
 
-GetBirthDeathSpecationModelAverageNltt <- function()
+GetBirthDeathSpeciationModelAverageNltt <- function()
 {
   # Create a full tree
   # from a Birth-Death model 
   # that stops after a certain amount of time
-  birth_rate <- 0.2
+  birth_rate <- 0.3
   death_rate <- 0.1
   crown_age <- 15
-  n_trees <- 1000
+  n_trees <- 100
   
   # Now random trees
   phylogenies <- NULL
   for (i in seq(1,n_trees)) {
-    phylogeny <- sim.bdtree(
+    phylogeny_complete <- sim.bdtree(
       b = birth_rate, 
       d = death_rate, 
       stop="time",
       t=crown_age,
       n = 1
     )
-    phylogenies <- c(phylogenies,list(phylogeny))
+
+    # Drop the fossils if possible
+    if (!CanDropExtinct(phylogeny_complete)) {
+     next
+    }
+    phylogeny_reconstructed <- drop.extinct(phylogeny_complete)
+    
+    phylogenies <- c(phylogenies,list(phylogeny_reconstructed))
   }
   
   GetAverageNltt(
@@ -41,4 +49,4 @@ GetBirthDeathSpecationModelAverageNltt <- function()
 }
 
 # Uncomment this to view the function demonstration
-GetBirthDeathSpecationModelAverageNltt()
+GetBirthDeathSpeciationModelAverageNltt()
