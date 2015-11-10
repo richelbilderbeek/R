@@ -2,8 +2,9 @@
 library(ape)
 library(geiger)
 library(nLTT)
+library(testit)
 
-GetPhylogenyNlttMatix <- function(phylogeny) {
+GetPhylogenyNlttMatrix <- function(phylogeny) {
   xy <- ltt.plot.coords(phylogeny, backward = TRUE, tol = 1e-06)
   xy[, 2] <- xy[, 2]/max(xy[, 2])
   xy[, 1] <- xy[, 1] + abs(min(xy[, 1]))
@@ -33,7 +34,58 @@ GetPhylogenyNlttMatix <- function(phylogeny) {
 # 0.9 0.5
 # 1.0 1.0
 #
+# I need to reverse the timepoints
 StretchMatrix <- function(m,dt) {
+  # If the matrix has multiple Ns for the same t, take the lowest 
+  m<-aggregate(
+    x=m,
+    by=list(factor(m[,1])),
+    FUN="min"
+  )
+
+  ns <- as.numeric(m[,3])
+  ts <- 1.0 - as.numeric(m[,2])
+  
+  
+  assert(ns[1] != ns[2])
+  assert(ts[1] != ts[2])
+  a <- approx(ts, ns, method = "constant", n = 1 / dt)
+  ?approx
+  new_ts <- 1.0 - a$x
+  new_ns <- a$y
+  assert(length(new_ts) == length(new_ns))
+  n <- matrix(
+    data = c(new_ts,new_ns),
+    nrow = length(new_ts),
+    ncol = 2,
+    byrow = FALSE,
+  )
+  return (n)
+}
+
+# Fill in the timepoints:
+#
+# t   N
+# 0.0 0.2
+# 0.4 0.5
+# 1.0 1.0
+#
+# becomes
+#
+# t   N
+# 0.0 0.2
+# 0.1 0.2
+# 0.2 0.2
+# 0.3 0.2
+# 0.4 0.5
+# 0.5 0.5
+# 0.6 0.5
+# 0.7 0.5
+# 0.8 0.5
+# 0.9 0.5
+# 1.0 1.0
+#
+StretchMatrixPrevious <- function(m,dt) {
   ns <- as.numeric(m[,2])
   ts <- as.numeric(m[,1])
   
@@ -41,7 +93,7 @@ StretchMatrix <- function(m,dt) {
   nreps <- ceiling(as.numeric( (ts[-1] - ts[-length(ts)]) / dt ))
   # Move the last repeat to a next category
   new_ts <- seq(0,1,dt)
-  new_ts <- c(new_ts,0.0)
+  new_ts <- c(0.0,new_ts)
 
   new_ns <- NULL
   new_ns <- c(new_ns,ns[1])
@@ -93,7 +145,7 @@ GetAverageNltt <- function(
 
   nltts <- NULL
   for (phylogeny in phylogenies) {
-    nltts <- c(nltts,list(GetPhylogenyNlttMatix(phylogeny)))
+    nltts <- c(nltts,list(GetPhylogenyNlttMatrix(phylogeny)))
   }
   nltts
   assert(length(nltts) == length(phylogenies))
@@ -154,12 +206,32 @@ GetAverageNltt <- function(
   )
 }
 
+DemonstrateGetPhylogenyNlttMatrix <- function() {
+  newick <- "((((XD:1,ZD:1):1,CE:2):1,(FE:2,EE:2):1):4,((AE:1,BE:1):1,(WD:1,YD:1):1):5);"
+  phylogeny <- read.tree(text = newick)
+  plot(phylogeny)
+  add.scale.bar()
+
+  # Create nLTT plot
+  nLTT.plot(phylogeny)
+  
+  # Demonstrate the GetPhylogenyNlttMatrix function
+  nltt <- GetPhylogenyNlttMatrix(phylogeny)
+  points(nltt, pch = 19,col="red")
+
+  # Demonstrate the StretchMatrix function
+  stretch_matrix <- StretchMatrix(nltt,dt = 0.05)
+  points(stretch_matrix, pch = 19,col="blue")
+
+  
+}
+
 DemonstrateGetAverageNltt <- function()
 {
   # Two different phylogenies
   newick1 <- "((((XD:1,ZD:1):1,CE:2):1,(FE:2,EE:2):1):4,((AE:1,BE:1):1,(WD:1,YD:1):1):5);"
   phylogeny1 <- read.tree(text = newick1)
-
+  
   newick2 <- "((A:0.3,B:0.3):0.7,(C:0.6,D:0.6):0.4);"
   phylogeny2 <- read.tree(text = newick2)
 
@@ -168,7 +240,7 @@ DemonstrateGetAverageNltt <- function()
   nLTT.plot(phylogeny1)
   nLTT.lines(phylogeny2,col = "gray")
   
-  # Combine these
+  # Combine these at different resolutions
   phylogenies <- list(phylogeny1,phylogeny2)
   for (dt in c(0.2,0.05,0.01)) {
     GetAverageNltt(phylogenies,dt = dt,main=paste("dt:",dt))
@@ -177,21 +249,22 @@ DemonstrateGetAverageNltt <- function()
   }
   
   
-  # Now random trees
-  phylogenies <- NULL
-  for (i in seq(1,20)) {
-    phylogeny <- rcoal(n = 10)
-    phylogenies <- c(phylogenies,list(phylogeny))
-  }
-  
-  GetAverageNltt(
-    phylogenies,
-    dt = 0.01,
-    plot_nltts = TRUE,
-    main = "Average LTT of 20 coalescent trees"
-    
-  )
+#   # Now random trees
+#   phylogenies <- NULL
+#   for (i in seq(1,20)) {
+#     phylogeny <- rcoal(n = 10)
+#     phylogenies <- c(phylogenies,list(phylogeny))
+#   }
+#   
+#   GetAverageNltt(
+#     phylogenies,
+#     dt = 0.01,
+#     plot_nltts = TRUE,
+#     main = "Average LTT of 20 coalescent trees"
+#     
+#   )
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateGetAverageNltt()
+DemonstrateGetPhylogenyNlttMatrix()
+DemonstrateGetAverageNltt()

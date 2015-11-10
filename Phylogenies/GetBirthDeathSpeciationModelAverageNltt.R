@@ -31,7 +31,7 @@ GetBirthDeathSpecationModelAverageNltt <- function()
     dt = 0.001,
     plot_nltts = TRUE,
     main = paste(
-      "Average LTT of ",n_trees,
+      "Average nLTT of ",n_trees,
       " BD trees (birth rate: ",birth_rate,
       ", death rate: ",death_rate,
       ", crown age: ",crown_age,")"
