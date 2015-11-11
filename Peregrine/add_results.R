@@ -2,7 +2,7 @@
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 ReadLibraries()
 
-ShowPosteriors <- function(filename)
+AddResults <- function(filename)
 {
   file <- ReadFile(filename)
   assert(mode(file) == "list")

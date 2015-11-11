@@ -5,10 +5,9 @@ CreatePlot <- function() {
   plot(sin,xlim=c(0,3.14 * 4),main="CreatePlot")
 }
 
-
 DemonstrateSavePlot <- function() {
   # DOES NOT WORK
-  print("Warning: cannot save plots! This code will fail")
+  print("Warning: cannot save plots! This code will fail. Use code of SaveImage instead")
   
   # From http://r.789695.n4.nabble.com/failure-to-replayPlot-a-recordedplot-object-saved-in-a-previous-session-td4676014.html
   # Reply by Paul Murrell-2 at Sep 25, 2013; 2:35am:
@@ -42,4 +41,4 @@ DemonstrateSavePlot <- function() {
 }
 
 # Uncomment this to view the function demonstration
-DemonstrateSavePlot()
+#DemonstrateSavePlot()
