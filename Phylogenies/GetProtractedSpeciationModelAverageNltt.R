@@ -107,7 +107,7 @@ DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
   #  
   #set.seed(314)
   speciation_initiation_rate_good_species <- 0.2
-  speciation_completion_rate <- 0.1
+  speciation_completion_rates <- c(0.01,0.1,1.0,10.0)
   speciation_initiation_rate_incipient_species <- 0.2
   extinction_rate_good_species <- 0.1
   extinction_rate_incipient_species <- 0.1
@@ -125,35 +125,22 @@ DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
     ", crown age: ",crown_age,")",
     sep=""
   )
-  
   # Compare species tree and gene tree
-  GetProtractedSpeciationModelAverageNltt(
-    speciation_initiation_rate_good_species = speciation_initiation_rate_good_species,
-    speciation_completion_rate = speciation_completion_rate,
-    speciation_initiation_rate_incipient_species = speciation_initiation_rate_incipient_species,
-    extinction_rate_good_species = extinction_rate_good_species,
-    extinction_rate_incipient_species = extinction_rate_incipient_species,
-    crown_age = crown_age,
-    n_trees = n_trees,
-    gene_tree_of_species_tree = "species_tree",
-    col = "red",
-    replot = FALSE,
-    plot_nltts = FALSE
-  )
-
-  for (i in seq(1,5)) {
+  for (i in seq(1,length(speciation_completion_rates))) {
+    replot <- FALSE
+    if (i > 1) { replot <- TRUE }
     GetProtractedSpeciationModelAverageNltt(
-      speciation_initiation_rate_good_species  = speciation_initiation_rate_good_species,
-      speciation_completion_rate = speciation_completion_rate,
-      speciation_initiation_rate_incipient_species  = speciation_initiation_rate_incipient_species,
+      speciation_initiation_rate_good_species = speciation_initiation_rate_good_species,
+      speciation_completion_rate = speciation_completion_rates[i],
+      speciation_initiation_rate_incipient_species = speciation_initiation_rate_incipient_species,
       extinction_rate_good_species = extinction_rate_good_species,
       extinction_rate_incipient_species = extinction_rate_incipient_species,
       crown_age = crown_age,
       n_trees = n_trees,
       gene_tree_of_species_tree = "species_tree",
-      col = "blue",
-      plot_nltts = FALSE,
-      replot = TRUE #Overlay this on a current plot
+      col = i,
+      replot = replot,
+      plot_nltts = FALSE
     )
   }
 }

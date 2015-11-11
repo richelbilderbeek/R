@@ -77,4 +77,4 @@ DemonstrateGetBirthDeathSpeciationModelAverageNltt <- function() {
 }
 
 # Uncomment this to view the function demonstration
-DemonstrateGetBirthDeathSpeciationModelAverageNltt()
+#DemonstrateGetBirthDeathSpeciationModelAverageNltt()

@@ -205,7 +205,7 @@ DemonstrateGetAverageNltt <- function()
   
   # Now random trees
   phylogenies <- NULL
-  for (i in seq(1,20)) {
+  for (i in seq(1,100)) {
     phylogeny <- rcoal(n = 10)
     phylogenies <- c(phylogenies,list(phylogeny))
   }
@@ -213,11 +213,11 @@ DemonstrateGetAverageNltt <- function()
   GetAverageNltt(
     phylogenies,
     plot_nltts = TRUE,
-    main = "Average LTT of 20 coalescent trees"
+    main = "Average LTT of 100 coalescent trees"
     
   )
 }
 
 # Uncomment this to view the function demonstration
-DemonstrateGetPhylogenyNlttMatrix()
-DemonstrateGetAverageNltt()
+#DemonstrateGetPhylogenyNlttMatrix()
+#DemonstrateGetAverageNltt()
