@@ -1,4 +1,4 @@
-#rm(list = ls())
+rm(list = ls())
 source("~/GitHubs/R/Peregrine/install_libraries.R")
 #InstallLibraries() #Run once if a package is missing
 
