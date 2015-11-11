@@ -1,3 +1,4 @@
+#rm(list = ls())
 source("~/GitHubs/R/Peregrine/install_libraries.R")
 #InstallLibraries() #Run once if a package is missing
 
@@ -40,5 +41,10 @@ for (parameter_filename in CollectFiles()) {
 print("#5: Show the posteriors")
 for (parameter_filename in CollectFiles()) { 
   ShowPosteriors(parameter_filename) 
+}
+
+print("#6: Creating posteriors from alignments")
+for (parameter_filename in CollectFiles()) {
+  AddResults(parameter_filename)  
 }
 

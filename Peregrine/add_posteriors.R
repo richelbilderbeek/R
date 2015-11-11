@@ -1,3 +1,4 @@
+#rm(list = ls())
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 
 # InstallLibraries()

@@ -1,3 +1,4 @@
+#rm(list = ls())
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 ReadLibraries()
 
@@ -11,6 +12,8 @@ ShowPosteriors <- function(filename)
     print(paste("file ",filename," does not contain posteriors",sep=""))
     return ()
   }
+
+  print(paste("Adding result to file ",filename,sep=""))
   
   assert(!is.null(file$parameters))
   assert(!is.null(file$phylogeny_with_outgroup))
@@ -31,7 +34,9 @@ ShowPosteriors <- function(filename)
   }
   GetAverageNltt(phylogenies,plot_nltts = TRUE, main = "Recovery (black) versus original (red)")
   nLTT.lines(phylogeny_with_outgroup, col = "red")
-
+  
+  results <- 
+?recordPlot
   for (posterior in posteriors) {
     # Compare nLTT distribution
     all_nltt_stats <- NULL
@@ -48,10 +53,19 @@ ShowPosteriors <- function(filename)
     par(mfrow=c(n_rows,n_cols))
     plot(phylogeny_with_outgroup,main="Truth")
     add.scale.bar()
-    plot(tail(phylogenies,n=1)[[1]],main="Inferred")
+    plot(last_tree,main="Inferred")
     add.scale.bar()
     par(mfrow=c(1,1))
   }
+
+  # Save the file
+  saveRDS(file,file=filename)
+
+  file_again <- readRDS(filename)
+  assert(all.equal(file_again$results,results))
+  assert(!is.null(file$results))
+  
+  print(paste("file ",filename," has gotten its results",sep=""))
 }
 
 
