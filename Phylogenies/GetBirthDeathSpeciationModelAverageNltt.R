@@ -46,7 +46,7 @@ DemonstrateGetBirthDeathSpeciationModelAverageNltt <- function() {
   birth_rate <- 0.3
   death_rate <- 0.2
   crown_age <- 15
-  n_trees <- 1000
+  n_trees <- 100
   
   # Compare species tree and gene tree
   GetBirthDeathSpeciationModelAverageNltt(
@@ -60,8 +60,8 @@ DemonstrateGetBirthDeathSpeciationModelAverageNltt <- function() {
       "Average nLTT of ",n_trees,
       " BD trees (birth rate: ",birth_rate, " (red) and ",birth_rate * 1.1," (blue)",
       ", death rate: ",death_rate,
-      ", crown age: ",crown_age,")"
-      ,sep=""
+      ", crown age: ",crown_age,")",
+      sep=""
     )
   )
   

@@ -219,5 +219,5 @@ DemonstrateGetAverageNltt <- function()
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateGetPhylogenyNlttMatrix()
-#DemonstrateGetAverageNltt()
+DemonstrateGetPhylogenyNlttMatrix()
+DemonstrateGetAverageNltt()
