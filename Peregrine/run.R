@@ -42,9 +42,3 @@ print("#5: Show the posteriors")
 for (parameter_filename in CollectFiles()) { 
   ShowPosteriors(parameter_filename) 
 }
-
-print("#6: Creating posteriors from alignments")
-for (parameter_filename in CollectFiles()) {
-  AddResults(parameter_filename)  
-}
-
