@@ -14,14 +14,14 @@ ShowPosteriors <- function(filename)
   }
   
   assert(!is.null(file$parameters))
-  assert(!is.null(file$phylogeny_with_outgroup))
   assert(!is.null(file$alignments))
   assert(!is.null(file$posteriors))
 
-  phylogeny_with_outgroup <- file$phylogeny_with_outgroup
+  assert(mode(file) == "list")
+  gene_tree <- file$pbd_output$tree
+  species_trees_with_outgroup <- file$species_trees_with_outgroup
   posteriors <- file$posteriors
   
-  assert(mode(file) == "list")
 
   assert(length(posteriors) > 0)
 
@@ -30,15 +30,17 @@ ShowPosteriors <- function(filename)
   for (posterior in posteriors) {
     phylogenies <- c(phylogenies,list(posterior[[1]]))
   }
-  GetAverageNltt(phylogenies,plot_nltts = TRUE, main = "Recovery (black) versus original (red)")
-  nLTT.lines(phylogeny_with_outgroup, col = "red")
+  
+  GetAverageNltt(species_trees_with_outgroup,plot_nltts = TRUE, main = "Recovery (black) versus original (red)")
+  nLTT.lines(gene_tree, col = "red")
+  
 
   for (posterior in posteriors) {
     # Compare nLTT distribution
     all_nltt_stats <- NULL
     for (tree in posterior)
     {
-      all_nltt_stats = c(all_nltt_stats,nLTTstat(phylogeny_with_outgroup,tree))
+      all_nltt_stats = c(all_nltt_stats,nLTTstat(gene_tree,tree))
     }
     
     hist(all_nltt_stats)
@@ -47,7 +49,7 @@ ShowPosteriors <- function(filename)
     n_cols <- 1
     n_rows <- 2
     par(mfrow=c(n_rows,n_cols))
-    plot(phylogeny_with_outgroup,main="Truth")
+    plot(gene_tree,main="Truth")
     add.scale.bar()
     plot(tail(phylogenies,n=1)[[1]],main="Inferred")
     add.scale.bar()

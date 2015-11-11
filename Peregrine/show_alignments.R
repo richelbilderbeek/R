@@ -17,7 +17,6 @@ ShowAlignments <- function(filename)
   }
   
   assert(!is.null(file$parameters))
-  assert(!is.null(file$phylogeny_with_outgroup))
   assert(!is.null(file$alignments))
 
   alignments <- file$alignments

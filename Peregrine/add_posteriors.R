@@ -20,7 +20,6 @@ AddPosteriors <- function(
   print(paste("Adding posterior to file ",filename,sep=""))
   
   assert(!is.null(file$parameters))
-  assert(!is.null(file$phylogeny_with_outgroup))
   assert(!is.null(file$alignments))
   assert(is.null(file$posterior))
 

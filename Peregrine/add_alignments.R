@@ -15,7 +15,7 @@ AddAlignments <- function(filename)
   }
   
   assert(!is.null(file$parameters))
-  assert(!is.null(file$phylogeny_with_outgroup))
+  assert(!is.null(file$species_trees_with_outgroup))
   assert(is.null(file$alignments))
   
 
@@ -28,21 +28,23 @@ AddAlignments <- function(filename)
 
   set.seed(rng_seed)
 
-  # Create simulated DNA from tree
+  # Create simulated DNA from species trees
   alignments <- NULL
   for (i in seq(1,n_alignments)) {
-    alignment <- ConvertPhylogenyToAlignment(
-      phylogeny = file$phylogeny_with_outgroup,
-      sequence_length = sequence_length, 
-      mutation_rate = mutation_rate
-    )
-    assert(alignment == alignment)
-    assert(class(alignment)=="DNAbin")
-    image(alignment)
-    alignments <- c(alignments,list(alignment))
+    for (phylogeny in file$species_trees_with_outgroup) {
+      alignment <- ConvertPhylogenyToAlignment(
+        phylogeny = phylogeny,
+        sequence_length = sequence_length, 
+        mutation_rate = mutation_rate
+      )
+      assert(alignment == alignment)
+      assert(class(alignment)=="DNAbin")
+      image(alignment)
+      alignments <- c(alignments,list(alignment))
+    }
   }
   
-  assert(length(alignments) == n_alignments)
+  assert(length(alignments) == n_alignments * length(file$species_trees_with_outgroup))
   assert(class(alignments[[1]])=="DNAbin")
   
   # Add it to the file
@@ -63,5 +65,5 @@ AddAlignments <- function(filename)
   assert(class(file_again$alignments[[1]])=="DNAbin")
 
   assert(!is.null(file$alignments))
-  print(paste("file ",filename," has gotten its ", n_alignments, " alignments",sep=""))
+  print(paste("file ",filename," has gotten its ", n_alignments, " alignments (per species tree)",sep=""))
 }
