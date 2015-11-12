@@ -120,15 +120,15 @@ CreateParametersFiles <- function () {
   for (rng_seed in c(42)) {
     for (species_initiation_rate_good_species in c(0.5)) { # the speciation-initiation rate of good species
       species_initiation_rate_incipient_species <- species_initiation_rate_good_species # the speciation-initiation rate of incipient species
-      for (speciation_completion_rate in c(0.01,0.1,1,10,100,1000,10000)) { # the speciation-completion rate
-        for (extinction_rate_good_species in c(0.1)) {
+      for (speciation_completion_rate in c(0.1, 0.3, 1.0)) { # the speciation-completion rate
+        for (extinction_rate_good_species in c(0, 0.1, 0.2)) {
           extinction_rate_incipient_species <- extinction_rate_good_species
-          for (age in c(5)) {
+          for (age in c(15)) {
             for (n_species_trees_samples in c(2)) {
-              for (mutation_rate in c(0.01)) {
+              for (mutation_rate in c(0.01, 0.001)) {
                 for (n_alignments in c(2)) {
-                  for (sequence_length in c(100)) {
-                    mcmc_chainlength <- 10000
+                  for (sequence_length in c(1000,10000)) {
+                    mcmc_chainlength <- 1000000
                     filename <- paste(file_index,".RDa",sep="")
                     SaveParametersToFile(
                       rng_seed = rng_seed,
