@@ -17,7 +17,7 @@ ReadLibraries()
 
 print("#1: Create parameter files")
 TestCreateParametersFiles()
-CreateParametersFiles()
+#CreateParametersFiles()
 
 print("#2: Create the true phylogeny from each parameter file")
 for (filename in CollectFiles()) {
@@ -34,17 +34,17 @@ for (filename in CollectFiles()) {
   AddAlignments(filename)  
 }
 
-print("#5: Show the alignments")
-for (filename in CollectFiles()) { 
-  ShowAlignments(filename) 
-}
+#print("#5: Show the alignments")
+#for (filename in CollectFiles()) { 
+#  ShowAlignments(filename) 
+#}
 
 print("#6: Creating posteriors from alignments")
 for (parameter_filename in CollectFiles()) {
   AddPosteriors(parameter_filename)  
 }
 
-print("#7: Show the posteriors")
-for (parameter_filename in CollectFiles()) { 
-  ShowPosteriors(parameter_filename) 
-}
+#print("#7: Show the posteriors")
+#for (parameter_filename in CollectFiles()) { 
+#  ShowPosteriors(parameter_filename) 
+#}
