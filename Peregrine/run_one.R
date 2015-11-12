@@ -7,7 +7,7 @@ if (length(commandArgs(TRUE)) != 1) {
 
 filename <- commandArgs(TRUE)[1]
 
-if (file.exists(filename)) {
+if (!file.exists(filename)) {
   print("Please supply the filename of an existing file" )
   stop()
 }
