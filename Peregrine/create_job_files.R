@@ -5,7 +5,7 @@ library(testit)
 
 CreateJobFiles <- function () {
   for (i in seq(2,36)) {
-    my_file <- file(paste("job_",i,".sh"))
+    my_file <- file(paste("job_",i,".sh",sep=""))
     writeLines(
       c(
         "#!/bin/bash",
