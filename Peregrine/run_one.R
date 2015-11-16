@@ -12,6 +12,7 @@ if (!file.exists(filename)) {
   stop()
 }
 
+#filename <- "0.RDa"
 
 source("~/GitHubs/R/Peregrine/install_libraries.R")
 #InstallLibraries() #Run once if a package is missing
@@ -29,36 +30,15 @@ source("~/GitHubs/R/Peregrine/collect_files.R")
 
 ReadLibraries()
 
-print("#1: Create parameter files")
-TestCreateParametersFiles()
-#CreateParametersFiles()
+print("#1: Create the true phylogeny")
 
-print("#2: Create the true phylogeny from each parameter file")
-for (filename in CollectFiles()) {
-  AddPbdOutput(filename)  
-}
+AddPbdOutput(filename)  
 
-print("#3: Sample a species tree, adding an outgroup")
-for (filename in CollectFiles()) {
-  AddSpeciesTreesWithOutgroup(filename)  
-}
+print("#2: Sample a species tree, adding an outgroup")
+AddSpeciesTreesWithOutgroup(filename)  
 
-print("#4: Create the simulated alignments from each true phylogeny")
-for (filename in CollectFiles()) {
-  AddAlignments(filename)  
-}
+print("#3: Create the simulated alignments from each true phylogeny")
+AddAlignments(filename)  
 
-#print("#5: Show the alignments")
-#for (filename in CollectFiles()) { 
-#  ShowAlignments(filename) 
-#}
-
-print("#6: Creating posteriors from alignments")
-for (parameter_filename in CollectFiles()) {
-  AddPosteriors(parameter_filename)  
-}
-
-#print("#7: Show the posteriors")
-#for (parameter_filename in CollectFiles()) { 
-#  ShowPosteriors(parameter_filename) 
-#}
+print("#4: Creating posteriors from alignments")
+AddPosteriors(filenamefilename)  

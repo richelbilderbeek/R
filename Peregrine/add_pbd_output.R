@@ -15,6 +15,7 @@ AddPbdOutput <- function(
     print(paste("file ",filename," already has a pbd_output",sep=""))
     return ()
   }
+  print(paste("Adding pbd_output to file ",filename,sep=""))
   
   assert(!is.null(file$parameters))
   assert(is.null(file$pbd_output))
@@ -30,6 +31,7 @@ AddPbdOutput <- function(
   age <- as.numeric(parameters$age[2]) 
   
   # Create the tree without outgroup
+  print(paste(" * Setting seed ",rng_seed,sep=""))
   set.seed(rng_seed)
 
   #do_plot <- FALSE
@@ -44,13 +46,11 @@ AddPbdOutput <- function(
   assert(is.rooted(phylogeny))
   assert(is.ultrametric(phylogeny))
   if (do_plot) {
-    plot(phylogeny,main="True tree")
+    plot(phylogeny,main="Gene tree")
     add.scale.bar()
   }
   
-  file <- c(file,list(pbd_output))
-  names(file)[ length(file) ] <- "pbd_output"
-  assert(file$parameters == parameters)
+  file$pbd_output <- pbd_output
   assert(all.equal(file$pbd_output,pbd_output))
 
   # Append the pbd_output to file
@@ -59,7 +59,6 @@ AddPbdOutput <- function(
   file_again <- readRDS(filename)
   assert(file_again$parameters == parameters)
   assert(all.equal(file_again$pbd_output,pbd_output))
-
   assert(!is.null(file$pbd_output))
-  print(paste("file ",filename," has gotten has its pbd_output",sep=""))
+  print(paste("Added pbd_output to file ",filename,sep=""))
 }

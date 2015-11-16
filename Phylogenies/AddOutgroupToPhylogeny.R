@@ -1,5 +1,5 @@
 library(ape)
-library(PBD);
+library(PBD)
 
 # Adds an outgroup to phylogeny
 # From www.github.com/richelbilderbeek/R
@@ -54,4 +54,4 @@ DemonstrateAddOutgroupToPhylogeny <- function()
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateAddOutgroupToPhylogeny()
+DemonstrateAddOutgroupToPhylogeny()

@@ -16,7 +16,7 @@ source("~/GitHubs/R/Peregrine/collect_files.R")
 ReadLibraries()
 
 print("#1: Create parameter files")
-TestCreateParametersFiles()
+#TestCreateParametersFiles()
 CreateParametersFiles()
 
 print("#2: Create the true phylogeny from each parameter file")

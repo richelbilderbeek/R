@@ -21,6 +21,7 @@ SaveParametersToFile <- function(
   n_alignments,
   sequence_length,
   mcmc_chainlength,
+  n_beast_runs,
   filename
 ) {
 
@@ -33,15 +34,29 @@ SaveParametersToFile <- function(
   my_table[, "extinction_rate_incipient_species"] <- c("Extinction rate of incipient species",extinction_rate_incipient_species)
   my_table[, "age"] <- c("Phylogenetic tree crown age",age)
   my_table[, "n_species_trees_samples"] <- c("Number of species trees sampled from a gene tree",n_species_trees_samples)
-  
   my_table[, "mutation_rate"] <- c("DNA mutation rate",mutation_rate)
-  my_table[, "n_alignments"] <- c("Number of DNA alignments",n_alignments)
+  my_table[, "n_alignments"] <- c("Number of DNA alignments per species tree",n_alignments)
   my_table[, "sequence_length"] <- c("DNA sequence length",sequence_length)
   my_table[, "mcmc_chainlength"] <- c("MCMC chain length",mcmc_chainlength)
+  my_table[, "n_beast_runs"] <- c("Number of BEAST2 runs per alignment",n_beast_runs)
+  my_table[, "version"] <- c("Parameter file version","0.1")
   
-  my_list <- list(my_table)
-  names(my_list) <- c("parameters")
+  # Create the slots for the results
+  my_list <- list(my_table,NULL,NULL,NULL,NULL,NULL)
+  names(my_list) <- c(
+    "parameters",
+    "pbd_output",
+    "species_trees_with_output",
+    "alignments",
+    "posteriors"
+  )
   assert(my_list$parameters == my_table)
+  
+  assert(is.null(my_list$pbd_output))
+  assert(is.null(my_list$pbd_output))
+  assert(is.null(my_list$pbd_output))
+  assert(is.null(my_list$pbd_output))
+  assert(is.null(my_list$pbd_output))
   
   
   saveRDS(my_list,file=filename)
@@ -78,6 +93,7 @@ TestCreateParametersFiles <- function() {
   n_alignments <- 10
   sequence_length <- 100
   mcmc_chainlength <- 1000000
+  n_beast_runs <- 2
   filename <- "1_tmp.txt"
   SaveParametersToFile(
     rng_seed = rng_seed,
@@ -92,6 +108,7 @@ TestCreateParametersFiles <- function() {
     n_alignments = n_alignments,
     sequence_length = sequence_length,
     mcmc_chainlength = mcmc_chainlength,
+    n_beast_runs = n_beast_runs,
     filename = filename
   )
   
@@ -110,6 +127,7 @@ TestCreateParametersFiles <- function() {
   assert(n_alignments == as.numeric(parametersfile$parameters$n_alignments[2]))
   assert(sequence_length == as.numeric(parametersfile$parameters$sequence_length[2]))
   assert(mcmc_chainlength == as.numeric(parametersfile$parameters$mcmc_chainlength[2]))
+  assert(n_beast_runs == as.numeric(parametersfile$parameters$n_beast_runs[2]))
   file.remove(filename) # Get rid of that test file
 }
 
@@ -129,6 +147,7 @@ CreateParametersFiles <- function () {
                 for (n_alignments in c(2)) {
                   for (sequence_length in c(1000,10000)) {
                     mcmc_chainlength <- 10000
+                    n_beast_runs <- 2
                     filename <- paste(file_index,".RDa",sep="")
                     SaveParametersToFile(
                       rng_seed = rng_seed,
@@ -143,6 +162,7 @@ CreateParametersFiles <- function () {
                       n_alignments = n_alignments,
                       sequence_length = sequence_length,
                       mcmc_chainlength = mcmc_chainlength,
+                      n_beast_runs = n_beast_runs,
                       filename = filename
                     )
                     print(paste("Created file ",filename,sep=""))
@@ -159,6 +179,6 @@ CreateParametersFiles <- function () {
 }    
     
 
-#TestCreateParametersFiles()
+TestCreateParametersFiles()
 
-#CreateParametersFiles()
+CreateParametersFiles()

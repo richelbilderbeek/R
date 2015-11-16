@@ -13,7 +13,7 @@ AddPosteriors <- function(
   assert(mode(file) == "list")
   
   # If it already contains 'posterior' this has already been done
-  if(!is.null(file$posterior)) {
+  if(length(file$alignments) == length(file$posterior)) {
     print(paste("file ",filename," already has its posteriors",sep=""))
     return ()
   }
@@ -30,9 +30,14 @@ AddPosteriors <- function(
   assert(length(alignments) > 0)
   print(paste("AddPosteriors: rng_seed: ",rng_seed,sep=""))
   print(paste("AddPosteriors: mcmc_chainlength: ",mcmc_chainlength,sep=""))
+  
+  n_alignments <- length(alignments)
+  n_posteriors <- n_alignments
+  for (i in seq(1:n_posteriors)) {
+    assert(i >= 1)
+    assert(i < length(alignments))
 
-  posteriors <- NULL
-  for (alignment in alignments) {
+    alignment <- alignments[i]
     assert(class(alignment) == "DNAbin")
     posterior <- ConvertAlignmentToBeastPosterior(
       alignment = alignment,
@@ -41,15 +46,16 @@ AddPosteriors <- function(
     )
     assert(!is.null(posterior))
     assert(all.equal(posterior,posterior))
-    posteriors <- c(posteriors,list(posterior))
+    posteriors[i] <- posterior
+    
+    if (i == 1) {
+      # Add it to the file
+      file <- c(file,list(posteriors))
+      names(file)[ length(file) ] <- "posteriors"
+      names(file)
+    }
   }
-  assert(all.equal(posteriors,posteriors))
-  assert(length(posteriors) == length(alignments))
   
-  # Add it to the file
-  file <- c(file,list(posteriors))
-  names(file)[ length(file) ] <- "posteriors"
-  names(file)
   assert(file$parameters == parameters)
   assert(all.equal(file$posteriors,posteriors))
 
