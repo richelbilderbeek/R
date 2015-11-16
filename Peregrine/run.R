@@ -17,7 +17,7 @@ ReadLibraries()
 
 print("#1: Create parameter files")
 TestCreateParametersFiles()
-#CreateParametersFiles()
+CreateParametersFiles()
 
 print("#2: Create the true phylogeny from each parameter file")
 for (filename in CollectFiles()) {
