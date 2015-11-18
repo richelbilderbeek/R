@@ -1,4 +1,4 @@
-#rm(list = ls())
+rm(list = ls())
 library(PBD)
 
 source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
@@ -57,15 +57,15 @@ DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
   extinction_rate_good_species <- 0.1
   extinction_rate_incipient_species <- 0.1
   crown_age <- 15
-  n_trees <- 10
+  n_trees <- 1000
   
   # Compare species tree and gene tree
   GetProtractedSpeciationModelAverageNltt(
-    b_1  = speciation_initiation_rate_good_species,
-    la_1 = speciation_completion_rate,
-    b_2  = speciation_initiation_rate_incipient_species,
-    mu_1 = extinction_rate_good_species,
-    mu_2 = extinction_rate_incipient_species,
+    speciation_initiation_rate_good_species  = speciation_initiation_rate_good_species,
+    speciation_completion_rate = speciation_completion_rate,
+    speciation_initiation_rate_incipient_species  = speciation_initiation_rate_incipient_species,
+    extinction_rate_good_species = extinction_rate_good_species,
+    extinction_rate_incipient_species = extinction_rate_incipient_species,
     crown_age = crown_age,
     n_trees = n_trees,
     gene_tree_of_species_tree = "species_tree",
@@ -146,5 +146,5 @@ DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateGetProtractedSpeciationModelAverageNltt1()
+DemonstrateGetProtractedSpeciationModelAverageNltt1()
 DemonstrateGetProtractedSpeciationModelAverageNltt2()
