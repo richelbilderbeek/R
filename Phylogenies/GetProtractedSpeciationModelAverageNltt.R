@@ -1,4 +1,4 @@
-rm(list = ls())
+#rm(list = ls())
 library(PBD)
 
 source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
@@ -19,7 +19,7 @@ GetProtractedSpeciationModelAverageNltt <- function(
   
   phylogenies <- NULL
   for (i in seq(1,n_trees)) {
-    trees_full <-pbd_sim(
+    trees_full <- pbd_sim(
       c(
         speciation_initiation_rate_good_species,
         speciation_completion_rates,
@@ -28,14 +28,14 @@ GetProtractedSpeciationModelAverageNltt <- function(
         extinction_rate_incipient_species
       ),
       crown_age,
-      soc=2,
-      plot=0
+      soc = 2,
+      plot = 0
     )
 
     if (gene_tree_of_species_tree == "gene_tree") {
-      phylogeny <- trees_full$tree #Will be similar to a BD tree
+      phylogeny <- trees_full$tree  #Will be similar to a BD tree
     } else {
-      phylogeny <- trees_full$stree #Species tree
+      phylogeny <- trees_full$stree  #Species tree
     }
     phylogenies <- c(phylogenies,list(phylogeny))
   }
@@ -82,15 +82,15 @@ DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
       ", mu_2: ",extinction_rate_incipient_species,
       ", crown age: ",crown_age,")"
       ,sep=""
-    ),
+    )
   )
   
   GetProtractedSpeciationModelAverageNltt(
-    b_1  = speciation_initiation_rate_good_species,
-    la_1 = speciation_completion_rate,
-    b_2  = speciation_initiation_rate_incipient_species,
-    mu_1 = extinction_rate_good_species,
-    mu_2 = extinction_rate_incipient_species,
+    speciation_initiation_rate_good_species = speciation_initiation_rate_good_species,
+    speciation_completion_rate = speciation_completion_rate,
+    speciation_initiation_rate_incipient_species= speciation_initiation_rate_incipient_species,
+    extinction_rate_good_species = extinction_rate_good_species,
+    extinction_rate_incipient_species = extinction_rate_incipient_species,
     crown_age = crown_age,
     n_trees = n_trees,
     gene_tree_of_species_tree = "gene_tree",
@@ -116,10 +116,10 @@ DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
   
   title <- paste(
     "Average nLTT of ",n_trees,
-    " PBD species trees (red) and gene trees (blue).\n",
+    " PBD species trees with different speciation completion_rates\n",
     "  speciation_initiation_rate_good_species: ",speciation_initiation_rate_good_species,
     ", speciation_initiation_rate_incipient_species: ",speciation_initiation_rate_incipient_species,
-    ", speciation_initiation_rate_incipient_species: variable",
+    ", speciation_completion_rates: variable",
     ", extinction_rate_good_species: ",extinction_rate_good_species,
     ", extinction_rate_incipient_species: ",extinction_rate_incipient_species,
     ", crown age: ",crown_age,")",
@@ -147,4 +147,4 @@ DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
 
 # Uncomment this to view the function demonstration
 DemonstrateGetProtractedSpeciationModelAverageNltt1()
-DemonstrateGetProtractedSpeciationModelAverageNltt2()
+#DemonstrateGetProtractedSpeciationModelAverageNltt2()

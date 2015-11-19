@@ -1,20 +1,27 @@
-library(ape);
-library(geiger);
-library(phangorn);
+library(ape)
+library(geiger)
+library(phangorn)
 
 source("~/GitHubs/R/Phylogenies/CreateRandomPhylogeny.R")
 
 # Create a random alignment
-CreateRandomAlignment <- function(n_taxa,sequence_length) 
+CreateRandomAlignment <- function(
+  n_taxa,
+  sequence_length,
+  rate = 1) 
 {
   phylogeny <- CreateRandomPhylogeny(n_taxa)
-  alignments_phydat <- simSeq(phylogeny,l=sequence_length)
+  alignments_phydat <- simSeq(phylogeny,l=sequence_length,rate=rate)
   alignments_dnabin <- as.DNAbin(alignments_phydat)
 }
 
 DemonstrateCreateRandomAlignment <- function() {
   # Create the alignment
-  alignment <- CreateRandomAlignment(n_taxa = 5, sequence_length = 10)
+  alignment <- CreateRandomAlignment(
+    n_taxa = 5, 
+    sequence_length = 20,
+    rate = 0.1
+  )
   
   # Prepare plotting two things
   n_cols <- 1
