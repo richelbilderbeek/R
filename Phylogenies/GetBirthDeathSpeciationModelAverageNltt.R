@@ -42,7 +42,34 @@ GetBirthDeathSpeciationModelAverageNltt <- function(
   )
 }
 
-DemonstrateGetBirthDeathSpeciationModelAverageNltt <- function() {
+DemonstrateGetBirthDeathSpeciationModelAverageNltt1 <- function() {
+  birth_rate <- 0.3
+  death_rate <- 0.2
+  crown_age <- 15
+  n_trees <- 1000
+  
+  # Compare species tree and gene tree
+  GetBirthDeathSpeciationModelAverageNltt(
+    birth_rate = birth_rate,
+    death_rate = death_rate,
+    crown_age = crown_age,
+    n_trees = n_trees,
+    col = "red",
+    lwd = 4,
+    cex.lab = 1.5,
+    cex.axis = 1.5,
+    plot_nltts = FALSE,
+    main = paste(
+      "Average nLTT of ",n_trees,
+      " BD trees (birth rate: ",birth_rate,
+      ", death rate: ",death_rate,
+      ", crown age: ",crown_age,")",
+      sep=""
+    )
+  )
+}
+
+DemonstrateGetBirthDeathSpeciationModelAverageNltt2 <- function() {
   birth_rate <- 0.3
   death_rate <- 0.2
   crown_age <- 15
@@ -77,4 +104,5 @@ DemonstrateGetBirthDeathSpeciationModelAverageNltt <- function() {
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateGetBirthDeathSpeciationModelAverageNltt()
+DemonstrateGetBirthDeathSpeciationModelAverageNltt1()
+#DemonstrateGetBirthDeathSpeciationModelAverageNltt2()

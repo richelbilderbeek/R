@@ -58,7 +58,7 @@ DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
   extinction_rate_incipient_species <- 0.1
   crown_age <- 15
   n_trees <- 1000
-  
+    
   # Compare species tree and gene tree
   GetProtractedSpeciationModelAverageNltt(
     speciation_initiation_rate_good_species  = speciation_initiation_rate_good_species,
@@ -70,6 +70,9 @@ DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
     n_trees = n_trees,
     gene_tree_of_species_tree = "species_tree",
     col = "red",
+    lwd = 4,
+    cex.lab = 1.5,
+    cex.axis = 1.5,
     plot_nltts = FALSE,
     dt = 0.001,
     main = paste(
@@ -95,6 +98,9 @@ DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
     n_trees = n_trees,
     gene_tree_of_species_tree = "gene_tree",
     col = "blue",
+    lwd = 4,
+    cex.lab = 2,
+    cex.axis = 2,
     plot_nltts = FALSE,
     dt = 0.001,
     replot = TRUE #Overlay this on a current plot
