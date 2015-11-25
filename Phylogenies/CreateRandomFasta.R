@@ -1,28 +1,37 @@
-rm(list=ls());
-library(ape);
-library(geiger);
-library(phangorn);
+# Create a random FASTA file and a demonstration of this
 
-# One of the many ways to create a random phylogeny
-CreateRandomPhylogeny <- function(n_taxa) {
-  phylogeny <- rcoal(n_taxa)
-}
+#rm(list=ls())
+library(ape)
+library(geiger)
+library(phangorn)
 
-# Create a random alignment
-CreateRandomAlignments <- function(n_taxa,sequence_length) {
-  phylogeny <- CreateRandomPhylogeny(n_taxa)
-  alignments_phydat <- simSeq(phylogeny,l=sequence_length)
-  alignments_dnabin <- as.DNAbin(alignments_phydat)
-}
+source("~/GitHubs/R/Phylogenies/CreateRandomAlignment.R")
 
 # Create a random FASTA file text
-CreateRandomFasta <- function(n_taxa,sequence_length,filename) {
-  alignments <- CreateRandomAlignments(n_taxa,sequence_length)
+create_random_fasta <- function(n_taxa,sequence_length,filename) {
+  alignments <- create_random_alignment(n_taxa,sequence_length)
   write.phyDat(alignments, file=filename, format="fasta")
 }
 
-n_taxa <- 5
-sequence_length <- 10
-filename <- "CreateRandomFasta.fasta"
-CreateRandomFasta(n_taxa,sequence_length,filename)
-file.show(filename)
+CreateRandomFasta <- function(n_taxa,sequence_length,filename) {
+  print("Warning: use of obsolete function 'CreateRandomFasta', use 'create_random_fasta' instead")
+  return (
+    create_random_fasta(
+      n_taxa = n_taxa,
+      sequence_length=sequence_length, 
+      filename=filename
+    )
+  )
+}
+
+
+demonstrate_create_random_fasta <- function() {
+  n_taxa <- 5
+  sequence_length <- 10
+  filename <- "CreateRandomFasta.fasta"
+  create_random_fasta(n_taxa,sequence_length,filename)
+  file.show(filename)
+}
+
+
+#demonstrate_create_random_fasta()
