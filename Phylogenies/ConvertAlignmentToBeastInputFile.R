@@ -1,8 +1,12 @@
+# Convert an alignment and parameters to a BEAST XML input file
+
 library(ape)
 library(geiger)
+library(PBD)
 library(phangorn)
 library(testit)
 source("~/GitHubs/R/FileIo/FilesAreEqual.R")
+source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
 source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignment.R")
 source("~/GitHubs/R/Phylogenies/CreateRandomAlignment.R")
 source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
@@ -165,4 +169,4 @@ DemonstrateConvertAlignmentToBeastInputFile <- function() {
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateConvertAlignmentToBeastInputFile()
+DemonstrateConvertAlignmentToBeastInputFile()
