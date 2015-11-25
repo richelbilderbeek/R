@@ -1,16 +1,23 @@
-SaveText <- function(filename, text) {
+# Function to save text to a file and a demonstration of it
+
+save_text <- function(filename, text) {
   my_file <- file(filename)
   writeLines(text, my_file)
   close(my_file)
 }
 
-DemonstrateSaveText <- function() {
+SaveText <- function(filename, text) {
+  print("Warning: use of obsolete function 'SaveText', use 'save_text' instead")
+  save_text(filename = filename, text = text) 
+}
+  
+demonstrate_save_text <- function() {
 
   filename <- "tmp.txt"
   text <- c("Hello","world")
-  SaveText(
-    filename <- filename,
-    text <- text
+  save_text(
+    filename = filename,
+    text = text
   )
   assert(file.exists(filename))
   file.show(filename)
@@ -20,4 +27,4 @@ DemonstrateSaveText <- function() {
   assert(!file.exists(filename))
 }
 
-#DemonstrateSaveText()
+#demonstrate_save_text()
