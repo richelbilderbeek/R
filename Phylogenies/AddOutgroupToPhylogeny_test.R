@@ -7,6 +7,8 @@ demonstrate_add_outgroup_to_phylogeny <- function()
   n_taxa <- length(phylogeny$tip.label)
   plot(phylogeny)
 
+  assert(class(phylogeny)=="phylo")
+  
   new_phylogeny_1 <- add_outgroup_to_phylogeny(phylogeny,stem_length = 0.0)
   plot(new_phylogeny_1)
 

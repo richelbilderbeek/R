@@ -1,6 +1,6 @@
 library(ape)
 
-GetPhylogenyCrownAge <- function(
+get_phylogeny_crown_age <- function(
   phylogeny,
   stem_length,
   outgroup_name="Outgroup"
@@ -10,15 +10,17 @@ GetPhylogenyCrownAge <- function(
   return (crown_age)
 }
 
-
-DemonstrateGetPhylogenyCrownAge <- function()
-{
-  # Using the function
-  phylogeny <- read.tree(text = "(t2:2.286187509,(t5:0.3145724408,((t1:0.08394513325,t4:0.08394513325):0.1558558349,t3:0.2398009682):0.07477147256):1.971615069);")
-  crown_age <- GetPhylogenyCrownAge(phylogeny)
-  plot(phylogeny,main=paste("Phylogeny of crown age ",crown_age,sep=""))
-  add.scale.bar(x=0,y=5)
+GetPhylogenyCrownAge <- function(
+  phylogeny,
+  stem_length,
+  outgroup_name="Outgroup"
+) {
+  print("Warning: use of obsolete function name 'GetPhylogenyCrownAge', use 'get_phylogeny_crown_age' instead")
+  return (
+    get_phylogeny_crown_age(
+      phylogeny = phylogeny,
+      stem_length = stem_length,
+      outgroup_name = outgroup_name
+    )
+  )
 }
-
-# Uncomment this to view the function demonstration
-#DemonstrateGetPhylogenyCrownAge()

@@ -7,8 +7,8 @@ source("~/GitHubs/BeastScripter/BeastScripter.R")
 convert_alignment_to_beast_input_file_using_r_script <- function(
   alignment_dnabin,
   mcmc_chainlength,
-  rng_seed = 42,
   beast_filename,
+  rng_seed = 42,
   temp_fasta_filename = tempfile(pattern = "convert_alignment_to_beast_input_file_using_r_script", fileext = ".fasta")
 ) {
   # Reads an alignment (a FASTA file) and with some

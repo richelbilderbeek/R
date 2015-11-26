@@ -1,9 +1,10 @@
 source("~/GitHubs/R/Peregrine/read_libraries.R")
+source("~/GitHubs/R/Peregrine/read_file.R")
 
 # InstallLibraries()
 ReadLibraries()
 
-AddPbdOutput <- function(
+add_pbd_output <- function(
   filename,
   do_plot = FALSE
 ) {
@@ -11,14 +12,24 @@ AddPbdOutput <- function(
   assert(mode(file) == "list")
   
   # If it already contains 'pbd_output' this has already been done
-  if(!is.null(file$pbd_output)) {
+  assert(length(file$pbd_output) == 1)
+  if(!is.na(file$pbd_output[1])) {
     print(paste("file ",filename," already has a pbd_output",sep=""))
     return ()
   }
   print(paste("Adding pbd_output to file ",filename,sep=""))
+
+  assert(!is.null(file$parameters))
+  assert(!is.null(file$pbd_output))
+  assert(!is.null(file$species_trees_with_output))
+  assert(!is.null(file$alignments))
+  assert(!is.null(file$posteriors))
   
   assert(!is.null(file$parameters))
-  assert(is.null(file$pbd_output))
+  assert(is.na(file$pbd_output[1])) # This changes here
+  assert(is.na(file$species_trees_with_output[1]))
+  assert(is.na(file$alignments[1]))
+  assert(is.na(file$posteriors[1]))
 
   # Read parameters
   parameters <- file$parameters
@@ -59,6 +70,18 @@ AddPbdOutput <- function(
   file_again <- readRDS(filename)
   assert(file_again$parameters == parameters)
   assert(all.equal(file_again$pbd_output,pbd_output))
+
+  assert(!is.null(file$parameters))
   assert(!is.null(file$pbd_output))
+  assert(!is.null(file$species_trees_with_output))
+  assert(!is.null(file$alignments))
+  assert(!is.null(file$posteriors))
+  
+  assert(!is.null(file$parameters))
+  assert(!is.na(file$pbd_output[1])) # This changesd here
+  assert(is.na(file$species_trees_with_output[1]))
+  assert(is.na(file$alignments[1]))
+  assert(is.na(file$posteriors[1]))
+  
   print(paste("Added pbd_output to file ",filename,sep=""))
 }

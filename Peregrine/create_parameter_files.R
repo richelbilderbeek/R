@@ -40,9 +40,17 @@ SaveParametersToFile <- function(
   my_table[, "mcmc_chainlength"] <- c("MCMC chain length",mcmc_chainlength)
   my_table[, "n_beast_runs"] <- c("Number of BEAST2 runs per alignment",n_beast_runs)
   my_table[, "version"] <- c("Parameter file version","0.1")
-  
   # Create the slots for the results
-  my_list <- list(my_table,NULL,NULL,NULL,NULL,NULL)
+  #rep(x = NULL, times = 10) HIERO
+  
+  
+  my_list <- list(
+    my_table, #parameters
+    NA, # pbd_output
+    rep(x = NA, times = n_species_trees_samples), # species_trees_with_outgroup
+    rep(x = NA, times = n_species_trees_samples * n_alignments), # alignments
+    rep(x = NA, times = n_species_trees_samples * n_alignments * n_beast_runs) # posteriors
+  )
   names(my_list) <- c(
     "parameters",
     "pbd_output",
@@ -52,13 +60,23 @@ SaveParametersToFile <- function(
   )
   assert(my_list$parameters == my_table)
   
-  assert(is.null(my_list$pbd_output))
-  assert(is.null(my_list$pbd_output))
-  assert(is.null(my_list$pbd_output))
-  assert(is.null(my_list$pbd_output))
-  assert(is.null(my_list$pbd_output))
-  
-  
+  assert(!is.null(my_list$parameters))
+  assert(!is.null(my_list$pbd_output))
+  assert(!is.null(my_list$species_trees_with_output))
+  assert(!is.null(my_list$alignments))
+  assert(!is.null(my_list$posteriors))
+
+  assert(!is.null(my_list$parameters))
+  assert(is.na(my_list$pbd_output[1]))
+  assert(is.na(my_list$species_trees_with_output[1]))
+  assert(is.na(my_list$alignments[1]))
+  assert(is.na(my_list$posteriors[1]))
+
+  assert(length(my_list$pbd_output) == 1)
+  assert(length(my_list$species_trees_with_outgroup) == n_species_trees_samples)
+  assert(length(my_list$alignments) == n_species_trees_samples * n_alignments)
+  assert(length(my_list$posteriors) == n_species_trees_samples * n_alignments * n_beast_runs)
+
   saveRDS(my_list,file=filename)
   assert(file.exists(filename))
   
@@ -80,7 +98,7 @@ SaveParametersToFile <- function(
   assert(mcmc_chainlength == as.numeric(my_list$parameters$mcmc_chainlength[2]))
 }
 
-TestCreateParametersFiles <- function() {
+test_create_parameters_files <- function() {
   rng_seed <- 42
   species_initiation_rate_good_species  <- 0.2 # the speciation-initiation rate of good species
   species_initiation_rate_incipient_species  <- 0.2 # the speciation-initiation rate of incipient species 
@@ -131,7 +149,7 @@ TestCreateParametersFiles <- function() {
   file.remove(filename) # Get rid of that test file
 }
 
-CreateParametersFiles <- function () {
+create_parameters_files <- function () {
 
   file_index <- 0
 
@@ -141,7 +159,7 @@ CreateParametersFiles <- function () {
       for (speciation_completion_rate in c(0.1, 0.3, 1.0)) { # the speciation-completion rate
         for (extinction_rate_good_species in c(0, 0.1, 0.2)) {
           extinction_rate_incipient_species <- extinction_rate_good_species
-          for (age in c(15)) {
+          for (age in c(5)) {
             for (n_species_trees_samples in c(2)) {
               for (mutation_rate in c(0.01, 0.001)) {
                 for (n_alignments in c(2)) {
@@ -176,9 +194,6 @@ CreateParametersFiles <- function () {
       }
     }
   }
-}    
-    
+}
 
-TestCreateParametersFiles()
-
-CreateParametersFiles()
+test_create_parameters_files()

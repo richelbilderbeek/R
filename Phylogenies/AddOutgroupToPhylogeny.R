@@ -9,7 +9,10 @@ add_outgroup_to_phylogeny <- function(
   stem_length,
   outgroup_name="Outgroup"
 ) {
+  assert(class(phylogeny)=="phylo")
+
   n_taxa <- length(phylogeny$tip.label)
+  
   crown_age <- dist.nodes(phylogeny)[ n_taxa + 1][1]
   phylogeny$root.edge <- stem_length
   # Add an outgroup
@@ -24,6 +27,8 @@ add_outgroup_to_phylogeny <- function(
   # Attach to any node, in this case to the root. Note: order matters
   phylogeny<-bind.tree(tip,phylogeny)
 
+  assert(class(phylogeny)=="phylo")
+  
   return (phylogeny)
 }
 
