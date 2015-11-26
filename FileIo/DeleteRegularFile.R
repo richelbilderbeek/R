@@ -1,18 +1,14 @@
 library(testit)
 
-#From https://github.com/richelbilderbeek/R
-DeleteRegularFile <- function(file_name) 
-{
+delete_regular_file <- function(file_name) {
+  # Delete a file
+
+  assert(file.exists(file_name))
   file.remove(file_name)
+  assert(!file.exists(file_name))
 }
 
-DemonstrateDeleteRegularFile <- function() {
-  temp_filename <- "tmp.txt" 
-  file.create(temp_filename)
-  assert(file.exists(temp_filename))
-  DeleteRegularFile(temp_filename)
-  assert(!file.exists(temp_filename))
+DeleteRegularFile <- function(file_name) {
+  print("Warning: use of obsolete function 'DeleteRegularFile', use 'delete_regular_file' instead")
+  delete_regular_file(filename)
 }
-
-# Uncomment this to view the function demonstration
-DemonstrateDeleteRegularFile()

@@ -1,8 +1,5 @@
 library(ape)
-library(geiger)
 library(phangorn)
-
-source("~/GitHubs/R/Phylogenies/CreateRandomAlignment.R")
 
 convert_alignment_to_fasta <- function(
   alignment_dnabin,
@@ -22,17 +19,3 @@ ConvertAlignmentToFasta <- function(alignment_dnabin, filename) {
     )
   )
 }
-
-
-demonstrate_convert_alignment_to_fasta <- function() {
-
-  alignment <- create_random_alignment(n_taxa = 5,sequence_length = 10)
-  image(alignment)
-  
-  filename <- "ConvertAlignmentsToFasta.fasta"
-  convert_alignment_to_fasta(alignment,filename)
-  file.show(filename)
-}
-
-# Uncomment this to view the function demonstration
-#demonstrate_convert_alignment_to_fasta()

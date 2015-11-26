@@ -18,10 +18,11 @@ source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
 convert_alignment_to_beast_posterior <- function(
   alignment_dnabin,
   mcmc_chainlength,
+  base_filename,
   rng_seed = 42
 ) {
   # File paths
-  base_filename <- "test_output_1"
+  #base_filename <- "test_output_1"
   beast_filename <- paste(base_filename,".xml",sep="");
   beast_bin_path <- "~/Programs/BEAST/bin/beast"
   beast_jar_path <- "~/Programs/BEAST/lib/beast.jar"
@@ -71,7 +72,7 @@ convert_alignment_to_beast_posterior <- function(
     cmd <- paste(
       beast_bin_path, 
       " -seed ",rng_seed,
-      " ",beast_filename,
+      " ", beast_filename,
       sep=""
     )
     system(cmd)
@@ -80,9 +81,9 @@ convert_alignment_to_beast_posterior <- function(
   # Call BEAST2 jar
   if (!file.exists(beast_trees_filename)) {
     cmd <- paste(
-      "java -jar ",beast_jar_path, 
-      " -seed ",rng_seed,
-      " ",beast_filename,
+      "java -jar ", beast_jar_path, 
+      " -seed ", rng_seed,
+      " ", beast_filename,
       sep=""
     )
     system(cmd)
@@ -101,37 +102,3 @@ convert_alignment_to_beast_posterior <- function(
   # Read all trees from the BEAST2 posterior
   posterior <- beast2out.read.trees(beast_trees_filename)
 }  
-
-
-demonstrate_convert_alignment_to_beast_posterior <- function() {
-
-  phylogeny_without_outgroup <- create_random_phylogeny(n_taxa = 5)
-
-  phylogeny_with_outgroup <- add_outgroup_to_phylogeny(
-    phylogeny_without_outgroup,
-    stem_length = 0
-  )
-  alignment <- convert_phylogeny_to_alignment(
-    phylogeny = phylogeny_with_outgroup,
-    sequence_length = 10
-  )
-  image(alignment)
-  posterior <- convert_alignment_to_beast_posterior(
-    alignment,
-    mcmc_chainlength = 10000,
-    rng_seed = 42
-  )
-  last_tree <- tail(posterior,n=1)[[1]]
-  plot(last_tree,main="Last tree in posterior")
-  
-  all_nltt_stats <- NULL
-  for (tree in posterior)
-  {
-    all_nltt_stats = c(all_nltt_stats,nLTTstat(phylogeny_with_outgroup,tree))
-  }
-  
-  hist(all_nltt_stats)
-}
-
-# Uncomment this to view the function demonstration
-demonstrate_convert_alignment_to_beast_posterior()

@@ -2,6 +2,7 @@ InstallLibraries <- function() {
   install.packages("ape", repos="http://cran.r-project.org")
   install.packages("DDD", repos="http://cran.r-project.org")
   install.packages("plyr", repos="http://cran.r-project.org")
+  install.packages("data.table", repos="http://cran.r-project.org")
   install.packages("geiger", repos="http://cran.r-project.org")
   install.packages("testit", repos="http://cran.r-project.org")
   install.packages("phytools", repos="http://cran.r-project.org")
