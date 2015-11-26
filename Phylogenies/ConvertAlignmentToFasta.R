@@ -1,34 +1,38 @@
-library(ape);
-library(geiger);
-library(phangorn);
+library(ape)
+library(geiger)
+library(phangorn)
 
-# One of the many ways to create a random phylogeny
-CreateRandomPhylogeny <- function(n_taxa) {
-  phylogeny <- rcoal(n_taxa)
-}
+source("~/GitHubs/R/Phylogenies/CreateRandomAlignment.R")
 
-# Create a random alignment
-CreateRandomAlignment <- function(n_taxa,sequence_length) {
-  phylogeny <- CreateRandomPhylogeny(n_taxa)
-  alignment_phydat <- simSeq(phylogeny,l=sequence_length)
-  alignment_dnabin <- as.DNAbin(alignment_phydat)
-}
+convert_alignment_to_fasta <- function(
+  alignment_dnabin,
+  filename
+) {
+  # Create a FASTA file text from an alignment
 
-# Create a random FASTA file text
-ConvertAlignmentToFasta <- function(alignment_dnabin,filename) {
   write.phyDat(alignment_dnabin, file=filename, format="fasta")
 }
 
+ConvertAlignmentToFasta <- function(alignment_dnabin, filename) {
+  print("Warning: use of obsolete function 'ConvertAlignmentToFasta', use 'convert_alignment_to_fasta' instead")
+  return (
+    convert_alignment_to_fasta(
+      alignment_dnabin = alignment_dnabin,
+      filename = filename
+    )
+  )
+}
 
-DemonstrateConvertAlignmentToFasta <- function() {
 
-  alignment <- CreateRandomAlignment(n_taxa = 5,sequence_length = 10)
+demonstrate_convert_alignment_to_fasta <- function() {
+
+  alignment <- create_random_alignment(n_taxa = 5,sequence_length = 10)
   image(alignment)
   
   filename <- "ConvertAlignmentsToFasta.fasta"
-  ConvertAlignmentToFasta(alignment,filename)
+  convert_alignment_to_fasta(alignment,filename)
   file.show(filename)
 }
 
 # Uncomment this to view the function demonstration
-#DemonstrateConvertAlignmentToFasta()
+#demonstrate_convert_alignment_to_fasta()

@@ -18,23 +18,23 @@ source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.treeannotator.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
 source("~/GitHubs/BeastScripter/BeastScripter.R")
 
-GetBeastScripterExePath <- function() {
+get_beast_scripter_exe_path <- function() {
   return ("~/Programs/BeastScripter/BeastScripterConsole")
 }
 
 
-# Reads an alignment (a FASTA file) and with some
-# additional parameters create a BEAST2 XML input file
-# using the C++ executable of BeastScripter
-ConvertAlignmentToBeastInputFileUsingCppExecutable <- function(
+convert_alignment_to_beast_input_file_using_cpp_executable <- function(
   alignment_dnabin,
   mcmc_chainlength,
   rng_seed = 42,
   beast_filename
 ) {
+  # Reads an alignment (a FASTA file) and with some
+  # additional parameters create a BEAST2 XML input file
+  # using the C++ executable of BeastScripter
 
   # File paths for BeastScripter
-  beast_scripter_path <- GetBeastScripterExePath()
+  beast_scripter_path <- get_beast_scripter_exe_path()
   base_filename <- "test_output_1"
   fasta_filename <- paste(base_filename,".fasta",sep="");
   
@@ -46,7 +46,7 @@ ConvertAlignmentToBeastInputFileUsingCppExecutable <- function(
   assert(file.exists(beast_scripter_path))
 
   # Save to FASTA file
-  ConvertAlignmentToFasta(alignment_dnabin,fasta_filename)
+  convert_alignment_to_fasta(alignment_dnabin,fasta_filename)
 
   options(scipen = 20) # So that mcmc_chainlength is written as 1000000 instead of 1e+7
   
@@ -65,19 +65,19 @@ ConvertAlignmentToBeastInputFileUsingCppExecutable <- function(
 }  
 
 
-# Reads an alignment (a FASTA file) and with some
-# additional parameters create a BEAST2 XML input file
-# using the R script version of BeastScripter
-ConvertAlignmentToBeastInputFileUsingRscript <- function(
+convert_alignment_to_beast_input_file_using_r_script <- function(
   alignment_dnabin,
   mcmc_chainlength,
   rng_seed = 42,
   beast_filename
 ) {
-
+  # Reads an alignment (a FASTA file) and with some
+  # additional parameters create a BEAST2 XML input file
+  # using the R script version of BeastScripter
+  
   # Save to FASTA file
   fasta_filename <- "test_output_1.fasta"
-  ConvertAlignmentToFasta(alignment_dnabin,fasta_filename)
+  convert_alignment_to_fasta(alignment_dnabin,fasta_filename)
 
   options(scipen = 20) # So that mcmc_chainlength is written as 1000000 instead of 1e+7
 
@@ -95,22 +95,22 @@ ConvertAlignmentToBeastInputFileUsingRscript <- function(
 
 # Reads an alignment (a FASTA file) and with some
 # additional parameters create a BEAST2 XML input file
-ConvertAlignmentToBeastInputFile <- function(
+convert_alignment_to_beast_input_file <- function(
   alignment_dnabin,
   mcmc_chainlength,
   rng_seed = 42,
   beast_filename
 ) {
   # Choose the fastest, iff present
-  if (file.exists(GetBeastScripterExePath())) {
-    ConvertAlignmentToBeastInputFileUsingCppExecutable(
+  if (file.exists(get_beast_scripter_exe_path())) {
+    convert_alignment_to_beast_input_file_using_cpp_executable(
       alignment_dnabin = alignment_dnabin,
       mcmc_chainlength = mcmc_chainlength,
       rng_seed = rng_seed,
       beast_filename = beast_filename
     )
   } else {
-    ConvertAlignmentToBeastInputFileUsingRscript(
+    convert_alignment_to_beast_input_file_using_r_script(
       alignment_dnabin = alignment_dnabin,
       mcmc_chainlength = mcmc_chainlength,
       rng_seed = rng_seed,
@@ -119,15 +119,15 @@ ConvertAlignmentToBeastInputFile <- function(
   }
 }
 
-DemonstrateConvertAlignmentToBeastInputFile <- function() {
+demonstrate_convert_alignment_to_beast_inputFile <- function() {
 
-  phylogeny_without_outgroup <- CreateRandomPhylogeny(n_taxa = 5)
+  phylogeny_without_outgroup <- create_random_phylogeny(n_taxa = 5)
 
-  phylogeny_with_outgroup <- AddOutgroupToPhylogeny(
+  phylogeny_with_outgroup <- add_outgroup_to_phylogeny(
     phylogeny_without_outgroup,
     stem_length = 0
   )
-  alignment <- ConvertPhylogenyToAlignment(
+  alignment <- convert_phylogeny_to_alignment(
     phylogeny = phylogeny_with_outgroup,
     sequence_length = 10
   )
@@ -135,7 +135,7 @@ DemonstrateConvertAlignmentToBeastInputFile <- function() {
   beast_xml_input_file_using_cpp_exe  <- "temp_using_cpp_exe.xml"
   beast_xml_input_file_using_r_script <- "temp_using_r_script.xml"
   
-  ConvertAlignmentToBeastInputFileUsingCppExecutable(
+  convert_alignment_to_beast_input_file_using_cpp_executable(
     alignment,
     mcmc_chainlength = 10000,
     rng_seed = 42,
@@ -143,7 +143,7 @@ DemonstrateConvertAlignmentToBeastInputFile <- function() {
   )
   assert(file.exists(beast_xml_input_file_using_cpp_exe))
 
-  ConvertAlignmentToBeastInputFileUsingRscript(
+  convert_alignment_to_beast_input_file_using_r_script(
     alignment,
     mcmc_chainlength = 10000,
     rng_seed = 42,
@@ -152,7 +152,7 @@ DemonstrateConvertAlignmentToBeastInputFile <- function() {
   assert(file.exists(beast_xml_input_file_using_r_script))
   
   assert(
-    FilesAreEqual(
+    files_are_equal(
       beast_xml_input_file_using_cpp_exe,
       beast_xml_input_file_using_r_script
     )
@@ -169,4 +169,4 @@ DemonstrateConvertAlignmentToBeastInputFile <- function() {
 }
 
 # Uncomment this to view the function demonstration
-DemonstrateConvertAlignmentToBeastInputFile()
+#demonstrate_convert_alignment_to_beast_inputFile()

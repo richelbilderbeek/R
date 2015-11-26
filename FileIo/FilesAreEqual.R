@@ -1,5 +1,6 @@
-# Shows the file in a tab
-FilesAreEqual <- function(filename1, filename2) {
+
+
+files_are_equal <- function(filename1, filename2) {
   assert(file.exists(filename1))
   assert(file.exists(filename2))
 
@@ -8,7 +9,7 @@ FilesAreEqual <- function(filename1, filename2) {
   return (identical(a,b))
 }
 
-DemonstrateFilesAreEqual <- function() {
+demonstrate_files_are_equal <- function() {
 
   # Create files
   filename1 <- "tmp1.txt"
@@ -26,8 +27,8 @@ DemonstrateFilesAreEqual <- function() {
   writeLines(text2, my_file)
   close(my_file)
 
-  assert( FilesAreEqual(filename1,filename2))
-  assert(!FilesAreEqual(filename1,filename3))
+  assert( files_are_equal(filename1,filename2))
+  assert(!files_are_equal(filename1,filename3))
   
   # Remove temporary file
   has_removed1 <- file.remove(filename1)
@@ -38,4 +39,4 @@ DemonstrateFilesAreEqual <- function() {
   assert(!file.exists(filename3))
 }
 
-#DemonstrateFilesAreEqual()
+#demonstrate_files_are_equal()
