@@ -1,10 +1,9 @@
 #rm(list = ls())
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 
-# InstallLibraries()
-ReadLibraries()
+read_libraries()
 
-AddPosteriors <- function(
+add_posteriors <- function(
   filename,
   do_plot = FALSE
 )

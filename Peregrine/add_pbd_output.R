@@ -1,8 +1,9 @@
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 source("~/GitHubs/R/Peregrine/read_file.R")
+source("~/GitHubs/R/Phylogenies/is_pbd_sim_output.R")
 
 # InstallLibraries()
-ReadLibraries()
+read_libraries()
 
 add_pbd_output <- function(
   filename,
@@ -12,8 +13,7 @@ add_pbd_output <- function(
   assert(mode(file) == "list")
   
   # If it already contains 'pbd_output' this has already been done
-  assert(length(file$pbd_output) == 1)
-  if(!is.na(file$pbd_output[1])) {
+  if(is_pbd_sim_output(file$pbd_output)) {
     print(paste("file ",filename," already has a pbd_output",sep=""))
     return ()
   }
@@ -21,13 +21,13 @@ add_pbd_output <- function(
 
   assert(!is.null(file$parameters))
   assert(!is.null(file$pbd_output))
-  assert(!is.null(file$species_trees_with_output))
+  assert(!is.null(file$species_trees_with_outgroup))
   assert(!is.null(file$alignments))
   assert(!is.null(file$posteriors))
   
   assert(!is.null(file$parameters))
   assert(is.na(file$pbd_output[1])) # This changes here
-  assert(is.na(file$species_trees_with_output[1]))
+  assert(is.na(file$species_trees_with_outgroup[1]))
   assert(is.na(file$alignments[1]))
   assert(is.na(file$posteriors[1]))
 
@@ -46,7 +46,8 @@ add_pbd_output <- function(
   set.seed(rng_seed)
 
   #do_plot <- FALSE
-  pbd_output <-pbd_sim(c(species_initiation_rate_good_species,speciation_completion_rate,species_initiation_rate_incipient_species,extinction_rate_good_species,extinction_rate_incipient_species),age=as.numeric(parameters$age[2]),soc=2,plot=do_plot)
+  pbd_output <- pbd_sim(c(species_initiation_rate_good_species,speciation_completion_rate,species_initiation_rate_incipient_species,extinction_rate_good_species,extinction_rate_incipient_species),age=as.numeric(parameters$age[2]),soc=2,plot=do_plot)
+  assert(is_pbd_sim_output(pbd_output))
 
   if (do_plot) {
     par(mfrow=c(1,1)) # Bug fix of https://github.com/richelbilderbeek/Wip/issues/20
@@ -61,7 +62,10 @@ add_pbd_output <- function(
     add.scale.bar()
   }
   
+  
+  assert(!is_pbd_sim_output(file$pbd_output))
   file$pbd_output <- pbd_output
+  assert(is_pbd_sim_output(file$pbd_output))
   assert(all.equal(file$pbd_output,pbd_output))
 
   # Append the pbd_output to file
@@ -73,13 +77,13 @@ add_pbd_output <- function(
 
   assert(!is.null(file$parameters))
   assert(!is.null(file$pbd_output))
-  assert(!is.null(file$species_trees_with_output))
+  assert(!is.null(file$species_trees_with_outgroup))
   assert(!is.null(file$alignments))
   assert(!is.null(file$posteriors))
   
   assert(!is.null(file$parameters))
   assert(!is.na(file$pbd_output[1])) # This changesd here
-  assert(is.na(file$species_trees_with_output[1]))
+  assert(is.na(file$species_trees_with_outgroup[1]))
   assert(is.na(file$alignments[1]))
   assert(is.na(file$posteriors[1]))
   

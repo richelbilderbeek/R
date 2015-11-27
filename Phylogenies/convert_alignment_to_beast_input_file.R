@@ -1,7 +1,7 @@
 # Convert an alignment and parameters to a BEAST XML input file
 
-source("~/GitHubs/R/Phylogenies/ConvertAlignmentToBeastInputFileUsingCppExecutable.R")
-source("~/GitHubs/R/Phylogenies/ConvertAlignmentToBeastInputFileUsingRscript.R")
+source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_input_file_using_cpp_executable.R")
+source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_input_file_using_r_script.R")
 
 convert_alignment_to_beast_input_file <- function(
   alignment_dnabin,

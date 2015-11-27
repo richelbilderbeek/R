@@ -1,7 +1,7 @@
 # Convert an alignment and parameters to a BEAST XML input file
 # using the R script version of BeastScripter
 
-source("~/GitHubs/R/Phylogenies/ConvertAlignmentToFasta.R")
+source("~/GitHubs/R/Phylogenies/convert_alignment_to_fasta.R")
 source("~/GitHubs/BeastScripter/BeastScripter.R")
 
 convert_alignment_to_beast_input_file_using_r_script <- function(

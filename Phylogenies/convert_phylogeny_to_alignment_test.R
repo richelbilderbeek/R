@@ -1,11 +1,8 @@
-library(ape)
-library(geiger)
-library(phangorn)
+library(testit)
+source("~/GitHubs/R/Phylogenies/create_random_phylogeny.R")
+source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
 
-source("~/GitHubs/R/Phylogenies/CreateRandomPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignment.R")
-
-demonstrate_convert_phylogeny_to_alignment <- function() 
+test_convert_phylogeny_to_alignment <- function() 
 {
   phylogeny <- create_random_phylogeny(n_taxa = 5)
   alignment <- convert_phylogeny_to_alignment(phylogeny,sequence_length = 10)
@@ -20,5 +17,4 @@ demonstrate_convert_phylogeny_to_alignment <- function()
   par(mfrow=c(1,1))
 }
 
-# Uncomment this to view the function demonstration
-demonstrate_convert_phylogeny_to_alignment()
+test_convert_phylogeny_to_alignment()

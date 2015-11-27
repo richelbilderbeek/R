@@ -1,11 +1,14 @@
+# From a single pbd_sim_output,
+# create n_species_trees_samples species_trees_with_outgroup
+
 library(testit)
 
 source("~/GitHubs/R/Peregrine/read_file.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
-source("~/GitHubs/R/Phylogenies/SampleSpeciesTreesFromRandomProtractedTree.R")
-source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
+source("~/GitHubs/R/Phylogenies/sample_species_trees_from_random_protracted_tree.R")
+source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
 # InstallLibraries()
-ReadLibraries()
+read_libraries()
 
 add_species_trees_with_outgroup <- function(
   filename,
@@ -17,7 +20,7 @@ add_species_trees_with_outgroup <- function(
 
   assert(!is.null(file$parameters))
   assert(!is.null(file$pbd_output))
-  assert(!is.null(file$species_trees_with_output))
+  assert(!is.null(file$species_trees_with_outgroup))
   assert(!is.null(file$alignments))
   assert(!is.null(file$posteriors))
   
@@ -25,22 +28,17 @@ add_species_trees_with_outgroup <- function(
   n_species_trees_samples <- as.numeric(parameters$n_species_trees_samples[2])
 
   # If it already contains 'species_trees_with_outgroup' this has already been done
-  if(length(file$species_trees_with_outgroup) == n_species_trees_samples) {
-    print(paste("file ",filename," already has ",n_species_trees_samples," species_trees_with_outgroup",sep=""))
+  if(is.na(file$pbd_output[1])) {
+    print(paste("file ",filename," needs a pbd_output",sep=""))
     return ()
   }
   print(paste("Adding species_trees_with_outgroup to file ",filename,sep=""))
 
   assert(!is.null(file$parameters))
-  assert(is.na(file$pbd_output[1])) # This changes here
-  assert(is.na(file$species_trees_with_output[1]))
-  assert(is.na(file$alignments[1]))
-  assert(is.na(file$posteriors[1]))
-  
-  
+  assert(!is.na(file$pbd_output[1]))
   
   for (i in seq(1:n_species_trees_samples)) {
-    if (!is.null(file$species_trees_with_outgroup)) 
+    if (!is.na(file$species_trees_with_outgroup[i])) 
     { 
       print(paste(" * species_trees_with_outgroup[",i,"] already exists",sep=""))
       next 
@@ -59,7 +57,8 @@ add_species_trees_with_outgroup <- function(
     
     species_tree_with_outgroup <- add_outgroup_to_phylogeny(species_tree,stem_length = 0)
     print("   * write to file")
-    file$species_trees_with_outgroup[i] <- species_tree_with_outgroup
+    assert(class(species_tree_with_outgroup) == "phylo")
+    file$species_trees_with_outgroup[[i]] <- species_tree_with_outgroup
     saveRDS(file,file=filename)
     print(paste(" * Added species_trees_with_outgroup[",i,"]",sep=""))
   }
@@ -90,6 +89,8 @@ AddSpeciesTreesWithOutgroup <- function(
   filename,
   do_plot = FALSE
 ) {
+  print("Dont use AddSpeciesTreesWithOutgroup")
+  stop()
   return (
     add_species_trees_with_outgroup(
       filename = filename,

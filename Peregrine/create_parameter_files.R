@@ -3,12 +3,12 @@
 # contain the parameters of interest.
 library(testit)
 
-LoadParametersFromFile <- function(filename) {
+load_parameters_from_file <- function(filename) {
   assert(file.exists(filename))
   my_table <- readRDS(filename)
 }
 
-SaveParametersToFile <- function(
+save_parameters_to_file <- function(
   rng_seed,
   species_initiation_rate_good_species,
   species_initiation_rate_incipient_species,
@@ -54,7 +54,7 @@ SaveParametersToFile <- function(
   names(my_list) <- c(
     "parameters",
     "pbd_output",
-    "species_trees_with_output",
+    "species_trees_with_outgroup",
     "alignments",
     "posteriors"
   )
@@ -62,13 +62,13 @@ SaveParametersToFile <- function(
   
   assert(!is.null(my_list$parameters))
   assert(!is.null(my_list$pbd_output))
-  assert(!is.null(my_list$species_trees_with_output))
+  assert(!is.null(my_list$species_trees_with_outgroup))
   assert(!is.null(my_list$alignments))
   assert(!is.null(my_list$posteriors))
 
   assert(!is.null(my_list$parameters))
   assert(is.na(my_list$pbd_output[1]))
-  assert(is.na(my_list$species_trees_with_output[1]))
+  assert(is.na(my_list$species_trees_with_outgroup[1]))
   assert(is.na(my_list$alignments[1]))
   assert(is.na(my_list$posteriors[1]))
 
@@ -98,57 +98,6 @@ SaveParametersToFile <- function(
   assert(mcmc_chainlength == as.numeric(my_list$parameters$mcmc_chainlength[2]))
 }
 
-test_create_parameters_files <- function() {
-  rng_seed <- 42
-  species_initiation_rate_good_species  <- 0.2 # the speciation-initiation rate of good species
-  species_initiation_rate_incipient_species  <- 0.2 # the speciation-initiation rate of incipient species 
-  speciation_completion_rate <- 1.0 # the speciation-completion rate 
-  extinction_rate_good_species <- 0.1 # the extinction rate of good species 
-  extinction_rate_incipient_species <- 0.1 # the extinction rate of incipient species 
-  age <- 15
-  n_species_trees_samples <- 10
-  mutation_rate <- 0.1
-  n_alignments <- 10
-  sequence_length <- 100
-  mcmc_chainlength <- 1000000
-  n_beast_runs <- 2
-  filename <- "1_tmp.txt"
-  SaveParametersToFile(
-    rng_seed = rng_seed,
-    species_initiation_rate_good_species = species_initiation_rate_good_species, # the speciation-initiation rate of good species
-    species_initiation_rate_incipient_species = species_initiation_rate_incipient_species, # the speciation-initiation rate of incipient species 
-    speciation_completion_rate = speciation_completion_rate, # the speciation-completion rate 
-    extinction_rate_good_species = extinction_rate_good_species, # the extinction rate of good species 
-    extinction_rate_incipient_species = extinction_rate_incipient_species, # the extinction rate of incipient species 
-    age = age,
-    n_species_trees_samples = n_species_trees_samples,
-    mutation_rate = mutation_rate,
-    n_alignments = n_alignments,
-    sequence_length = sequence_length,
-    mcmc_chainlength = mcmc_chainlength,
-    n_beast_runs = n_beast_runs,
-    filename = filename
-  )
-  
-  assert(file.exists(filename))
-  parametersfile <- LoadParametersFromFile(filename)
-  
-  assert(rng_seed == as.numeric(parametersfile$parameters$rng_seed[2]))
-  assert(species_initiation_rate_good_species  == as.numeric(parametersfile$parameters$species_initiation_rate_good_species[2]))
-  assert(species_initiation_rate_incipient_species  == as.numeric(parametersfile$parameters$species_initiation_rate_incipient_species[2]))
-  assert(speciation_completion_rate == as.numeric(parametersfile$parameters$speciation_completion_rate[2]))
-  assert(extinction_rate_good_species == as.numeric(parametersfile$parameters$extinction_rate_good_species[2]))
-  assert(extinction_rate_incipient_species == as.numeric(parametersfile$parameters$extinction_rate_incipient_species[2]))
-  assert(age == as.numeric(parametersfile$parameters$age[2]))
-  assert(n_species_trees_samples == as.numeric(parametersfile$parameters$n_species_trees_samples[2]))
-  assert(mutation_rate == as.numeric(parametersfile$parameters$mutation_rate[2]))
-  assert(n_alignments == as.numeric(parametersfile$parameters$n_alignments[2]))
-  assert(sequence_length == as.numeric(parametersfile$parameters$sequence_length[2]))
-  assert(mcmc_chainlength == as.numeric(parametersfile$parameters$mcmc_chainlength[2]))
-  assert(n_beast_runs == as.numeric(parametersfile$parameters$n_beast_runs[2]))
-  file.remove(filename) # Get rid of that test file
-}
-
 create_parameters_files <- function () {
 
   file_index <- 0
@@ -167,7 +116,7 @@ create_parameters_files <- function () {
                     mcmc_chainlength <- 10000
                     n_beast_runs <- 2
                     filename <- paste(file_index,".RDa",sep="")
-                    SaveParametersToFile(
+                    save_parameters_to_file(
                       rng_seed = rng_seed,
                       species_initiation_rate_good_species = species_initiation_rate_good_species, 
                       species_initiation_rate_incipient_species = species_initiation_rate_incipient_species,  
@@ -195,5 +144,3 @@ create_parameters_files <- function () {
     }
   }
 }
-
-test_create_parameters_files()
