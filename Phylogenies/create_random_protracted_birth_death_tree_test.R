@@ -1,44 +1,6 @@
-# rm(list=ls());
-# install.packages("phytools")
-# The tarball must be extracted to check if the install will succeed
-# system("R CMD check ~/GitHubs/Wip/RampalEtienne/R/PBD")
-# system("R CMD INSTALL ~/GitHubs/Wip/RampalEtienne/R/PBD_1.1.tar.gz")
+source("~/GitHubs/R/Phylogenies/create_random_protracted_birth_death_tree.R")
 
-library(ape)
-library(geiger)
-library(phytools)
-library(PBD)
-
-CreateRandomProtractedBirthDeathTree <- function(
-  speciation_initiation_rate_good_species,
-  speciation_completion_rates,
-  speciation_initiation_rate_incipient_species,
-  extinction_rate_good_species,
-  extinction_rate_incipient_species,
-  crown_age,
-  do_plot = FALSE
-)
-{
-  out <- pbd_sim(
-    c(
-      speciation_initiation_rate_good_species,
-      speciation_completion_rates,
-      speciation_initiation_rate_incipient_species,
-      extinction_rate_good_species,
-      extinction_rate_incipient_species
-    ),
-    crown_age,
-    soc = 2, #Stem or crown age? 2 == crown age
-    plot = do_plot
-  )
-  if (do_plot) {
-     par(mfrow=c(1,1)) # Bug fix of https://github.com/richelbilderbeek/Wip/issues/20
-  }
-  return (out)
-}
-
-
-DemonstrateCreateRandomProtractedBirthDeathTree <- function() {
+demonstrate_create_random_protracted_birth_death_tree <- function() {
 
   set.seed(3)
   
@@ -79,4 +41,5 @@ DemonstrateCreateRandomProtractedBirthDeathTree <- function() {
   par(mfrow=c(1,1))
 }
 
-DemonstrateCreateRandomProtractedBirthDeathTree()
+
+demonstrate_create_random_protracted_birth_death_tree()

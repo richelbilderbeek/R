@@ -1,9 +1,9 @@
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 
 # InstallLibraries()
-ReadLibraries()
+read_libraries()
 
-AddAlignments <- function(filename)
+add_alignments <- function(filename)
 {
   file <- ReadFile(filename)
   assert(mode(file) == "list")

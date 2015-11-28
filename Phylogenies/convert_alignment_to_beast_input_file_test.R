@@ -3,10 +3,10 @@
 source("~/GitHubs/R/Phylogenies/CreateRandomPhylogeny.R")
 source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
 source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignment.R")
-source("~/GitHubs/R/Phylogenies/ConvertAlignmentToBeastInputFile.R")
+source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_input_file.R")
 source("~/GitHubs/R/FileIo/FilesAreEqual.R")
 
-demonstrate_convert_alignment_to_beast_input_file <- function() {
+test_convert_alignment_to_beast_input_file <- function() {
 
   phylogeny_without_outgroup <- create_random_phylogeny(n_taxa = 5)
 
@@ -64,4 +64,4 @@ demonstrate_convert_alignment_to_beast_input_file <- function() {
   assert(!file.exists(beast_xml_input_file_using_r_script))
 }
 
-demonstrate_convert_alignment_to_beast_input_file()
+test_convert_alignment_to_beast_input_file()

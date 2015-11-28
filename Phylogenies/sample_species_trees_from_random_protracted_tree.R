@@ -1,4 +1,4 @@
-source("~/GitHubs/R/Phylogenies/SampleSpeciesTreesFromPbdSimOutput.R")
+source("~/GitHubs/R/Phylogenies/sample_species_trees_from_pbd_sim_output.R")
 
 sample_species_trees_from_random_protracted_tree <- function(
   n, #How many?

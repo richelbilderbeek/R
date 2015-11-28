@@ -3,9 +3,9 @@ source("~/GitHubs/R/Peregrine/read_libraries.R")
 source("~/GitHubs/R/Peregrine/collect_files.R")
 
 # InstallLibraries()
-ReadLibraries()
+read_libraries()
 
-ShowAlignments <- function(filename)
+show_alignments <- function(filename)
 {
   file <- ReadFile(filename)
   assert(mode(file) == "list")

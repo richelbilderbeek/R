@@ -1,4 +1,4 @@
-ReadLibraries <- function() {
+read_libraries <- function() {
 
   library(ape)
   library(DDD)
@@ -19,8 +19,8 @@ ReadLibraries <- function() {
   library(phangorn)
   library(nLTT);
 
-  source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
-  source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignment.R")
-  source("~/GitHubs/R/Phylogenies/ConvertAlignmentToFasta.R")
-  source("~/GitHubs/R/Phylogenies/ConvertAlignmentToBeastPosterior.R")
+  source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
+  source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
+  source("~/GitHubs/R/Phylogenies/convert_alignment_to_fasta.R")
+  source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_posterior.R")
 }
