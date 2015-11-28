@@ -1,7 +1,13 @@
 source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
 
+lint_add_outgroup_to_phylogeny <- function() {
+  library(lint)
+  lint(file = "~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
+}
+
 demonstrate_add_outgroup_to_phylogeny <- function()
 {
+  
   # Using the function
   phylogeny <- read.tree(text = "(t2:2.286187509,(t5:0.3145724408,((t1:0.08394513325,t4:0.08394513325):0.1558558349,t3:0.2398009682):0.07477147256):1.971615069);")
   n_taxa <- length(phylogeny$tip.label)
@@ -30,5 +36,5 @@ demonstrate_add_outgroup_to_phylogeny <- function()
   par(mfrow=c(1,1))
 }
 
-# Uncomment this to view the function demonstration
+lint_add_outgroup_to_phylogeny()
 demonstrate_add_outgroup_to_phylogeny()
