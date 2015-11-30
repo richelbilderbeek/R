@@ -1,37 +1,30 @@
-# Runs one simulation
-
+# Runs one simulation file, e.g. '0.RDa'
+# A file has the following elements:
+# * parameters: that file its parameter settings
+# * pbd_output: the true gene tree
+# * species_trees_with_outgroup: the true sampled species trees
+# * alignments: the alignments simulation from the true samples species trees
+# * posteriors: the inferred BEAST2 posteriors of the alignments
 #
+# A run has the following chronology:
 #
-# parameters
+# parameters (always present)
 #  |
 #  | 1 (per parameter combination)
 #  V
-# pbd_output
+# pbd_output (1)
 #  |
 #  | n_species_trees_samples (per pbd_output)
 #  V
-# species_trees_with_outgroup
+# species_trees_with_outgroup (1 * n_species_trees_samples)
 #  |
 #  | n_alignments (per species_trees_with_outgroup)
 #  V
-# alignments
+# alignments (1 * n_species_trees_samples * n_alignments)
 #  |
-#  |
+#  | n_beast_runs (per alignment)
 #  V
-# posteriors
-#
-#
-#
-#  parameters <- file$parameters
-  rng_seed <- as.numeric(parameters$rng_seed[2]) # the extinction rate of incipient species 
-  mutation_rate <- as.numeric(parameters$mutation_rate[2])
-  n_alignments <- as.numeric(parameters$n_alignments[2])
-  assert(n_alignments > 0)
-  sequence_length <- as.numeric(parameters$sequence_length[2])
-  n_species_trees_samples <- as.numeric(parameters$n_species_trees_samples[2])
-
-#
-#
+# posteriors (1 * n_species_trees_samples * n_alignments * n_beast_runs)
 #
 
 
@@ -81,4 +74,4 @@ add_alignments(filename, do_plot = FALSE)
 
 print("#4: Creating posteriors from alignments")
 source("~/GitHubs/R/Peregrine/add_posteriors.R")
-add_posteriors(filenamefilename)  
+add_posteriors(filename)  

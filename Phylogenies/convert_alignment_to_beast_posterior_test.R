@@ -1,8 +1,7 @@
-source("~/GitHubs/R/Phylogenies/CreateRandomAlignment.R")
-source("~/GitHubs/R/Phylogenies/CreateRandomPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignment.R")
-source("~/GitHubs/R/Phylogenies/ConvertAlignmentToBeastPosterior.R")
+source("~/GitHubs/R/Phylogenies/create_random_phylogeny.R")
+source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
+source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
+source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_posterior.R")
 library(nLTT)
 
 demonstrate_convert_alignment_to_beast_posterior <- function() {
@@ -17,11 +16,18 @@ demonstrate_convert_alignment_to_beast_posterior <- function() {
     phylogeny = phylogeny_with_outgroup,
     sequence_length = 10
   )
+
   image(alignment)
+  
+  base_filename <- tempfile(pattern = "demonstrate_convert_alignment_to_beast_posterior")
+
+  assert(!file.exists(paste(base_filename,".log",sep="")))
+  assert(!file.exists(paste(base_filename,".trees",sep="")))
+  
   posterior <- convert_alignment_to_beast_posterior(
     alignment,
     mcmc_chainlength = 10000,
-    base_filename = "demonstrate_convert_alignment_to_beast_posterior",
+    base_filename = base_filename,
     rng_seed = 42
   )
   last_tree <- tail(posterior,n=1)[[1]]

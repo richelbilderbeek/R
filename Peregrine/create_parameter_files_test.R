@@ -1,5 +1,6 @@
 library(testit)
 source("~/GitHubs/R/Peregrine/create_parameter_files.R")
+source("~/GitHubs/R/Peregrine/save_parameters_to_file.R")
 
 test_create_parameters_files <- function() {
   rng_seed <- 42

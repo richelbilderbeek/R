@@ -30,4 +30,5 @@ convert_alignment_to_beast_input_file_using_r_script <- function(
 
   assert(file.exists(beast_filename))
   file.remove(temp_fasta_filename)
+  assert(!file.exists(temp_fasta_filename))
 } 

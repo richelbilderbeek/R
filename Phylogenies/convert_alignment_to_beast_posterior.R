@@ -24,8 +24,8 @@ convert_alignment_to_beast_posterior <- function(
   # File paths
   #base_filename <- "test_output_1"
   beast_filename <- paste(base_filename,".xml",sep="");
-  beast_bin_path <- "~/Programs/BEAST/bin/beast"
-  beast_jar_path <- "~/Programs/BEAST/lib/beast.jar"
+  beast_bin_path <- "~/Programs/BEAST2/bin/beast"
+  beast_jar_path <- "~/Programs/BEAST2/lib/beast.jar"
   beast_log_filename <- paste(base_filename,".log",sep="");
   beast_trees_filename <- paste(base_filename,".trees",sep="");
   beast_state_filename <- paste(base_filename,".xml.state",sep="");
@@ -55,10 +55,31 @@ convert_alignment_to_beast_posterior <- function(
   
   # Run BEAST2, needs the BEAST2 .XML parameter file
   # Prevent BEAST prompting the user whether to overwrite the log file
-  if (file.exists(beast_trees_filename)) { file.remove(beast_trees_filename) }
-  if (file.exists(beast_log_filename)) { file.remove(beast_log_filename) }
-  if (file.exists(beast_state_filename)) { file.remove(beast_state_filename) }
+  assert(!file.exists(beast_trees_filename)) #DEBUG
+  assert(!file.exists(beast_log_filename)) #DEBUG
+  assert(!file.exists(beast_state_filename)) #DEBUG
 
+  if (file.exists(beast_trees_filename)) { 
+    file.remove(beast_trees_filename)
+    print(paste("NOTE: removed '",beast_trees_filename,"'"), sep="")
+  }
+  if (file.exists(beast_log_filename)) { 
+    file.remove(beast_log_filename) 
+    print(paste("NOTE: removed '",beast_log_filename,"'"), sep="")
+  }
+  if (file.exists(beast_state_filename)) { 
+    file.remove(beast_state_filename) 
+    print(paste("NOTE: removed '",beast_state_filename,"'"), sep="")
+  }
+  assert(!file.exists(beast_trees_filename))
+  assert(!file.exists(beast_log_filename))
+  assert(!file.exists(beast_state_filename))
+
+  print(paste("NOTE: no '",beast_trees_filename,"'"), sep="")
+  print(paste("NOTE: no '",beast_log_filename,"'"), sep="")
+  print(paste("NOTE: no '",beast_state_filename,"'"), sep="")
+  
+  
   # Call BEAST2 binary file directly
   {
     # This may result in the following error:

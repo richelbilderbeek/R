@@ -8,50 +8,78 @@ add_posteriors <- function(
   do_plot = FALSE
 )
 {
-  file <- ReadFile(filename)
+  file <- read_file(filename)
   assert(mode(file) == "list")
-  
-  # If it already contains 'posterior' this has already been done
-  if(length(file$alignments) == length(file$posterior)) {
-    print(paste("file ",filename," already has its posteriors",sep=""))
-    return ()
-  }
-  print(paste("Adding posterior to file ",filename,sep=""))
-  
-  assert(!is.null(file$parameters))
-  assert(!is.null(file$alignments))
-  assert(is.null(file$posterior))
 
+  assert(!is.null(file$parameters))
+  assert(!is.null(file$pbd_output))
+  assert(!is.null(file$species_trees_with_outgroup))
+  assert(!is.null(file$alignments))
+  assert(!is.null(file$posteriors))
+  
   parameters <- file$parameters
   rng_seed <- as.numeric(parameters$rng_seed[2])
   mcmc_chainlength <- as.numeric(parameters$mcmc_chainlength[2])
-  alignments <- file$alignments
-  assert(length(alignments) > 0)
-  print(paste("AddPosteriors: rng_seed: ",rng_seed,sep=""))
-  print(paste("AddPosteriors: mcmc_chainlength: ",mcmc_chainlength,sep=""))
-  
-  n_alignments <- length(alignments)
-  n_posteriors <- n_alignments
-  for (i in seq(1:n_posteriors)) {
-    assert(i >= 1)
-    assert(i < length(alignments))
+  n_alignments <- as.numeric(parameters$n_alignments[2])
+  n_beast_runs <- as.numeric(parameters$n_beast_runs[2])
 
-    alignment <- alignments[i]
-    assert(class(alignment) == "DNAbin")
-    posterior <- ConvertAlignmentToBeastPosterior(
-      alignment = alignment,
-      mcmc_chainlength = mcmc_chainlength,
-      rng_seed = rng_seed
-    )
-    assert(!is.null(posterior))
-    assert(all.equal(posterior,posterior))
-    posteriors[i] <- posterior
+  assert(n_alignments > 0)
+  assert(n_beast_runs > 0)
+
+  print(paste("add_posteriors: rng_seed: ",rng_seed,sep=""))
+  print(paste("add_posteriors: mcmc_chainlength: ",mcmc_chainlength,sep=""))
+  print(paste("add_posteriors: n_alignments: ",n_alignments,sep=""))
+  print(paste("add_posteriors: n_beast_runs: ",n_beast_runs,sep=""))
+  
+  # For each alignment, create n_beast_runs posteriors
+  for (i in seq(1:n_alignments)) {
+
+    assert(i >= 1)
+    assert(i <= length(file$alignments))
+
+    # Obtain an alignment
+    alignment <- file$alignments[[i]][[1]]
+
+    if (class(alignment) != "DNAbin") {
+      print(paste("alignments[[", i, "]] is NA. Terminating 'add_posteriors'",sep=""))
+      return
+    }
+
+    assert(typeof(alignment) == "raw") #?Why
+    assert(class(alignment)  == "DNAbin")
     
-    if (i == 1) {
-      # Add it to the file
-      file <- c(file,list(posteriors))
-      names(file)[ length(file) ] <- "posteriors"
-      names(file)
+    for (j in seq(1:n_beast_runs)) {
+  
+      index <- 1 + (j - 1) + ( (i - 1) * n_alignments)
+      assert(index >= 1)
+      assert(index <= length(file$posteriors))
+
+      print(paste("   * Setting seed to ", rng_seed, sep=""))
+      set.seed(rng_seed) # FIX_ISSUE_4
+      
+      #if (class(file$posteriors[[index]][[1]]) == "DNAbin") {
+      #  print(paste("   * Already stored alignment #", j, " for species tree #",i," at index #", index, sep=""))
+      #  next
+      #}
+      
+      print(paste("   * Creating posterior #", j, " for alignment #",i," at index #", index, sep=""))
+      basefilename <- basename(tempfile(pattern = "tmp_", fileext = ""))
+      print(paste("   * Creating posterior using basefilename '", basefilename, "'", sep=""))
+      
+      posterior <- convert_alignment_to_beast_posterior(
+        alignment = alignment,
+        base_filename = basefilename,
+        mcmc_chainlength = mcmc_chainlength,
+        rng_seed = rng_seed
+      )
+
+      print(class(posterior))
+      print(typeof(posterior))
+      stop()
+
+      print(paste("   * Storing posterior #", j, " for alignment #",i," at index #", index, sep=""))
+      file$posteriors[[index]] <- list(posterior)
+      
     }
   }
   
