@@ -15,7 +15,7 @@ add_species_trees_with_outgroup <- function(
   do_plot = FALSE
 ) {
   #filename <- "0.RDa"
-  file <- ReadFile(filename)
+  file <- read_file(filename)
   assert(typeof(file) == "list")
 
   assert(!is.null(file$parameters))
@@ -27,7 +27,6 @@ add_species_trees_with_outgroup <- function(
   parameters <- file$parameters
   n_species_trees_samples <- as.numeric(parameters$n_species_trees_samples[2])
 
-  # If it already contains 'species_trees_with_outgroup' this has already been done
   if(is.na(file$pbd_output[1])) {
     print(paste("file ",filename," needs a pbd_output",sep=""))
     return ()
@@ -58,7 +57,7 @@ add_species_trees_with_outgroup <- function(
     species_tree_with_outgroup <- add_outgroup_to_phylogeny(species_tree,stem_length = 0)
     print("   * write to file")
     assert(class(species_tree_with_outgroup) == "phylo")
-    file$species_trees_with_outgroup[[i]] <- species_tree_with_outgroup
+    file$species_trees_with_outgroup[[i]] <- list(species_tree_with_outgroup)
     saveRDS(file,file=filename)
     print(paste(" * Added species_trees_with_outgroup[",i,"]",sep=""))
   }
@@ -83,18 +82,4 @@ add_species_trees_with_outgroup <- function(
   assert(all.equal(file_again$species_trees_with_outgroup,file$species_trees_with_outgroup))
   assert(!is.null(file$species_trees_with_outgroup))
   print(paste("Added species_trees_with_outgroup to file ",filename,sep=""))
-}
-
-AddSpeciesTreesWithOutgroup <- function(
-  filename,
-  do_plot = FALSE
-) {
-  print("Dont use AddSpeciesTreesWithOutgroup")
-  stop()
-  return (
-    add_species_trees_with_outgroup(
-      filename = filename,
-      do_plot = do_plot
-    )
-  )
 }

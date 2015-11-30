@@ -1,10 +1,10 @@
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
-ReadLibraries()
+read_libraries()
 
-ShowPosteriors <- function(filename)
+show_posteriors <- function(filename)
 {
-  file <- ReadFile(filename)
+  file <- read_file(filename)
   assert(mode(file) == "list")
   
   # If it already contains 'alignments' this has already been done
@@ -31,7 +31,7 @@ ShowPosteriors <- function(filename)
     phylogenies <- c(phylogenies,list(posterior[[1]]))
   }
   
-  GetAverageNltt(species_trees_with_outgroup,plot_nltts = TRUE, main = "Recovery (black) versus original (red)")
+  get_average_nltt(species_trees_with_outgroup,plot_nltts = TRUE, main = "Recovery (black) versus original (red)")
   nLTT.lines(gene_tree, col = "red")
   
 

@@ -9,7 +9,7 @@ add_pbd_output <- function(
   filename,
   do_plot = FALSE
 ) {
-  file <- ReadFile(filename)
+  file <- read_file(filename)
   assert(mode(file) == "list")
   
   # If it already contains 'pbd_output' this has already been done
