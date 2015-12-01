@@ -1,27 +1,19 @@
 # Create a random alignment and a demonstration of this
-
+source("~/GitHubs/R/Phylogenies/create_random_phylogeny.R")
 library(ape)
-#library(geiger)
 library(phangorn)
 
-source("~/GitHubs/R/Phylogenies/create_random_phylogeny.R")
-
-# Create a random alignment
 create_random_alignment <- function(
   n_taxa,
   sequence_length,
   rate = 1
 ) {
-  phylogeny <- create_random_phylogeny(n_taxa)
-  alignments_phydat <- simSeq(phylogeny,l=sequence_length,rate=rate)
-  alignments_dnabin <- as.DNAbin(alignments_phydat)
-}
+  # Create a random alignment
 
-CreateRandomAlignment <- function(
-  n_taxa,
-  sequence_length,
-  rate = 1
-) {
-  print("Warning: use of obsolete function 'CreateRandomAlignment', use 'create_random_alignment' instead")
-  return (create_random_alignment(n_taxa = n_taxa, sequence_length = sequence_length, rate = rate))
+  assert(n_taxa >= 2) # Cannot create trees with less then two branches
+  assert(sequence_length >= 1) # Cannot create empty sequences
+  
+  phylogeny <- create_random_phylogeny(n = n_taxa)
+  alignments_phydat <- simSeq(phylogeny, l = sequence_length, rate = rate)
+  alignments_dnabin <- as.DNAbin(alignments_phydat)
 }

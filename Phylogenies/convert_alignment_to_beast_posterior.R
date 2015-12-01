@@ -9,6 +9,9 @@ source("~/GitHubs/R/Phylogenies/create_random_alignment.R")
 source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
 source("~/GitHubs/R/Phylogenies/convert_alignment_to_fasta.R")
 source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_input_file.R")
+source("~/GitHubs/R/Math/is_whole_number.R")
+source("~/GitHubs/R/Math/is_string.R")
+
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
@@ -24,20 +27,12 @@ convert_alignment_to_beast_posterior <- function(
   base_filename,
   rng_seed = 42
 ) {
-  assert(class(alignment_dnabin) == "DNAbin")
-  
-  print(class(mcmc_chainlength))
-  print(class(mcmc_chainlength))
-  print(class(mcmc_chainlength))
-  print(class(mcmc_chainlength))
-  
-  assert(is.integer(mcmc_chainlength))
-  assert(length(mcmc_chainlength) == 1)
+  assert(is_alignment(alignment_dnabin))
+  assert(is_whole_number(mcmc_chainlength))
   assert(mcmc_chainlength > 0)
-  assert(is.string(base_filename))
-  assert(length(rng_seed) == 1)
-  assert(is.integer(rng_seed))
-  stop()
+  assert(is_string(base_filename))
+  assert(is_whole_number(rng_seed))
+
   # File paths
   #base_filename <- "test_output_1"
   beast_filename <- paste(base_filename,".xml",sep="");
@@ -116,7 +111,11 @@ convert_alignment_to_beast_posterior <- function(
       sep=""
     )
     system(cmd)
+    if (file.exists(beast_trees_filename)) {
+      print("File created by beast binary")
+    }
   }
+
   
   # Call BEAST2 jar
   if (!file.exists(beast_trees_filename)) {
@@ -128,6 +127,7 @@ convert_alignment_to_beast_posterior <- function(
     )
     system(cmd)
   }
+
   assert(file.exists(beast_trees_filename))
   assert(file.exists(beast_log_filename))
   assert(file.exists(beast_state_filename))

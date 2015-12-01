@@ -1,14 +1,16 @@
 library(testit)
 source("~/GitHubs/R/Phylogenies/create_random_phylogeny.R")
 source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
+source("~/GitHubs/R/Phylogenies/is_alignment.R")
+source("~/GitHubs/R/Phylogenies/is_phylogeny.R")
 
 test_convert_phylogeny_to_alignment <- function() 
 {
   phylogeny <- create_random_phylogeny(n_taxa = 5)
-  assert(class(phylogeny) == "phylo")
+  assert(is_phylogeny(phylogeny))
 
   alignment <- convert_phylogeny_to_alignment(phylogeny,sequence_length = 10)
-  assert(class(alignment) == "DNAbin")
+  assert(is_alignment(alignment))
 
   n_cols <- 1
   n_rows <- 2
