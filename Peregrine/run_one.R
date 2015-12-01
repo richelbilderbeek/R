@@ -45,8 +45,6 @@ if (!file.exists(filename)) {
 
 
 source("~/GitHubs/R/Peregrine/install_libraries.R")
-#InstallLibraries() #Run once if a package is missing
-
 source("~/GitHubs/R/Peregrine/show_alignments.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 source("~/GitHubs/R/Peregrine/read_file.R")
