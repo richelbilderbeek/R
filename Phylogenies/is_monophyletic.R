@@ -1,16 +1,10 @@
 library(ape)
-library(testit)
 
-source("~/GitHubs/R/Container/AreAllIdentical.R")
-source("~/GitHubs/R/Container/AreAllUnique.R")
-source("~/GitHubs/R/Phylogenies/ConvertNewickToPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/GetCorrectTestNewicks.R")
-source("~/GitHubs/R/Phylogenies/GetCorrectParaphyleticTestNewicks.R")
-source("~/GitHubs/R/Phylogenies/StripSubspeciesLabelFromTipLabels.R")
-source("~/GitHubs/R/Phylogenies/IsMonophyleticGroup.R")
+source("~/GitHubs/R/Container/are_all_identical.R")
+source("~/GitHubs/R/Container/are_all_unique.R")
 
 # Detect if the phylogeny is monophyletic, i.e. that there are no paraphylies
-IsMonophyletic <- function(phylogeny) {
+is_monophyletic <- function(phylogeny) {
 
   #
   #      +------- C
@@ -80,12 +74,12 @@ IsMonophyletic <- function(phylogeny) {
         c_original_name <- original_tip_labels[c]
 
         # If species are (A,B,C) this cannot be a paraphyly
-        if(AreAllUnique   (c(a_original_name,b_original_name,c_original_name))) { next }
+        if(are_all_unique   (c(a_original_name,b_original_name,c_original_name))) { next }
 
         # If species are (A,A,A) this cannot be a paraphyly
-        if(AreAllIdentical(c(a_original_name,b_original_name,c_original_name))) { next }
+        if(are_all_identical(c(a_original_name,b_original_name,c_original_name))) { next }
 
-        assert(AreAllUnique(c(a_unique_name,b_unique_name,c_unique_name)))
+        assert(are_all_unique(c(a_unique_name,b_unique_name,c_unique_name)))
         focal_species_name  <- NULL
         sister_species_name <- NULL
         other_species_name  <- NULL
@@ -113,55 +107,3 @@ IsMonophyletic <- function(phylogeny) {
 
   return (TRUE)
 }
-
-DemonstrateIsMonophyletic <- function() {
-
-  phylogeny <- read.tree(text="(A:2.0,(B:1.0,C:1.0):1.0):1.0;")
-  #
-  #      +------- C
-  #      |
-  #  +---+
-  #  |   |
-  # -+   +------- B
-  #  |
-  #  |
-  #  |
-  #  +----------- A
-  #
-  plot(phylogeny,show.node.label=TRUE,root.edge = TRUE)
-  nodelabels( , col = "black", bg = "gray")
-  assert(IsMonophyletic(phylogeny))
-
-  phylogeny <- read.tree(text="(A:2.0,(B:1.0,A:1.0):1.0):1.0;")
-  #
-  #      +------- A
-  #      |
-  #  +---+
-  #  |   |
-  # -+   +------- B
-  #  |
-  #  |
-  #  |
-  #  +----------- A
-  #
-  plot(phylogeny,show.node.label=TRUE,root.edge = TRUE)
-  nodelabels( , col = "black", bg = "gray")
-  assert(!IsMonophyletic(phylogeny))
-  
-  for (monophyletic_newick in GetCorrectTestNewicks()) {
-    monophyletic_phylogeny <- ConvertNewickToPhylogeny(monophyletic_newick)
-    plot(monophyletic_phylogeny,show.node.label=TRUE,root.edge = TRUE)
-    nodelabels( , col = "black", bg = "gray")
-    assert(IsMonophyletic(monophyletic_phylogeny))
-  }
-
-  for (paraphyletic_newick in GetCorrectParaphyleticTestNewicks()) {
-    paraphyletic_phylogeny <- ConvertNewickToPhylogeny(paraphyletic_newick)
-    paraphyletic_phylogeny$tip.label <- StripSubspeciesLabelFromTipLabels(paraphyletic_phylogeny$tip.label)
-    plot(paraphyletic_phylogeny,show.node.label=TRUE,root.edge = TRUE)
-    nodelabels( , col = "black", bg = "gray")
-    assert(!IsMonophyletic(paraphyletic_phylogeny))
-  }
-}
-
-DemonstrateIsMonophyletic()
