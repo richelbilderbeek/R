@@ -2,6 +2,8 @@ source("~/GitHubs/R/Phylogenies/get_correct_test_newicks.R")
 source("~/GitHubs/R/Phylogenies/convert_newick_to_phylogeny.R")
 
 convert_newick_to_phylogeny_test <- function() {
+  # See if all 'get_correct_test_newicks' can indeed be converted to phylogenies
+  
   # Convert to newick
   newicks <- get_correct_test_newicks()
   for (newick in newicks) {
