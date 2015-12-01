@@ -1,6 +1,6 @@
-source("~/GitHubs/R/FileIo/DeleteRegularFile.R")
+source("~/GitHubs/R/FileIo/delete_regular_file.R")
 
-demonstrate_delete_regular_file <- function() {
+delete_regular_file_test <- function() {
   temp_filename <- tempfile()
   file.create(temp_filename)
   assert(file.exists(temp_filename))
@@ -11,5 +11,4 @@ demonstrate_delete_regular_file <- function() {
   print(paste("Deleted file '",temp_filename,"'",sep=""))
 }
 
-# Uncomment this to view the function demonstration
-demonstrate_delete_regular_file()
+delete_regular_file_test()

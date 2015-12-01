@@ -1,15 +1,6 @@
+source("~/GitHubs/R/FileIo/files_are_equal.R")
 
-
-files_are_equal <- function(filename1, filename2) {
-  assert(file.exists(filename1))
-  assert(file.exists(filename2))
-
-  a <- readLines(filename1)
-  b <- readLines(filename2)
-  return (identical(a,b))
-}
-
-demonstrate_files_are_equal <- function() {
+files_are_equal_test <- function() {
 
   # Create files
   filename1 <- "tmp1.txt"
@@ -39,4 +30,4 @@ demonstrate_files_are_equal <- function() {
   assert(!file.exists(filename3))
 }
 
-#demonstrate_files_are_equal()
+files_are_equal_test()

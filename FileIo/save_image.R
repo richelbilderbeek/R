@@ -1,19 +1,21 @@
-#rm(list = ls())
+# Demonstration how to save and load an image
+# FAILS
+
 library(testit)
 library(png)
 
-CreatePlot <- function() {
+create_plot <- function() {
   plot(sin,xlim=c(0,3.14 * 4),main="CreatePlot")
 }
 
 
-DemonstrateSaveImage <- function() {
+save_image_test <- function() {
 
   filename <- "SaveImage.png"
   
   # Create a plot and save it
   png(filename)
-  CreatePlot()
+  create_plot()
   dev.off()
 
   # Load the saved image
@@ -23,5 +25,4 @@ DemonstrateSaveImage <- function() {
 }
 
 
-# Uncomment this to view the function demonstration
-DemonstrateSaveImage()
+save_image_test()

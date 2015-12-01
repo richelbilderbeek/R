@@ -1,18 +1,20 @@
-library(testit)
+#Demonstration how to save a data frame to file
 
-CreateDataFrame <- function() {
+create_data_frame <- function() {
   my_table <- data.frame( row.names = c("Unit","Value"))
   my_table[, "g"] <- c("m/s^2",9.81)
   my_table[, "v"] <- c("m/s",300000)
   return (my_table)
 }
 
-DemonstrateSaveDataFrame <- function() {
+library(testit)
 
-  filename <- "SaveDataFrame.Rda"
+save_data_frame_test <- function() {
+
+  filename <- "save_data_frame_test.RDA"
   
   # Create a data fram
-  my_data_frame <- CreateDataFrame()
+  my_data_frame <- create_data_frame()
   
   # Save it to file
   saveRDS(my_data_frame,file=filename)
@@ -29,5 +31,4 @@ DemonstrateSaveDataFrame <- function() {
   #assert(my_data_frame == my_data_frame_again)
 }
 
-# Uncomment this to view the function demonstration
-#DemonstrateSaveDataFrame()
+save_data_frame_test()

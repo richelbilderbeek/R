@@ -4,7 +4,7 @@ source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
 source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_posterior.R")
 library(nLTT)
 
-demonstrate_convert_alignment_to_beast_posterior <- function() {
+convert_alignment_to_beast_posterior_test <- function() {
 
   phylogeny_without_outgroup <- create_random_phylogeny(n_taxa = 5)
 
@@ -19,7 +19,7 @@ demonstrate_convert_alignment_to_beast_posterior <- function() {
 
   image(alignment)
   
-  base_filename <- tempfile(pattern = "demonstrate_convert_alignment_to_beast_posterior")
+  base_filename <- tempfile(pattern = "convert_alignment_to_beast_posterior_test")
 
   assert(!file.exists(paste(base_filename,".log",sep="")))
   assert(!file.exists(paste(base_filename,".trees",sep="")))

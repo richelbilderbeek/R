@@ -1,9 +1,9 @@
 library(ape)
-library(phangorn)
-library(phytools)
+#library(phangorn)
+#library(phytools)
 library(testit)
 
-ConvertFastaFileToSequences <- function(fasta_filename) {
+convert_fasta_file_to_sequences <- function(fasta_filename) {
   assert(file.exists(fasta_filename))
 
   # Read the file
@@ -27,20 +27,3 @@ ConvertFastaFileToSequences <- function(fasta_filename) {
   #rownames(table) <- labels
   return (table)
 }
-  
-DemonstrateConvertFastaFileToSequences <- function() {
-  fasta_filename <- "ConvertFastaFileToCoalescentTree.fas"
-  assert(file.exists(fasta_filename))
-  table <- ConvertFastaFileToSequences(fasta_filename)
-  table_with_labels_in_own_column <- cbind(rownames(table),table)
-  
-  print(table_with_labels_in_own_column)
-  no_output <- apply(table_with_labels_in_own_column,1,function(row) {
-      print(
-        paste("Label",row[1],"has sequence",row[2])
-      )
-    }
-  )
-}
-
-#DemonstrateConvertFastaFileToSequences()

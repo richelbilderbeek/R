@@ -1,12 +1,12 @@
 # Convert an alignment and parameters to a BEAST XML input file
 
-source("~/GitHubs/R/Phylogenies/CreateRandomPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignment.R")
+source("~/GitHubs/R/Phylogenies/create_random_phylogeny.R")
+source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
+source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
 source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_input_file.R")
-source("~/GitHubs/R/FileIo/FilesAreEqual.R")
+source("~/GitHubs/R/FileIo/files_are_equal.R")
 
-test_convert_alignment_to_beast_input_file <- function() {
+convert_alignment_to_beast_input_file_test <- function() {
 
   phylogeny_without_outgroup <- create_random_phylogeny(n_taxa = 5)
 
@@ -64,4 +64,4 @@ test_convert_alignment_to_beast_input_file <- function() {
   assert(!file.exists(beast_xml_input_file_using_r_script))
 }
 
-test_convert_alignment_to_beast_input_file()
+convert_alignment_to_beast_input_file_test()

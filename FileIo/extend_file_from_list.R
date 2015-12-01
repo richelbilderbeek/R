@@ -1,3 +1,5 @@
+# Demo: save a file as a list, and add elements to it
+
 # Setup:
 # * Create file with parameters
 # * Close the file
@@ -7,14 +9,14 @@
 
 library(testit)
 
-CreateParametersDataFrame <- function() {
+create_parameters_data_frame <- function() {
   my_table <- data.frame( row.names = c("Unit","Value"))
   my_table[, "g"] <- c("m/s^2",9.81)
   my_table[, "v"] <- c("m/s",300000)
   return (my_table)
 }
 
-CreateResultsDataFrame <- function() {
+create_results_data_frame <- function() {
   my_table <- data.frame( row.names = c("Description","Value"))
   my_table[, "mean_v"] <- c("Average speed (m/s)",1.1)
   my_table[, "stddev_v"] <- c("Standard deviation is speed (m/s)",2.2)
@@ -22,22 +24,22 @@ CreateResultsDataFrame <- function() {
   return (my_table)
 }
 
-CreateInitialList <- function() {
+create_initial_list <- function() {
   my_list <- list(
-    CreateParametersDataFrame()
+    create_parameters_data_frame()
   )
   names(my_list) <- c("parameters")
-  assert(my_list$parameters == CreateParametersDataFrame())
+  assert(my_list$parameters == create_parameters_data_frame())
   return (my_list)
 }
 
 
-DemonstrateSaveList <- function() {
+extend_file_from_list <- function() {
 
   filename <- "SaveList.Rda"
   
   # Create a list
-  my_list <- CreateInitialList()
+  my_list <- create_initial_list()
   assert(my_list$parameters == my_list$parameters)
   assert(is.null(my_list$results))
   
@@ -53,7 +55,7 @@ DemonstrateSaveList <- function() {
   assert(my_list$parameters == my_list_again$parameters)
   
   # Add results. Note: append using 'c' instead of 'list'
-  my_list <- c(my_list,CreateResultsDataFrame()) 
+  my_list <- c(my_list,create_results_data_frame()) 
   names(my_list) <- c("parameters","results")
   assert(my_list$parameters == my_list$parameters)
   assert(my_list$parameters == my_list$parameters)
@@ -75,7 +77,7 @@ DemonstrateSaveList <- function() {
   #assert(length(my_list) == length(my_list_again))
   #assert(my_list$parameters == my_list_again$parameters)
   #assert(my_list$results == my_list_again$results)
+  print("extend_file_from_list: OK")
 }
 
-# Uncomment this to view the function demonstration
-#DemonstrateSaveList()
+extend_file_from_list()

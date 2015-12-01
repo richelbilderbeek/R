@@ -1,11 +1,13 @@
-rm(list = ls())
+# Demonstrates how to save a plot to file and read it again
+# FAILS
+
 library(testit)
 
-CreatePlot <- function() {
-  plot(sin,xlim=c(0,3.14 * 4),main="CreatePlot")
+create_plot <- function() {
+  plot(sin,xlim=c(0,3.14 * 4),main="create_plot")
 }
 
-DemonstrateSavePlot <- function() {
+save_plot_test <- function() {
   # DOES NOT WORK
   print("Warning: cannot save plots! This code will fail. Use code of SaveImage instead")
   
@@ -20,7 +22,7 @@ DemonstrateSavePlot <- function() {
   filename <- "SavePlot.Rda"
   
   # Create a plot
-  CreatePlot()
+  create_plot()
   
   # Save it to file
   my_list <- list(recordPlot())
@@ -40,5 +42,4 @@ DemonstrateSavePlot <- function() {
   replayPlot(my_list_again$the_plot) # Error: NULL value passed as symbol address
 }
 
-# Uncomment this to view the function demonstration
-#DemonstrateSavePlot()
+save_plot_test()
