@@ -5,8 +5,10 @@ source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
 test_convert_phylogeny_to_alignment <- function() 
 {
   phylogeny <- create_random_phylogeny(n_taxa = 5)
+  assert(class(phylogeny) == "phylo")
+
   alignment <- convert_phylogeny_to_alignment(phylogeny,sequence_length = 10)
-  assert(class(alignment)=="DNAbin")
+  assert(class(alignment) == "DNAbin")
 
   n_cols <- 1
   n_rows <- 2

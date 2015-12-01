@@ -9,7 +9,7 @@ convert_alignment_to_beast_input_file_using_r_script <- function(
   mcmc_chainlength,
   beast_filename,
   rng_seed = 42,
-  temp_fasta_filename = tempfile(pattern = "convert_alignment_to_beast_input_file_using_r_script", fileext = ".fasta")
+  temp_fasta_filename
 ) {
   # Reads an alignment (a FASTA file) and with some
   # additional parameters create a BEAST2 XML input file

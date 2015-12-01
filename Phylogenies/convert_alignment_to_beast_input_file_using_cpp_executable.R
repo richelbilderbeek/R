@@ -6,7 +6,7 @@ source("~/GitHubs/R/Phylogenies/convert_alignment_to_fasta.R")
 
 
 get_beast_scripter_exe_path <- function() {
-  return ("~/Programs/BeastScripter/BeastScripterConsole")
+  return ("~/GitHubs/build-BeastScripterConsole-Desktop-Release/BeastScripterConsole")
 }
 
 
@@ -16,7 +16,7 @@ convert_alignment_to_beast_input_file_using_cpp_executable <- function(
   mcmc_chainlength,
   beast_filename,
   rng_seed = 42,
-  temp_fasta_filename = tempfile(pattern = "convert_alignment_to_beast_input_file_using_cpp_executable", fileext = ".fasta")
+  temp_fasta_filename
 ) {
   # Reads an alignment (a FASTA file) and with some
   # additional parameters create a BEAST2 XML input file

@@ -8,18 +8,26 @@ convert_alignment_to_beast_posterior_test <- function() {
 
   phylogeny_without_outgroup <- create_random_phylogeny(n_taxa = 5)
 
+  assert(class(phylogeny_without_outgroup) == "phylo")
+  
   phylogeny_with_outgroup <- add_outgroup_to_phylogeny(
     phylogeny_without_outgroup,
     stem_length = 0
   )
+
+
+  assert(class(phylogeny_with_outgroup) == "phylo")
+  
   alignment <- convert_phylogeny_to_alignment(
     phylogeny = phylogeny_with_outgroup,
     sequence_length = 10
   )
 
+  assert(class(alignment)=="DNAbin")
+  
   image(alignment)
   
-  base_filename <- tempfile(pattern = "convert_alignment_to_beast_posterior_test")
+  base_filename <- "convert_alignment_to_beast_posterior_test"
 
   assert(!file.exists(paste(base_filename,".log",sep="")))
   assert(!file.exists(paste(base_filename,".trees",sep="")))
@@ -42,4 +50,4 @@ convert_alignment_to_beast_posterior_test <- function() {
   hist(all_nltt_stats)
 }
 
-demonstrate_convert_alignment_to_beast_posterior()
+convert_alignment_to_beast_posterior_test()

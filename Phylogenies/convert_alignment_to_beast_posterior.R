@@ -1,5 +1,8 @@
+# Convert an alignment to a BEAST2 XML input file
+
 library(ape)
 library(geiger)
+library(rapport)
 library(phangorn)
 source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
 source("~/GitHubs/R/Phylogenies/create_random_alignment.R")
@@ -21,6 +24,20 @@ convert_alignment_to_beast_posterior <- function(
   base_filename,
   rng_seed = 42
 ) {
+  assert(class(alignment_dnabin) == "DNAbin")
+  
+  print(class(mcmc_chainlength))
+  print(class(mcmc_chainlength))
+  print(class(mcmc_chainlength))
+  print(class(mcmc_chainlength))
+  
+  assert(is.integer(mcmc_chainlength))
+  assert(length(mcmc_chainlength) == 1)
+  assert(mcmc_chainlength > 0)
+  assert(is.string(base_filename))
+  assert(length(rng_seed) == 1)
+  assert(is.integer(rng_seed))
+  stop()
   # File paths
   #base_filename <- "test_output_1"
   beast_filename <- paste(base_filename,".xml",sep="");
@@ -29,6 +46,7 @@ convert_alignment_to_beast_posterior <- function(
   beast_log_filename <- paste(base_filename,".log",sep="");
   beast_trees_filename <- paste(base_filename,".trees",sep="");
   beast_state_filename <- paste(base_filename,".xml.state",sep="");
+  temp_fasta_filename <- paste(base_filename,".fasta",sep="");
 
   # Check prerequisites
   if (!file.exists(beast_bin_path))
@@ -49,7 +67,8 @@ convert_alignment_to_beast_posterior <- function(
     alignment_dnabin = alignment_dnabin,
     mcmc_chainlength = mcmc_chainlength,
     rng_seed = rng_seed,
-    beast_filename = beast_filename
+    beast_filename = beast_filename,
+    temp_fasta_filename = temp_fasta_filename
   )
   assert(file.exists(beast_filename))
   

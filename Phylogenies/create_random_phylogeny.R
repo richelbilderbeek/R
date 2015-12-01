@@ -1,31 +1,16 @@
-# Function to create a random phylogeny and a demonstration of this
+# Function to create a random phylogeny
 
 library(ape)
-library(geiger)
+library(testit)
 
 create_random_phylogeny <- function(n_taxa)
 {
   # One of the many ways to create a random phylogeny
-  phylogeny <- rcoal(n_taxa)
-}
-
-CreateRandomPhylogeny <- function(n_taxa)
-{
-  print("Warning: use of obsolete function 'CreateRandomPhylogeny', use 'create_random_phylogeny' instead")
-  return (create_random_phylogeny(n_taxa))
-}
-
-# One of the many ways to create a random phylogeny
-demonstrate_create_random_phylogeny <- function(n_taxa)
-{
-  # Create a random tree with 10 taxa
-  phylogeny <- create_random_phylogeny(n_taxa = 10)
+  phylogeny <- rcoal(n = n_taxa) 
   
-  # Plot that tree
-  plot(phylogeny, main = "create_random_phylogeny")
-  
-  # Display the tree in Newick format
-  newick <- write.tree(phylogeny)
-}
+  assert(class(phylogeny) == "phylo")
+  assert(length(phylogeny) == 4) #phylo classes have length 4
+  assert(names(phylogeny) == c("edge", "edge.length", "tip.label", "Nnode"))
 
-#demonstrate_create_random_phylogeny()
+  return (phylogeny)
+}
