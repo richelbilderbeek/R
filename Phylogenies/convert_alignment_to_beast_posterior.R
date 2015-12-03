@@ -2,7 +2,6 @@
 
 library(ape)
 library(geiger)
-library(rapport)
 library(phangorn)
 source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
 source("~/GitHubs/R/Phylogenies/create_random_alignment.R")
