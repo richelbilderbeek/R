@@ -30,3 +30,9 @@ _results.txt
 _result.txt
 _parameters.txt
 *.R~
+*.xml.state
+*.fasta
+*.trees
+*.xml
+*.log
+*.RDa
