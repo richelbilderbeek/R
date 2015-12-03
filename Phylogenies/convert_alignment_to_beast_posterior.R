@@ -123,7 +123,7 @@ convert_alignment_to_beast_posterior <- function(
       "java -jar ", beast_jar_path, 
       " -seed ", rng_seed,
       " ", beast_filename,
-      sep=""
+      sep = ""
     )
     system(cmd)
   }
@@ -141,4 +141,6 @@ convert_alignment_to_beast_posterior <- function(
   # Analyse posterior
   # Read all trees from the BEAST2 posterior
   posterior <- beast2out.read.trees(beast_trees_filename)
+  assert(is_beast_posterior(posterior))
+  return (posterior)
 }  

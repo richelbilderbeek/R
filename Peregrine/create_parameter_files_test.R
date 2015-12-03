@@ -1,8 +1,11 @@
-library(testit)
 source("~/GitHubs/R/Peregrine/create_parameter_files.R")
 source("~/GitHubs/R/Peregrine/save_parameters_to_file.R")
+source("~/GitHubs/R/Phylogenies/is_pbd_sim_output.R")
+source("~/GitHubs/R/Phylogenies/is_alignment.R")
+source("~/GitHubs/R/Phylogenies/is_beast_posterior.R")
+library(testit)
 
-test_create_parameters_files <- function() {
+create_parameters_files_test <- function() {
   rng_seed <- 42
   species_initiation_rate_good_species  <- 0.2 # the speciation-initiation rate of good species
   species_initiation_rate_incipient_species  <- 0.2 # the speciation-initiation rate of incipient species 
@@ -50,8 +53,25 @@ test_create_parameters_files <- function() {
   assert(sequence_length == as.numeric(parametersfile$parameters$sequence_length[2]))
   assert(mcmc_chainlength == as.numeric(parametersfile$parameters$mcmc_chainlength[2]))
   assert(n_beast_runs == as.numeric(parametersfile$parameters$n_beast_runs[2]))
+  
+
+  assert(!is.null(parametersfile$parameters))
+  assert(!is.null(parametersfile$pbd_output))
+  assert(!is.null(parametersfile$species_trees_with_outgroup))
+  assert(!is.null(parametersfile$alignments))
+  assert(!is.null(parametersfile$posteriors))
+  
+  assert(length(parametersfile$pbd_output) == 1)
+  assert(length(parametersfile$species_trees_with_outgroup) == n_species_trees_samples)
+  assert(length(parametersfile$alignments) == n_species_trees_samples * n_alignments)
+  assert(length(parametersfile$posteriors) == n_species_trees_samples * n_alignments * n_beast_runs)
+
+  assert(!is_pbd_sim_output(parametersfile$pbd_output))
+  assert(!is_alignment(parametersfile$alignments[[1]]))
+  assert(!is_beast_posterior(parametersfile$posteriors[[1]]))
+  
   file.remove(filename) # Get rid of that test file
   print("create_parameters_files: OK")
 }
 
-test_create_parameters_files()
+create_parameters_files_test()

@@ -1,13 +1,10 @@
 # Step #1
 # Creates files with filename [number].RDa that
 # contain the parameters of interest.
+source("~/GitHubs/R/Peregrine/save_parameters_to_file.R")
+source("~/GitHubs/R/Peregrine/load_parameters_from_file.R")
+
 library(testit)
-
-load_parameters_from_file <- function(filename) {
-  assert(file.exists(filename))
-  my_table <- readRDS(filename)
-}
-
 
 create_parameters_files <- function () {
 
@@ -55,3 +52,5 @@ create_parameters_files <- function () {
     }
   }
 }
+
+create_parameters_files()

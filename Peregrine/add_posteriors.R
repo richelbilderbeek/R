@@ -1,5 +1,6 @@
 #rm(list = ls())
 source("~/GitHubs/R/Peregrine/read_libraries.R")
+source("~/GitHubs/R/Phylogenies/is_beast_posterior.R")
 
 read_libraries()
 
@@ -37,35 +38,34 @@ add_posteriors <- function(
     assert(i >= 1)
     assert(i <= length(file$alignments))
 
-    # Obtain an alignment
+    # Obtain the alignment
     alignment <- file$alignments[[i]][[1]]
 
-    if (class(alignment) != "DNAbin") {
+    if (!is_alignment(alignment)) {
       print(paste("alignments[[", i, "]] is NA. Terminating 'add_posteriors'",sep=""))
-      return
+      return ()
     }
-
-    assert(typeof(alignment) == "raw") #?Why
-    assert(class(alignment)  == "DNAbin")
+    assert(is_alignment(alignment))
     
     for (j in seq(1:n_beast_runs)) {
   
       index <- 1 + (j - 1) + ( (i - 1) * n_alignments)
       assert(index >= 1)
       assert(index <= length(file$posteriors))
+      
+      if(is_beast_posterior(file$posteriors[[index]][[1]])) {
+        print(paste("   * Posterior #", j, " for alignment #",i," at index #", index, " already has a posterior", sep=""))
+         next 
+      }
 
       print(paste("   * Setting seed to ", rng_seed, sep=""))
       set.seed(rng_seed) # FIX_ISSUE_4
-      
-      #if (class(file$posteriors[[index]][[1]]) == "DNAbin") {
-      #  print(paste("   * Already stored alignment #", j, " for species tree #",i," at index #", index, sep=""))
-      #  next
-      #}
-      
+    
       print(paste("   * Creating posterior #", j, " for alignment #",i," at index #", index, sep=""))
       basefilename <- basename(tempfile(pattern = "tmp_", fileext = ""))
       print(paste("   * Creating posterior using basefilename '", basefilename, "'", sep=""))
       
+      assert(is_alignment(alignment))
       posterior <- convert_alignment_to_beast_posterior(
         alignment = alignment,
         base_filename = basefilename,
@@ -73,26 +73,20 @@ add_posteriors <- function(
         rng_seed = rng_seed
       )
 
-      print(class(posterior))
-      print(typeof(posterior))
-      stop()
+      assert(is_beast_posterior(posterior))
+      #assert(is_beast_posterior(list(posterior)))
 
       print(paste("   * Storing posterior #", j, " for alignment #",i," at index #", index, sep=""))
       file$posteriors[[index]] <- list(posterior)
+      assert(is_beast_posterior(file$posteriors[[index]][[1]]))
       
     }
   }
   
-  assert(file$parameters == parameters)
-  assert(all.equal(file$posteriors,posteriors))
-
   # Save the file
-  saveRDS(file,file=filename)
-
+  saveRDS(file, file = filename)
   file_again <- readRDS(filename)
   assert(file_again$parameters == parameters)
-  assert(all.equal(file_again$posteriors,posteriors))
-
-  assert(!is.null(file$posteriors))
-  print(paste("file ",filename," has gotten its posteriors",sep=""))
+  assert(all.equal(file_again$posteriors, file$posteriors))
+  print(paste("file ", filename, " has gotten its posteriors", sep = ""))
 }

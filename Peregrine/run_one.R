@@ -27,9 +27,8 @@
 # posteriors (1 * n_species_trees_samples * n_alignments * n_beast_runs)
 #
 
-
-filename <- "0.RDa"
-rm(list = ls())
+#filename <- "0.RDa"
+#rm(list = ls())
 
 if (length(commandArgs(TRUE)) != 1) {
   print("Please supply a filename" )
@@ -43,19 +42,9 @@ if (!file.exists(filename)) {
   stop()
 }
 
-
-source("~/GitHubs/R/Peregrine/install_libraries.R")
-source("~/GitHubs/R/Peregrine/show_alignments.R")
-source("~/GitHubs/R/Peregrine/read_libraries.R")
-source("~/GitHubs/R/Peregrine/read_file.R")
-source("~/GitHubs/R/Peregrine/show_posteriors.R")
-source("~/GitHubs/R/Peregrine/collect_files.R")
-
-
-
-source("~/GitHubs/R/Peregrine/create_parameter_files_test.R")
-source("~/GitHubs/R/Peregrine/create_parameter_files.R")
-create_parameters_files()
+#source("~/GitHubs/R/Peregrine/create_parameter_files_test.R")
+#source("~/GitHubs/R/Peregrine/create_parameter_files.R")
+#create_parameters_files() 
 
 print("#1: Create the true phylogeny")
 source("~/GitHubs/R/Peregrine/add_pbd_output.R")
@@ -73,3 +62,5 @@ add_alignments(filename, do_plot = FALSE)
 print("#4: Creating posteriors from alignments")
 source("~/GitHubs/R/Peregrine/add_posteriors.R")
 add_posteriors(filename)  
+
+print("DONE")

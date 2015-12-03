@@ -1,6 +1,8 @@
 library(testit)
 
-DemonstrateReplaceInString <- function() {
+replace_in_string_test <- function() {
+  # Replace the X by a space
+  
   s <- "HelloXworld"
   t <- gsub("X"," ", s)
 
@@ -8,5 +10,4 @@ DemonstrateReplaceInString <- function() {
   assert("t has been fixed", t == "Hello world")
 }
 
-# Uncomment this to view the function demonstration
-# DemonstrateReplaceInString()
+replace_in_string_test()

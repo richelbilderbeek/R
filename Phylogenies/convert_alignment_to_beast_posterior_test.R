@@ -2,7 +2,9 @@ source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
 source("~/GitHubs/R/Phylogenies/create_random_phylogeny.R")
 source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
 source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_posterior.R")
+source("~/GitHubs/R/Phylogenies/is_beast_posterior.R")
 source("~/GitHubs/R/Phylogenies/is_phylogeny.R")
+
 library(nLTT)
 
 convert_alignment_to_beast_posterior_test <- function() {
@@ -50,6 +52,10 @@ convert_alignment_to_beast_posterior_test <- function() {
     base_filename = base_filename,
     rng_seed = 42
   )
+  
+  assert(is_beast_posterior(posterior))
+
+  # Plot this posterioir
   last_tree <- tail(posterior,n=1)[[1]]
   plot(last_tree,main="Last tree in posterior")
   
@@ -60,6 +66,8 @@ convert_alignment_to_beast_posterior_test <- function() {
   }
   
   hist(all_nltt_stats)
+  
+  print("convert_alignment_to_beast_posterior_test: OK")
 }
 
 convert_alignment_to_beast_posterior_test()

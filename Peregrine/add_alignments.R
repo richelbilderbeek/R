@@ -72,9 +72,7 @@ add_alignments <- function(
         mutation_rate = mutation_rate
       )
 
-
-      assert(alignment == alignment)
-      assert(class(alignment)=="DNAbin")
+      assert(is_alignment(alignment))
 
       print(paste("   * Created alignment #", j, " for species tree #",i,sep=""))
       if (do_plot) {
@@ -83,6 +81,8 @@ add_alignments <- function(
 
       print(paste("   * Storing alignment #", j, " for species tree #",i," at index #", index, sep=""))
       file$alignments[[index]] <- list(alignment)
+      assert(is_alignment(file$alignments[[index]][[1]]))
+
       saveRDS(file,file=filename)
       print(paste("   * Created and saved alignments[",index,"]",sep=""))
     }
