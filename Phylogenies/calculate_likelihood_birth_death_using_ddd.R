@@ -25,7 +25,7 @@ library(DDD)
 #  calculate_likelihood_birth_death_using_ddd(lambda = speciation_rate,mu = extinction_rate, branch_lengths = c(3,4))
 #
 #  What is the likelihood of this tree?
-calculate_likelihood_birth_death_using_ddd <- function(lambda,mu,branch_lengths)
+calculate_likelihood_birth_death_using_ddd <- function(lambda, mu, branch_lengths)
 {
   # Use the DDD package
 
