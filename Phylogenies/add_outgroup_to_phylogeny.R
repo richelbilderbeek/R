@@ -1,5 +1,5 @@
 # Adds an outgroup to phylogeny
-# See AddOutgroupToPhylogeny_test.R for a demonstration
+# See add_outgroup_to_phylogeny_test.R for a demonstration
 
 library(ape)
 library(PBD)
@@ -31,23 +31,4 @@ add_outgroup_to_phylogeny <- function(
   assert(class(phylogeny) == "phylo")
   
   return (phylogeny)
-}
-
-AddOutgroupToPhylogeny <- function(
-  phylogeny,
-  stem_length,
-  outgroup_name = "Outgroup"
-) {
-  print(paste(
-    "Warning: use of obsolete function 'AddOutgroupToPhylogeny',",
-    "use 'add_outgroup_to_phylogeny' instead", sep = ""
-    )
-  )
-  return (
-    add_outgroup_to_phylogeny(
-      phylogeny = phylogeny,
-      stem_length = stem_length,
-      outgroup_name = outgroup_name
-    )  
-  )
 }
