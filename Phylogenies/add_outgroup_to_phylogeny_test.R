@@ -1,11 +1,11 @@
-source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
+source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
 
 lint_add_outgroup_to_phylogeny <- function() {
   library(lint)
-  lint(file = "~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
+  lint(file = "~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
 }
 
-demonstrate_add_outgroup_to_phylogeny <- function()
+add_outgroup_to_phylogeny_test <- function()
 {
   
   # Using the function
@@ -37,4 +37,4 @@ demonstrate_add_outgroup_to_phylogeny <- function()
 }
 
 lint_add_outgroup_to_phylogeny()
-demonstrate_add_outgroup_to_phylogeny()
+add_outgroup_to_phylogeny_test()
