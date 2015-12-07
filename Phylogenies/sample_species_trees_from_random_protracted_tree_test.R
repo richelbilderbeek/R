@@ -1,12 +1,7 @@
 #rm(list=ls())
 
-source("~/GitHubs/R/Phylogenies/SampleSpeciesTreesFromRandomProtractedTree.R")
-source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
-
-# source("~/GitHubs/R/Phylogenies/GetPhylogenyCrownAge.R")
-# 
-# library(ape)
-# library(PBD)
+source("~/GitHubs/R/Phylogenies/sample_species_trees_from_random_protracted_tree.R")
+source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
 
 # Helper function
 plot_species_trees <- function(

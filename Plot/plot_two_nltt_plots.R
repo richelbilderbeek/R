@@ -1,6 +1,8 @@
 library(ape)
 library(nLTT)
 
+source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
+
 # Two different phylogenies
 newick1 <- "((((XD:1,ZD:1):1,CE:2):1,(FE:2,EE:2):1):4,((AE:1,BE:1):1,(WD:1,YD:1):1):5);"
 phylogeny1 <- read.tree(text = newick1)
@@ -15,7 +17,7 @@ plot(phylogeny2)
 nLTT.plot(phylogeny2)
 
 # Combine these
-GetAverageNltt(phylogeny1)
+get_average_nltt(phylogeny1)
 
 
 nLTT.plot(phylogeny1);

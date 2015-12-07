@@ -1,9 +1,8 @@
-#rm(list = ls())
 library(PBD)
 
-source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
+source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
 
-GetProtractedSpeciationModelAverageNltt <- function(
+get_protracted_speciation_model_average_nltt <- function(
   speciation_initiation_rate_good_species,
   speciation_completion_rates,
   speciation_initiation_rate_incipient_species,
@@ -40,13 +39,13 @@ GetProtractedSpeciationModelAverageNltt <- function(
     phylogenies <- c(phylogenies,list(phylogeny))
   }
   
-  GetAverageNltt(
+  get_average_nltt(
     phylogenies,
     ...
   )
 }
 
-DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
+get_protracted_speciation_model_average_nltt_test_1 <- function() {
   #
   # Compare gene tree and species tree
   #  
@@ -60,7 +59,7 @@ DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
   n_trees <- 1000
     
   # Compare species tree and gene tree
-  GetProtractedSpeciationModelAverageNltt(
+  get_protracted_speciation_model_average_nltt(
     speciation_initiation_rate_good_species  = speciation_initiation_rate_good_species,
     speciation_completion_rate = speciation_completion_rate,
     speciation_initiation_rate_incipient_species  = speciation_initiation_rate_incipient_species,
@@ -88,7 +87,7 @@ DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
     )
   )
   
-  GetProtractedSpeciationModelAverageNltt(
+  get_protracted_speciation_model_average_nltt(
     speciation_initiation_rate_good_species = speciation_initiation_rate_good_species,
     speciation_completion_rate = speciation_completion_rate,
     speciation_initiation_rate_incipient_species= speciation_initiation_rate_incipient_species,
@@ -107,7 +106,7 @@ DemonstrateGetProtractedSpeciationModelAverageNltt1 <- function() {
   )
 }
 
-DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
+get_protracted_speciation_model_average_nltt_test_2 <- function() {
   #
   # Species tree become more like BD for higher speciation completion rates
   #  
@@ -135,7 +134,7 @@ DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
   for (i in seq(1,length(speciation_completion_rates))) {
     replot <- FALSE
     if (i > 1) { replot <- TRUE }
-    GetProtractedSpeciationModelAverageNltt(
+    get_protracted_speciation_model_average_nltt(
       speciation_initiation_rate_good_species = speciation_initiation_rate_good_species,
       speciation_completion_rate = speciation_completion_rates[i],
       speciation_initiation_rate_incipient_species = speciation_initiation_rate_incipient_species,
@@ -152,5 +151,5 @@ DemonstrateGetProtractedSpeciationModelAverageNltt2 <- function() {
 }
 
 # Uncomment this to view the function demonstration
-DemonstrateGetProtractedSpeciationModelAverageNltt1()
-#DemonstrateGetProtractedSpeciationModelAverageNltt2()
+get_protracted_speciation_model_average_nltt_test_1()
+get_protracted_speciation_model_average_nltt_test_2()

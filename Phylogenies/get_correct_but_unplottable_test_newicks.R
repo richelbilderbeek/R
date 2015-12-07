@@ -1,4 +1,4 @@
-GetCorrectButUnplottableTestNewicks <- function()
+get_correct_but_unplottable_test_newicks <- function()
 {
   correct_but_unplottable_test_newicks <- c(
     "(A):0;",

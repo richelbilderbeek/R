@@ -2,11 +2,11 @@
 library(ape)
 library(DDD)
 library(TreeSim)
-source("~/GitHubs/R/Phylogenies/CanDropExtinct.R")
+source("~/GitHubs/R/Phylogenies/can_drop_extinct.R")
 source("~/GitHubs/R/MyFavoritePackages/TreeSim/R/LTT.general.R")
 source("~/GitHubs/R/MyFavoritePackages/TreeSim/R/LTT.average.root.R")
 
-GetBirthDeathSpeciationModelAverageLtt <- function(
+get_birth_death_speciation_model_average_ltt <- function(
   birth_rate,
   death_rate,
   crown_age,
@@ -35,7 +35,7 @@ GetBirthDeathSpeciationModelAverageLtt <- function(
     )
 
     # Drop the fossils if possible
-    if (!CanDropExtinct(phylogeny_complete)) {
+    if (!can_drop_extinct(phylogeny_complete)) {
      next
     }
     phylogeny_reconstructed <- drop.extinct(phylogeny_complete)
@@ -53,7 +53,7 @@ GetBirthDeathSpeciationModelAverageLtt <- function(
   LTT.plot(p)
 }
 
-DemonstrateGetBirthDeathSpeciationModelAverageLtt <- function() {
+get_birth_death_speciation_model_average_ltt_test <- function() {
   birth_rate <- 0.3
   death_rate <- 0.2
   crown_age <- 15
@@ -63,7 +63,7 @@ DemonstrateGetBirthDeathSpeciationModelAverageLtt <- function() {
   stop()
 
   # Compare species tree and gene tree
-  GetBirthDeathSpeciationModelAverageLtt(
+  get_birth_death_speciation_model_average_ltt(
     birth_rate = birth_rate,
     death_rate = death_rate,
     crown_age = crown_age,
@@ -78,7 +78,7 @@ DemonstrateGetBirthDeathSpeciationModelAverageLtt <- function() {
 #     )
   )
   
-  GetBirthDeathSpeciationModelAverageLtt(
+  get_birth_death_speciation_model_average_ltt(
     birth_rate = birth_rate * 1.1,
     death_rate = death_rate,
     crown_age = crown_age,
@@ -87,5 +87,4 @@ DemonstrateGetBirthDeathSpeciationModelAverageLtt <- function() {
   )
 }
 
-# Uncomment this to view the function demonstration
-#DemonstrateGetBirthDeathSpeciationModelAverageLtt()
+get_birth_death_speciation_model_average_ltt_test()

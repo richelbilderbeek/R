@@ -1,10 +1,9 @@
-#rm(list = ls())
 library(DDD)
 
-source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
-source("~/GitHubs/R/Phylogenies/CanDropExtinct.R")
+source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
+source("~/GitHubs/R/Phylogenies/can_drop_extinct.R")
 
-GetBirthDeathSpeciationModelAverageNltt <- function(
+get_birth_death_speciation_model_average_nltt <- function(
   birth_rate,
   death_rate,
   crown_age,
@@ -28,7 +27,7 @@ GetBirthDeathSpeciationModelAverageNltt <- function(
     )
 
     # Drop the fossils if possible
-    if (!CanDropExtinct(phylogeny_complete)) {
+    if (!can_drop_extinct(phylogeny_complete)) {
      next
     }
     phylogeny_reconstructed <- drop.extinct(phylogeny_complete)
@@ -36,73 +35,8 @@ GetBirthDeathSpeciationModelAverageNltt <- function(
     phylogenies <- c(phylogenies,list(phylogeny_reconstructed))
   }
   
-  GetAverageNltt(
+  get_average_nltt(
     phylogenies,
     ...
   )
 }
-
-DemonstrateGetBirthDeathSpeciationModelAverageNltt1 <- function() {
-  birth_rate <- 0.3
-  death_rate <- 0.2
-  crown_age <- 15
-  n_trees <- 1000
-  
-  # Compare species tree and gene tree
-  GetBirthDeathSpeciationModelAverageNltt(
-    birth_rate = birth_rate,
-    death_rate = death_rate,
-    crown_age = crown_age,
-    n_trees = n_trees,
-    col = "red",
-    lwd = 4,
-    cex.lab = 1.5,
-    cex.axis = 1.5,
-    plot_nltts = FALSE,
-    main = paste(
-      "Average nLTT of ",n_trees,
-      " BD trees (birth rate: ",birth_rate,
-      ", death rate: ",death_rate,
-      ", crown age: ",crown_age,")",
-      sep=""
-    )
-  )
-}
-
-DemonstrateGetBirthDeathSpeciationModelAverageNltt2 <- function() {
-  birth_rate <- 0.3
-  death_rate <- 0.2
-  crown_age <- 15
-  n_trees <- 100
-  
-  # Compare species tree and gene tree
-  GetBirthDeathSpeciationModelAverageNltt(
-    birth_rate = birth_rate,
-    death_rate = death_rate,
-    crown_age = crown_age,
-    n_trees = n_trees,
-    col = "red",
-    plot_nltts = FALSE,
-    main = paste(
-      "Average nLTT of ",n_trees,
-      " BD trees (birth rate: ",birth_rate, " (red) and ",birth_rate * 1.1," (blue)",
-      ", death rate: ",death_rate,
-      ", crown age: ",crown_age,")",
-      sep=""
-    )
-  )
-  
-  GetBirthDeathSpeciationModelAverageNltt(
-    birth_rate = birth_rate * 1.1,
-    death_rate = death_rate,
-    crown_age = crown_age,
-    n_trees = n_trees,
-    col = "blue",
-    plot_nltts = FALSE,
-    replot = TRUE #Overlay this on a current plot
-  )
-}
-
-# Uncomment this to view the function demonstration
-DemonstrateGetBirthDeathSpeciationModelAverageNltt1()
-#DemonstrateGetBirthDeathSpeciationModelAverageNltt2()

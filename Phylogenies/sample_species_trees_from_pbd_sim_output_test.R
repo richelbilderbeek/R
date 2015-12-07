@@ -3,8 +3,8 @@
 #rm(list=ls())
 
 library(testit)
-source("~/GitHubs/R/Phylogenies/SampleSpeciesTreesFromPbdSimOutput.R")
-source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
+source("~/GitHubs/R/Phylogenies/sample_species_trees_from_pbd_sim_output.R")
+source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
 
 # Helper function
 plot_species_trees <- function(

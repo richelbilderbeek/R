@@ -1,7 +1,6 @@
-source("~/GitHubs/R/Phylogenies/GetPhylogenyNlttMatrix.R")
-source("~/GitHubs/R/Phylogenies/StretchNlttMatrix.R")
+source("~/GitHubs/R/Phylogenies/get_phylogeny_nltt_matrix.R")
+source("~/GitHubs/R/Phylogenies/stretch_nltt_matrix.R")
 
-#rm(list = ls())
 library(ape)
 library(geiger)
 library(nLTT)
@@ -15,8 +14,7 @@ get_average_nltt <- function(
   ylab = "Normalized Lineages",
   replot = FALSE,
   ...
-)
-{
+) {
   #  phylogenies, 
   #  dt: delta t, resolution of the averaged nLTT, where smaller is a higher resolution
   #  plot_nltts = FALSE,
@@ -88,28 +86,4 @@ get_average_nltt <- function(
     ylim=c(0,1),
     ...
   )
-}
-
-GetAverageNltt <- function(
-  phylogenies, 
-  dt = 0.001,
-  plot_nltts = FALSE,
-  xlab = "Normalized Time", 
-  ylab = "Normalized Lineages",
-  replot = FALSE,
-  ...
-) {
-  print("Warning: use of obsolete function 'GetAverageNltt', use 'get_average_nltt' instead")
-  return (
-    get_average_nllt(
-      phylogenies = phylogenies, 
-      dt = dt,
-      plot_nltts = plot_nltts,
-      xlab = xlab, 
-      ylab = ylab,
-      replot = replot,
-      ...
-    )
-  )
-  
 }

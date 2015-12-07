@@ -1,4 +1,4 @@
-GetIncorrectTestNewicks <- function()
+get_incorrect_test_newicks <- function()
 {
   incorrect_test_newicks <- c(
     "A;",

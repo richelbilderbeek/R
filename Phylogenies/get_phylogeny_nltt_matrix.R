@@ -9,8 +9,3 @@ get_phylogeny_nltt_matrix <- function(phylogeny) {
   xy[, 1] <- xy[, 1]/max(xy[, 1])
   return (xy)
 }
-
-GetPhylogenyNlttMatrix <- function(phylogeny) {
-  print(paste("Warning: use of obsolete function 'GetPhylogenyNlttMatrix', use 'get_phylogeny_nltt_matrix' instead", sep=""))
-  return (get_phylogeny_nltt_matrix(phylogeny))
-}

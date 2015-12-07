@@ -1,5 +1,5 @@
 source("~/GitHubs/R/Peregrine/read_libraries.R")
-source("~/GitHubs/R/Phylogenies/GetAverageNltt.R")
+source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
 read_libraries()
 
 show_posteriors <- function(filename)

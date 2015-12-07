@@ -1,6 +1,6 @@
 library(PBD)
 
-source("~/GitHubs/R/Phylogenies/GetPhylogenyCrownAge.R")
+source("~/GitHubs/R/Phylogenies/get_phylogeny_crown_age.R")
 
 # Does not use pbd_sim()$stree, but generates these like PBD does
 sample_species_trees_from_pbd_sim_output <- function(

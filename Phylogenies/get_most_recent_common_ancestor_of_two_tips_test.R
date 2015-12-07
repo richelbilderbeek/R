@@ -53,14 +53,14 @@ get_most_recent_common_ancestor_of_two_tips_test_1 <- function() {
 get_most_recent_common_ancestor_of_two_tips_test_2 <- function() {
   get_most_recent_common_ancestor_of_two_tips_test()
   
-  paraphyletic_newicks <- GetCorrectParaphyleticTestNewicks()
+  paraphyletic_newicks <- get_correct_paraphyletic_test_newicks()
   paraphyletic_newick <- paraphyletic_newicks[1]
   paraphyletic_phylogeny <- convert_newick_to_phylogeny(paraphyletic_newick)
-  #paraphyletic_phylogeny$tip.label = StripSubspeciesLabelFromTipLabels(paraphyletic_phylogeny$tip.label)
+  #paraphyletic_phylogeny$tip.label = strip_subspecies_label_from_tip_labels(paraphyletic_phylogeny$tip.label)
   
   plot(paraphyletic_phylogeny)
   
-  tips <- StripSubspeciesLabelFromTipLabels(paraphyletic_phylogeny$tip.label)
+  tips <- strip_subspecies_label_from_tip_labels(paraphyletic_phylogeny$tip.label)
   tips
   is.monophyletic(
     paraphyletic_phylogeny,
