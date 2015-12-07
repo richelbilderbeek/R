@@ -1,17 +1,8 @@
-library(ape)
+source("~/GitHubs/R/Phylogenies/is_monophyletic_group.R")
+
 library(testit)
 
-source("~/GitHubs/R/Phylogenies/ConvertNewickToPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/GetCorrectTestNewicks.R")
-source("~/GitHubs/R/Phylogenies/GetCorrectParaphyleticTestNewicks.R")
-source("~/GitHubs/R/Phylogenies/StripSubspeciesLabelFromTipLabels.R")
-
-# Detect if a group of labels is monophyletic
-IsMonophyleticGroup <- function(phylogeny, groups) {
-  return (is.monophyletic(phylogeny, tips = groups))
-}
-
-DemonstrateIsMonophyleticGroup <- function() {
+is_monophyletic_group_test <- function() {
 
   phylogeny <- read.tree(text="(A:2.0,(B:1.0,C:1.0):1.0):1.0;")
   #
@@ -26,9 +17,9 @@ DemonstrateIsMonophyleticGroup <- function() {
   #  +----------- A
   #
   plot(phylogeny)
-  assert( IsMonophyleticGroup(phylogeny,groups = c("B","C")))
-  assert(!IsMonophyleticGroup(phylogeny,groups = c("A","C")))
-  assert( IsMonophyleticGroup(phylogeny,groups = c("A","B","C")))
+  assert( is_monophyletic_group(phylogeny,groups = c("B","C")))
+  assert(!is_monophyletic_group(phylogeny,groups = c("A","C")))
+  assert( is_monophyletic_group(phylogeny,groups = c("A","B","C")))
 }
 
-#DemonstrateIsMonophyleticGroup()
+is_monophyletic_group_test()

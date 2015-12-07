@@ -47,7 +47,7 @@ is_monophyletic <- function(phylogeny) {
     return (TRUE) 
   }
   # If all tips are unique, there is a monophyly
-  if (AreAllUnique(original_tip_labels)) {
+  if (are_all_unique(original_tip_labels)) {
     return (TRUE) 
   }
   

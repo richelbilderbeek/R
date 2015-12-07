@@ -1,5 +1,6 @@
 library(ape)
 library(phangorn)
+library(testit)
 
 convert_alignment_to_fasta <- function(
   alignment_dnabin,
@@ -7,15 +8,7 @@ convert_alignment_to_fasta <- function(
 ) {
   # Create a FASTA file text from an alignment
 
-  write.phyDat(alignment_dnabin, file=filename, format="fasta")
-}
+  assert(class(alignment) == "DNAbin")
 
-ConvertAlignmentToFasta <- function(alignment_dnabin, filename) {
-  print("Warning: use of obsolete function 'ConvertAlignmentToFasta', use 'convert_alignment_to_fasta' instead")
-  return (
-    convert_alignment_to_fasta(
-      alignment_dnabin = alignment_dnabin,
-      filename = filename
-    )
-  )
+  write.phyDat(alignment_dnabin, file = filename, format = "fasta")
 }

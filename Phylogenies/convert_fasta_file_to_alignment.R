@@ -3,7 +3,9 @@ library(phangorn)
 library(phytools)
 library(testit)
 
-ConvertFastaFileToAlignment <- function(fasta_filename) {
+convert_fasta_file_to_alignment <- function(fasta_filename) {
+  print("convert_fasta_file_to_alignment: FAILS")
+  stop()
   assert(file.exists(fasta_filename))
 
   # Read the file
@@ -16,17 +18,8 @@ ConvertFastaFileToAlignment <- function(fasta_filename) {
   assert(class(alignment)=="alignment")
   
   # Convert to DNAbin
-  alignment_dnabin <- as.DNAbin(y)
+  alignment_dnabin <- as.DNAbin(alignment)
   assert(class(alignment_dnabin)=="DNAbin")
   
   return (alignment_dnabin)
 }
-  
-DemonstrateConvertFastaFileToAlignment <- function() {
-  fasta_filename <- "ConvertFastaFileToCoalescentTree.fas"
-  alignment <- ConvertFastaFileToAlignment(fasta_filename)
-  image(alignment)
-}
-
-
-#DemonstrateConvertFastaFileToAlignment()
