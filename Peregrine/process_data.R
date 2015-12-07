@@ -7,22 +7,22 @@ source("~/GitHubs/R/Peregrine/install_libraries.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 
 # InstallLibraries()
-ReadLibraries()
+read_libraries()
 
-CollectDataFiles <- function() {
+collect_data_files <- function() {
   result_files <- list.files(
     path = ".", 
     pattern = "_data.txt",
   )
 }
 
-ReadData <- function(data_filename)
+read_data <- function(data_filename)
 {
   assert(file.exists(data_filename))
   data <- readRDS(data_filename)
 }
 
-RunExperiment <- function(
+run_experiment <- function(
   data_filename,
   do_plot = FALSE
 )
@@ -36,7 +36,7 @@ RunExperiment <- function(
   # Create/extract all parameters
   # 
   ###############################
-  parameters <- ReadParameters(parameters_filename)
+  parameters <- read_parameters(parameters_filename)
   mutation_rate <- as.numeric(parameters$mutation_rate[2])
   sequence_length <- as.numeric(parameters$sequence_length[2])
   mcmc_chainlength <- as.numeric(parameters$mcmc_chainlength[2])
@@ -84,7 +84,7 @@ RunExperiment <- function(
   }
   
   # Add an outgroup
-  phylogeny_with_outgroup <- AddOutgroupToPhylogeny(phylogeny,stem_length = 0)
+  phylogeny_with_outgroup <- add_outgroup_to_phylogeny(phylogeny,stem_length = 0)
 
   if (do_plot) {
     plot(phylogeny_with_outgroup)
@@ -92,7 +92,7 @@ RunExperiment <- function(
   }
   
   # Create simulated DNA from tree
-  alignments <- ConvertPhylogenyToRandomAlignments(
+  alignments <- convert_phylogeny_to_random_alignments(
     phylogeny_with_outgroup,
     sequence_length, 
     mutation_rate = as.numeric(parameters$mutation_rate[2])
@@ -103,7 +103,7 @@ RunExperiment <- function(
   }
   
   # Save to FASTA file
-  ConvertAlignmentsToFasta(alignments,fasta_filename)
+  convert_alignments_to_fasta(alignments,fasta_filename)
   
   # Create BEAST2 parameter file from FASTA file and aparameters
   cmd <- paste(
@@ -154,6 +154,6 @@ RunExperiment <- function(
   saveRDS(my_list,file=output_filename)
 }
 
-for (parameter_filename in CollectParameterFiles()) {
-  RunExperiment(paste("~/",parameter_filename,sep=""))  
+for (parameter_filename in collect_parameter_files()) {
+  run_experiment(paste("~/",parameter_filename,sep=""))  
 }

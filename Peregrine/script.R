@@ -20,9 +20,9 @@ library(RColorBrewer)
 library(data.table)
 library(phangorn)
 library(nLTT);
-source("~/GitHubs/R/Phylogenies/AddOutgroupToPhylogeny.R")
-source("~/GitHubs/R/Phylogenies/ConvertPhylogenyToAlignments.R")
-source("~/GitHubs/R/Phylogenies/ConvertAlignmentsToFasta.R")
+source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
+source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignments.R")
+source("~/GitHubs/R/Phylogenies/convert_alignments_to_fasta.R")
 
 
 can_install_devtools <- FALSE
@@ -90,19 +90,19 @@ plot(phylogeny,main="True tree")
 add.scale.bar()
 
 # Add an outgroup
-phylogeny_with_outgroup <- AddOutgroupToPhylogeny(phylogeny,stem_length = 0)
+phylogeny_with_outgroup <- add_outgroup_to_phylogeny(phylogeny,stem_length = 0)
 plot(phylogeny_with_outgroup)
 add.scale.bar(x=0,y=length(phylogeny_with_outgroup$tip.label))
 
 # Create simulated DNA from tree
-alignments <- ConvertPhylogenyToRandomAlignments(
+alignments <- convert_phylogeny_to_random_alignments(
   phylogeny_with_outgroup,sequence_length, 
   mutation_rate = 0.01
 )
 image(alignments)
 
 # Save to FASTA file
-ConvertAlignmentsToFasta(alignments,fasta_filename)
+convert_alignments_to_fasta(alignments,fasta_filename)
 
 # Create BEAST2 parameter file from FASTA file and aparameters
 cmd <- paste(
