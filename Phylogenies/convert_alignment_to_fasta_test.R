@@ -10,6 +10,7 @@ convert_alignment_to_fasta_test <- function() {
   image(alignment)
   
   filename <- get_test_fasta_filename()
+
   convert_alignment_to_fasta(alignment,filename)
   file.show(filename)
 }
