@@ -7,5 +7,5 @@
 #SBATCH --job-name=test_job_1
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --partition=short
-module load R/3.2.1-goolfc-2.7.11-default-X11
+module load R
 Rscript create_parameter_files.R
