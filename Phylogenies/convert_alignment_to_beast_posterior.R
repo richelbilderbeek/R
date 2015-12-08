@@ -43,18 +43,24 @@ convert_alignment_to_beast_posterior <- function(
   temp_fasta_filename <- paste(base_filename,".fasta",sep="");
 
   # Check prerequisites
+  if (!file.exists(beast_bin_path) && !file.exists(beast_jar_path)) {
+    stop(
+      "ERROR: BEAST2 binary not found at path '",
+      beast_bin_path,
+      "', BEAST2 jar not found at path '",
+      beast_jar_path,
+      "'"
+    )
+  }
   if (!file.exists(beast_bin_path))
   {
     print(paste("BEAST2 binary not found at path '",beast_bin_path,"'",sep=""))
-    stop()
   }
-  assert(file.exists(beast_bin_path))
   if (!file.exists(beast_jar_path))
   {
-    print(paste("BEAST2 jar not found at path '",beast_bin_path,"'",sep=""))
-    stop()
+    print(paste("BEAST2 jar not found at path '",beast_jar_path,"'",sep=""))
   }
-  assert(file.exists(beast_jar_path))
+  assert(file.exists(beast_jar_path) || file.exists(beast_bin_path))
   
   # Create a BEAST2 XML input file
   convert_alignment_to_beast_input_file(
@@ -94,6 +100,7 @@ convert_alignment_to_beast_posterior <- function(
   
   
   # Call BEAST2 binary file directly
+  if (file.exists(beast_bin_path))
   {
     # This may result in the following error:
     #
@@ -118,13 +125,15 @@ convert_alignment_to_beast_posterior <- function(
   
   # Call BEAST2 jar
   if (!file.exists(beast_trees_filename)) {
-    cmd <- paste(
-      "java -jar ", beast_jar_path, 
-      " -seed ", rng_seed,
-      " ", beast_filename,
-      sep = ""
-    )
-    system(cmd)
+    if (file.exists(beast_jar_path)) {
+      cmd <- paste(
+        "java -jar ", beast_jar_path, 
+        " -seed ", rng_seed,
+        " ", beast_filename,
+        sep = ""
+      )
+      system(cmd)
+    }
   }
 
   assert(file.exists(beast_trees_filename))
