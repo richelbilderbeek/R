@@ -28,7 +28,7 @@
 #
 
 #filename <- "0.RDa"
-#rm(list = ls())
+rm(list = ls())
 
 if (length(commandArgs(TRUE)) != 1) {
   print("Please supply a filename" )
