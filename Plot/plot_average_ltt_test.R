@@ -57,8 +57,13 @@ plot_ltt_test <- function() {
 
   plot_average_ltt(
     trees_ages_pair,
-    timemax = age, # Set the x axis its length, which is the timespan between now and past
-    nmax = 100  # Set the y axis its length, which is the number of species  
+    age = age, # Set the x axis its length, which is the timespan between now and past
+    nmax = 10  # Set the y axis its length, which is the number of species  
+  )
+
+  plot_average_ltt_with_individual_lineages(
+    trees_ages_pair,
+    nmax = 10  # Set the y axis its length, which is the number of species  
   )
 }
 
