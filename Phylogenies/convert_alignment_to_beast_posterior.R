@@ -43,15 +43,6 @@ convert_alignment_to_beast_posterior <- function(
   temp_fasta_filename <- paste(base_filename,".fasta",sep="");
 
   # Check prerequisites
-  if (!file.exists(beast_bin_path) && !file.exists(beast_jar_path)) {
-    stop(
-      "ERROR: BEAST2 binary not found at path '",
-      beast_bin_path,
-      "', BEAST2 jar not found at path '",
-      beast_jar_path,
-      "'"
-    )
-  }
   if (!file.exists(beast_bin_path))
   {
     print(paste("BEAST2 binary not found at path '",beast_bin_path,"'",sep=""))
@@ -74,9 +65,6 @@ convert_alignment_to_beast_posterior <- function(
   
   # Run BEAST2, needs the BEAST2 .XML parameter file
   # Prevent BEAST prompting the user whether to overwrite the log file
-  assert(!file.exists(beast_trees_filename)) #DEBUG
-  assert(!file.exists(beast_log_filename)) #DEBUG
-  assert(!file.exists(beast_state_filename)) #DEBUG
 
   if (file.exists(beast_trees_filename)) { 
     file.remove(beast_trees_filename)
@@ -93,15 +81,32 @@ convert_alignment_to_beast_posterior <- function(
   assert(!file.exists(beast_trees_filename))
   assert(!file.exists(beast_log_filename))
   assert(!file.exists(beast_state_filename))
+  
+  print("Call BEAST2 in path")
+  {
+    cmd <- paste(
+      "beast", 
+      " -seed ",rng_seed,
+      " ", beast_filename,
+      sep=""
+    )
+    system(cmd)
+    if (file.exists(beast_trees_filename)) {
+      print("File created by beast binary in path")
+      assert(file.exists(beast_trees_filename))
+      assert(file.exists(beast_log_filename))
+      assert(file.exists(beast_state_filename))
+      # Read all trees from the BEAST2 posterior
+      posterior <- beast2out.read.trees(beast_trees_filename)
+      assert(is_beast_posterior(posterior))
+      return (posterior)
+    }
+  }
 
-  print(paste("NOTE: no '",beast_trees_filename,"'"), sep="")
-  print(paste("NOTE: no '",beast_log_filename,"'"), sep="")
-  print(paste("NOTE: no '",beast_state_filename,"'"), sep="")
   
-  
-  # Call BEAST2 binary file directly
   if (file.exists(beast_bin_path))
   {
+    print("Call BEAST2 binary from full file path")
     # This may result in the following error:
     #
     #   Invalid maximum heap size: -Xmx4g
@@ -118,37 +123,39 @@ convert_alignment_to_beast_posterior <- function(
     )
     system(cmd)
     if (file.exists(beast_trees_filename)) {
-      print("File created by beast binary")
+      print("File created by beast binary (called by its full path)")
+      assert(file.exists(beast_trees_filename))
+      assert(file.exists(beast_log_filename))
+      assert(file.exists(beast_state_filename))
+      
+      # Read all trees from the BEAST2 posterior
+      posterior <- beast2out.read.trees(beast_trees_filename)
+      assert(is_beast_posterior(posterior))
+      return (posterior)
     }
   }
 
   
-  # Call BEAST2 jar
-  if (!file.exists(beast_trees_filename)) {
-    if (file.exists(beast_jar_path)) {
-      cmd <- paste(
-        "java -jar ", beast_jar_path, 
-        " -seed ", rng_seed,
-        " ", beast_filename,
-        sep = ""
-      )
-      system(cmd)
+  if (file.exists(beast_jar_path)) {
+    print("Call BEAST2 jar by its full file path")
+    cmd <- paste(
+      "java -jar ", beast_jar_path, 
+      " -seed ", rng_seed,
+      " ", beast_filename,
+      sep = ""
+    )
+    system(cmd)
+    if (file.exists(beast_trees_filename)) {
+      print("File created by BEAST2 jar file")
+      assert(file.exists(beast_trees_filename))
+      assert(file.exists(beast_log_filename))
+      assert(file.exists(beast_state_filename))
+      
+      # Read all trees from the BEAST2 posterior
+      posterior <- beast2out.read.trees(beast_trees_filename)
+      assert(is_beast_posterior(posterior))
+      return (posterior)
     }
   }
 
-  assert(file.exists(beast_trees_filename))
-  assert(file.exists(beast_log_filename))
-  assert(file.exists(beast_state_filename))
-  
-  ###############################
-  #
-  # Save the results to file
-  #
-  ###############################
-  
-  # Analyse posterior
-  # Read all trees from the BEAST2 posterior
-  posterior <- beast2out.read.trees(beast_trees_filename)
-  assert(is_beast_posterior(posterior))
-  return (posterior)
 }  
