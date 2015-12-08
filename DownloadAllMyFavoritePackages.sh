@@ -5,6 +5,7 @@ then
 fi
 
 ./DownloadApe.sh
+./DownloadDaisie.sh
 ./DownloadDeSolve.sh
 ./DownloadGeiger.sh
 ./DownloadPdb.sh
