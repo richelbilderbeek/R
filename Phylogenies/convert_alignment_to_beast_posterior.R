@@ -51,7 +51,6 @@ convert_alignment_to_beast_posterior <- function(
   {
     print(paste("BEAST2 jar not found at path '",beast_jar_path,"'",sep=""))
   }
-  assert(file.exists(beast_jar_path) || file.exists(beast_bin_path))
   
   # Create a BEAST2 XML input file
   convert_alignment_to_beast_input_file(
