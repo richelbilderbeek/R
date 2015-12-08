@@ -1,9 +1,5 @@
 library(ape)
-library(ape)
 
-
-phylogeny <- rcoal(10)
-ltt.plot(phylogeny)
-ltt.plot
-
-ltt.plot.coords
+plot_ltt <- function(phylogeny, ...) {
+  ltt.plot(phylogeny, ...)
+}
