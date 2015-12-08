@@ -1,6 +1,8 @@
+#rm(list = ls())
 source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
+library(nLTT)
 
-demonstrate_get_average_nltt <- function()
+get_average_nltt_test <- function()
 {
   # Two different phylogenies
   newick1 <- "((((XD:1,ZD:1):1,CE:2):1,(FE:2,EE:2):1):4,((AE:1,BE:1):1,(WD:1,YD:1):1):5);"
@@ -38,4 +40,4 @@ demonstrate_get_average_nltt <- function()
   )
 }
 
-demonstrate_get_average_nltt()
+get_average_nltt_test()
