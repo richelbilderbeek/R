@@ -1,54 +1,65 @@
-source("~/GitHubs/R/Plot/plot_ltt.R")
+#rm(list = ls())
+source("~/GitHubs/R/Plot/plot_average_ltt.R")
+source("~/GitHubs/R/Phylogenies/is_phylogeny.R")
 
-library("TreeSim")
+library(TreeSim)
+library(ape)
+library(testit)
 
 plot_ltt_test <- function() {
-  phylogeny <- rcoal(10)
-  plot_ltt(phylogeny, main = "plot_ltt_test")
+  
+  age <- 10
+  n_trees <- 100
+  trees <- NULL
+  ages <- NULL
+  
+  assert(age > 0) # 
+  assert(n_trees >= 2) # Otherwise some tests will fail
+  
+  for (i in seq(1,n_trees)) {
+
+    #Create a tree
+    tree <- sim.bdtree(
+      b = 0.4, 
+      d = 0.1, 
+      stop = "time",
+      t = age,
+      extinct = FALSE
+    )
+    tree <- drop.fossil(tree)
+    trees <- c(trees,list(tree))
+    ages <- c(ages,age)
+  }
+  assert(length(trees) == length(ages))
+
+  trees_ages_pair <- c(list(trees),list(ages))
+  
+  assert(class(trees_ages_pair) == "list")
+  assert(is.null(names(trees_ages_pair)))
+  assert(length(trees_ages_pair) == 2) #It is a pair
+  assert(is_phylogeny(trees_ages_pair[[1]][[1]]))
+  assert(is_phylogeny(trees_ages_pair[[1]][[2]]))
+  assert(trees_ages_pair[[2]][[1]] == age)
+  assert(trees_ages_pair[[2]][[2]] == age)
+
+  #Plot two trees
+  #plot(trees_ages_pair[[1]][[1]])
+  #add.scale.bar()
+  #plot(trees_ages_pair[[1]][[2]])
+  #add.scale.bar()
+  
+#   LTT.plot(
+#     trees_ages_pair, 
+#     timemax = age, # Set the x axis its length, which is the timespan between now and past
+#     avg = TRUE,  #Show the average LTT
+#     nmax = 100  # Set the y axis its length, which is the number of species  
+#   )
+
+  plot_average_ltt(
+    trees_ages_pair,
+    timemax = age, # Set the x axis its length, which is the timespan between now and past
+    nmax = 100  # Set the y axis its length, which is the number of species  
+  )
 }
 
 plot_ltt_test()
-
-numbsim<-10
-age<-10
-lambda<-0.3
-mu<-0.1
-K<-40
- 
-??LTT.average
-??TreeSim
-trees <- list(rcoal(10),rcoal(10))
-trees
-LTT.plot(trees)
-ltttrees <- LTT.average.root(trees)
-
-plot(ltttrees,type='l',col='black',log="y",xlab="time",ylab="number of species")
-LTT.plot(c(trees,list(c(10,10))))
-
-LTT.plot(trees = trees)
-?LTT.plot
-
-
-# Simulation of a tree of age 10 under the density-dependent model
-numbsim<-3
-age<-10
-lambda<-0.3
-mu<-0
-K<-40
-tree<- sim.bd.age(age,numbsim,lambda,mu,mrca=FALSE,complete=FALSE,K=K)
-class(tree)
-# Plot of tree
-LTT.plot(c(list(tree),list(c(age,age,age))))
-#
-# Simulation of a tree with 10 tips under the constant rate birth-death model
-numbsim<-3
-n<-10
-lambda<-0.3
-mu<-0
-tree<- sim.bd.taxa(10,numbsim,lambda,mu,complete=FALSE,stochsampling=TRUE)
-# Plot of tree
-ages<-c()
-for (i in 1:length(tree)){
-    ages<-c(ages,tree[[i]]$root.edge+max(getx(tree[[i]])))
-}
-LTT.plot(c(list(tree),list(ages)),avg=TRUE)
