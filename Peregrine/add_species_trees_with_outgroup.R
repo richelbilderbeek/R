@@ -23,9 +23,11 @@ add_species_trees_with_outgroup <- function(
   assert(!is.null(file$species_trees_with_outgroup))
   assert(!is.null(file$alignments))
   assert(!is.null(file$posteriors))
-  
+
+  # Read parameters
   parameters <- file$parameters
   n_species_trees_samples <- as.numeric(parameters$n_species_trees_samples[2])
+  rng_seed <- as.numeric(parameters$rng_seed[2]) # the extinction rate of incipient species 
 
   if(is.na(file$pbd_output[1])) {
     print(paste("file ",filename," needs a pbd_output",sep=""))

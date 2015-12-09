@@ -66,7 +66,7 @@ add_posteriors <- function(
       set.seed(rng_seed + j) #Every alignment is made with a different RNG
     
       print(paste("   * Creating posterior #", j, " for alignment #",i," at index #", index, sep=""))
-      basefilename <- paste(basename(file_path_sans_ext(filename)),"_",i,"_",j)
+      basefilename <- paste(basename(file_path_sans_ext(filename)),"_",i,"_",j, sep="")
       print(paste("   * Creating posterior using basefilename '", basefilename, "'", sep=""))
       
       assert(is_alignment(alignment))

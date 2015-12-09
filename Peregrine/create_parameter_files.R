@@ -21,7 +21,8 @@ create_parameters_files <- function () {
               for (mutation_rate in c(0.01, 0.001)) {
                 for (n_alignments in c(2)) {
                   for (sequence_length in c(1000,10000)) {
-                    mcmc_chainlength <- 10000000
+                    mcmc_chainlength <- 10000 # Debug
+                    #mcmc_chainlength <- 1000000 # 1M is enough for ESSs >250
                     n_beast_runs <- 2
                     filename <- paste(file_index,".RDa",sep="")
                     save_parameters_to_file(
