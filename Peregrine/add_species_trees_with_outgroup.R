@@ -45,6 +45,9 @@ add_species_trees_with_outgroup <- function(
     print(paste(" * Adding species_trees_with_outgroup[",i,"]",sep=""))
     print("   * sample_species_trees_from_pbd_sim_output")
 
+    print(paste("   * Setting seed to ", (rng_seed + i), sep=""))
+    set.seed(rng_seed + i) # Each species tree is generated from its own RNG seed
+
     one_species_trees <- sample_species_trees_from_pbd_sim_output(n = 1,file$pbd_output)[1]
     assert(typeof(one_species_trees)=="list")
     assert(length(one_species_trees)==1)

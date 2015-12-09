@@ -3,6 +3,7 @@ source("~/GitHubs/R/Peregrine/read_libraries.R")
 source("~/GitHubs/R/Phylogenies/is_beast_posterior.R")
 
 read_libraries()
+library(tools)
 
 add_posteriors <- function(
   filename,
@@ -11,6 +12,10 @@ add_posteriors <- function(
 {
   file <- read_file(filename)
   assert(mode(file) == "list")
+
+  assert(basename("/test/1.txt") == "1.txt")
+  assert(basename(file_path_sans_ext("/test/1.txt")) == "1")
+  assert(basename(file_path_sans_ext("/test/13.RDa")) == "13")
 
   assert(!is.null(file$parameters))
   assert(!is.null(file$pbd_output))
@@ -57,12 +62,11 @@ add_posteriors <- function(
         print(paste("   * Posterior #", j, " for alignment #",i," at index #", index, " already has a posterior", sep=""))
          next 
       }
-
-      print(paste("   * Setting seed to ", rng_seed, sep=""))
-      set.seed(rng_seed) # FIX_ISSUE_4
+      print(paste("   * Setting seed to ", rng_seed + j, sep=""))
+      set.seed(rng_seed + j) #Every alignment is made with a different RNG
     
       print(paste("   * Creating posterior #", j, " for alignment #",i," at index #", index, sep=""))
-      basefilename <- basename(tempfile(pattern = "tmp_", fileext = ""))
+      basefilename <- paste(basename(file_path_sans_ext(filename)),"_",i,"_",j)
       print(paste("   * Creating posterior using basefilename '", basefilename, "'", sep=""))
       
       assert(is_alignment(alignment))
@@ -74,7 +78,6 @@ add_posteriors <- function(
       )
 
       assert(is_beast_posterior(posterior))
-      #assert(is_beast_posterior(list(posterior)))
 
       print(paste("   * Storing posterior #", j, " for alignment #",i," at index #", index, sep=""))
       file$posteriors[[index]] <- list(posterior)

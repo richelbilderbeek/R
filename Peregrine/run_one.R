@@ -58,7 +58,6 @@ print("#3: Create the simulated alignments from each true phylogeny")
 source("~/GitHubs/R/Peregrine/add_alignments.R")
 
 add_alignments(filename, do_plot = FALSE)  
-
 print("#4: Creating posteriors from alignments")
 source("~/GitHubs/R/Peregrine/add_posteriors.R")
 add_posteriors(filename)  

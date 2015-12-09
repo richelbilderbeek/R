@@ -42,7 +42,7 @@ add_pbd_output <- function(
   age <- as.numeric(parameters$age[2]) 
   
   # Create the tree without outgroup
-  print(paste(" * Setting seed ",rng_seed,sep=""))
+  print(paste(" * Setting seed ", rng_seed, sep=""))
   set.seed(rng_seed)
 
   #do_plot <- FALSE
