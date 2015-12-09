@@ -74,7 +74,7 @@ add_posteriors <- function(
         alignment = alignment,
         base_filename = basefilename,
         mcmc_chainlength = mcmc_chainlength,
-        rng_seed = rng_seed
+        rng_seed = rng_seed + j
       )
 
       assert(is_beast_posterior(posterior))
