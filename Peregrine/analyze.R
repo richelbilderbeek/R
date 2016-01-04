@@ -2,11 +2,11 @@ library(ape)
 library(nLTT)
 source("~/GitHubs/R/Peregrine/load_parameters_from_file.R")
 source("~/GitHubs/R/Peregrine/show_posteriors.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.treeannotator.R")
-  source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
+source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
+source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
+source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
+source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.treeannotator.R")
+source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
 
 rda_filename <- "~/Slurm/2.RDa"
 trees_filename <- "~/Slurm/0_1_1.trees"
