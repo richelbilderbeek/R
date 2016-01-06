@@ -1,6 +1,3 @@
-# Step #1
-# Creates files with filename [number].RDa that
-# contain the parameters of interest.
 library(testit)
 
 save_parameters_to_file <- function(
@@ -19,6 +16,18 @@ save_parameters_to_file <- function(
   n_beast_runs,
   filename
 ) {
+  assert(species_initiation_rate_good_species >= 0.0)
+  assert(species_initiation_rate_incipient_species >= 0.0)
+  assert(speciation_completion_rate >= 0.0)
+  assert(extinction_rate_good_species >= 0.0)
+  assert(extinction_rate_incipient_species >= 0.0)
+  assert(age > 0)
+  assert(n_species_trees_samples > 0)
+  assert(mutation_rate >= 0.0)
+  assert(n_alignments > 0)
+  assert(sequence_length > 0)
+  assert(mcmc_chainlength > 0)
+  assert(n_beast_runs > 0)
 
   my_table <- data.frame( row.names = c("Description","Value"))
   my_table[, "rng_seed"] <- c("Random number generate seed",rng_seed)
