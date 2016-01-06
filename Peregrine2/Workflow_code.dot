@@ -1,0 +1,13 @@
+digraph G {
+0[label="save_parameters_to_file"];
+1[label="add_pbd_output"];
+2[label="add_species_trees_with_outgroup"];
+3[label="add_alignments"];
+4[label="add_posteriors"];
+5[label="analyze"];
+0->1;
+1->2;
+2->3;
+3->4;
+4->5;
+}
