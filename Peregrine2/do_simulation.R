@@ -10,18 +10,12 @@ if (!file.exists(filename)) {
   stop()
 }
 
-print("#1: Create the true phylogeny")
 source("~/GitHubs/R/Peregrine/add_pbd_output.R")
-add_pbd_output(filename)  
-
-print("#2: Sample a species tree, adding an outgroup")
 source("~/GitHubs/R/Peregrine/add_species_trees_with_outgroup.R")
-add_species_trees_with_outgroup(filename)  
-
-print("#3: Create the simulated alignments from each true phylogeny")
 source("~/GitHubs/R/Peregrine/add_alignments.R")
-
-add_alignments(filename, do_plot = FALSE)  
-print("#4: Creating posteriors from alignments")
 source("~/GitHubs/R/Peregrine/add_posteriors.R")
+
+add_pbd_output(filename)  
+add_species_trees_with_outgroup(filename)  
+add_alignments(filename, do_plot = FALSE)  
 add_posteriors(filename)
