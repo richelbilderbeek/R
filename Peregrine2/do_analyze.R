@@ -12,6 +12,7 @@ for (filename in commandArgs(TRUE)) {
 }
 
 source("~/GitHubs/R/Peregrine2/do_analyze_single.R")
+source("~/GitHubs/R/Peregrine2/do_analyze_multi.R")
 
 if (length(commandArgs(TRUE)) == 1) {
   do_analyze_single(commandArgs(TRUE)[1])
@@ -19,6 +20,9 @@ if (length(commandArgs(TRUE)) == 1) {
   do_analyze_multi(commandArgs(TRUE))
 }
 stop()
+
+#setwd("~/GitHubs/R/Peregrine2")
+do_analyze_multi(c("example_1.RDa","example_2.RDa"))
 
 source("~/GitHubs/R/Peregrine/save_parameters_to_file.R")
 source("~/GitHubs/R/Peregrine/load_parameters_from_file.R")
