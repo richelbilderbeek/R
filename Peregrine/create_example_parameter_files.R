@@ -20,14 +20,11 @@ library(testit)
 
 create_example_parameters_files <- function () {
   for (i in c(1,2)) {
-    speciation_completion_rate <- 1000000.0
-    if (i == 2) speciation_completion_rate <- 0.1
-    
     save_parameters_to_file(
       rng_seed = 1,
       species_initiation_rate_good_species = 0.5, 
       species_initiation_rate_incipient_species = 0.5,  
-      speciation_completion_rate = speciation_completion_rate,  
+      speciation_completion_rate = ifelse(i == 1, 1000000.0, 0.1),
       extinction_rate_good_species = 0.1,
       extinction_rate_incipient_species = 0.1,
       age = 5,

@@ -35,10 +35,8 @@ save_parameters_to_file <- function(
   my_table[, "mcmc_chainlength"] <- c("MCMC chain length",mcmc_chainlength)
   my_table[, "n_beast_runs"] <- c("Number of BEAST2 runs per alignment",n_beast_runs)
   my_table[, "version"] <- c("Parameter file version","0.1")
+
   # Create the slots for the results
-  #rep(x = NULL, times = 10) HIERO
-  
-  
   my_list <- list(
     my_table, #parameters
     NA, # pbd_output
