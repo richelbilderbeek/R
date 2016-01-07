@@ -48,8 +48,11 @@ do_analyze_single <- function(filename) {
   n_alignments <- as.numeric(file$parameters$n_alignments[2])
   for (i in seq(1,n_species_trees_samples)) {
     for (j in seq(1,n_alignments)) {
+      alignment_index <- 1 + j - 1 + ((i - 1) * n_species_trees_samples)
+      assert(alignment_index >= 1)
+      assert(alignment_index <= length(file$alignments))
       png(paste(base_filename,"_alignment_",i,"_",j,".png",sep=""))
-      image(file$alignments[[1]][[1]], main=paste(base_filename,"alignment"))
+      image(file$alignments[[alignment_index]][[1]], main=paste(base_filename,"alignment",i,j))
       dev.off()
     }
   }

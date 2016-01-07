@@ -61,8 +61,9 @@ add_alignments <- function(
         next
       }
 
-      print(paste("   * Setting seed to ", (rng_seed + j), sep=""))
-      set.seed(rng_seed + j) # Each species tree is already generated from its own RNG seed
+      new_seed <- rng_seed - 1 + j + ((i -1) * n_species_trees_samples)
+      print(paste("   * Setting seed to", new_seed))
+      set.seed(new_seed) # Each species tree is already generated from its own RNG seed
       
       print(paste("   * Creating alignment #", j, " for species tree #",i,sep=""))
       
