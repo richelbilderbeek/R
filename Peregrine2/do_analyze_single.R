@@ -24,29 +24,38 @@ do_analyze_single <- function(filename) {
     stop()
   }
   assert(file.exists(filename))
-  
   base_filename <- get_base_filename(filename)
-  trees_filename <- paste(base_filename,"_1_1.trees",sep="")
-
   file <- read_file(filename)
   
+  # There is always one gene tree
   png(paste(base_filename,"_gene_tree.png",sep=""))
   plot(file$pbd_output[[1]], main = paste(base_filename," gene tree",sep=""))
   dev.off()
-
-  png(paste(base_filename,"_species_tree_with_outgroup.png",sep=""))
-  plot(file$species_trees_with_outgroup[[1]][[1]], main = paste(base_filename,"species tree with outgroup"))
-  dev.off()
-
-  png(paste(base_filename,"_species_tree_with_outgroup_nltt.png",sep=""))
-  nLTT.plot(file$species_trees_with_outgroup[[1]][[1]], main = paste(base_filename,"species tree with outgroup"))
-  dev.off()
   
-  png(paste(base_filename,"_alignment.png",sep=""))
-  image(file$alignments[[1]][[1]], main=paste(base_filename,"alignment"))
-  dev.off()
+  # There are n_species_trees_sampled species trees
+  n_species_trees_samples <- as.numeric(file$parameters$n_species_trees_samples[2])
+  for (i in seq(1,n_species_trees_samples)) {
+    png(paste(base_filename,"_species_tree_with_outgroup_",i,".png",sep=""))
+    plot(file$species_trees_with_outgroup[[1]][[1]], main = paste(base_filename,"species tree with outgroup",i))
+    dev.off()
 
-  file <- read_file(filename)
+    png(paste(base_filename,"_species_tree_with_outgroup_nltt_",i,".png",sep=""))
+    nLTT.plot(file$species_trees_with_outgroup[[1]][[1]], main = paste(base_filename,"species tree with outgroup",i))
+    dev.off()
+  }
+  
+  n_alignments <- as.numeric(file$parameters$n_alignments[2])
+  for (i in seq(1,n_species_trees_samples)) {
+    for (j in seq(1,n_alignments)) {
+      png(paste(base_filename,"_alignment_",i,"_",j,".png",sep=""))
+      image(file$alignments[[1]][[1]], main=paste(base_filename,"alignment"))
+      dev.off()
+    }
+  }
+
+  n_beast_runs <- as.numeric(file$parameters$n_beast_runs[2])
+  trees_filename <- paste(base_filename,"_1_1.trees",sep="")
+  
   # Analyse posterior
   # Read all trees from the BEAST2 posterior
   all_trees <- beast2out.read.trees(trees_filename)
@@ -92,3 +101,5 @@ do_analyze_single <- function(filename) {
   dev.off()
   
 }
+
+do_analyze_single("example_3.RDa")

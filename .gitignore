@@ -37,3 +37,4 @@ _parameters.txt
 *.log
 *.RDa
 *.out
+/Peregrine2/example*
