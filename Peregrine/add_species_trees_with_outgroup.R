@@ -50,11 +50,7 @@ add_species_trees_with_outgroup <- function(
     print(paste("   * Setting seed to ", (rng_seed + i), sep=""))
     set.seed(rng_seed + i) # Each species tree is generated from its own RNG seed
 
-    one_species_trees <- sample_species_trees_from_pbd_sim_output(n = 1,file$pbd_output)[1]
-    assert(typeof(one_species_trees)=="list")
-    assert(length(one_species_trees)==1)
-    assert(class(one_species_trees[[1]])=="phylo")
-    species_tree <- one_species_trees[[1]]
+    species_tree <- sample_species_trees_from_pbd_sim_output(n = 1,file$pbd_output)[[1]]
 
     print("   * add_outgroup_to_phylogeny")
 
@@ -66,22 +62,7 @@ add_species_trees_with_outgroup <- function(
     saveRDS(file,file=filename)
     print(paste(" * Added species_trees_with_outgroup[",i,"]",sep=""))
   }
-    
-  if (do_plot) {
-    plot(file$species_tree_with_outgroup[[1]])
-    add.scale.bar(x=0,y=length(species_trees$tip.label))
-    
-    get_average_nltt(
-      file$species_tree_with_outgroup,
-      plot_nltts = TRUE, 
-      main = "Sampled species trees (black) versus gene tree (red)"
-    )
-    nLTT.lines(
-      file$pbd_output$tree,
-      col = "red"
-    )
-  }
-  
+
   # Read the file again to check integrity
   file_again <- readRDS(filename)
   assert(all.equal(file_again$species_trees_with_outgroup,file$species_trees_with_outgroup))

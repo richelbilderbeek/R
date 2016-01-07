@@ -108,5 +108,41 @@ demonstrate_sample_species_trees_from_pbd_output_2 <- function() {
   print(paste("File '", filename, "' created", sep=""))
 }
 
+demonstrate_sample_species_trees_from_pbd_output_3 <- function() {
+  
+  n <- 1
+  age <- 10
+  seed <- 320
+  set.seed(seed)
+  
+  species_initiation_rate_good_species  <- 0.7
+  speciation_completion_rate <- 0.2
+  species_initiation_rate_incipient_species <- 0.6
+  extinction_rate_good_species <- 1.0
+  extinction_rate_incipient_species <- 0.6
+  
+  # Work on the pbd_sim output  
+  pbd_sim_output <- pbd_sim(
+    c(
+      species_initiation_rate_good_species = species_initiation_rate_good_species,
+      speciation_completion_rate = speciation_completion_rate,
+      species_initiation_rate_incipient_species = species_initiation_rate_incipient_species,
+      extinction_rate_good_species = extinction_rate_good_species,
+      extinction_rate_incipient_species = extinction_rate_incipient_species
+    ),
+    age
+  )
+  set.seed(seed)
+  species_tree_a <- sample_species_trees_from_pbd_sim_output(n=n,pbd_sim_output)[[1]]
+  plot(species_tree_a, main="A")
+  set.seed(seed)
+  species_tree_b <- sample_species_trees_from_pbd_sim_output(n=n,pbd_sim_output)[[1]]
+  plot(species_tree_b, main="B")
+  set.seed(seed + 1)
+  species_tree_b <- sample_species_trees_from_pbd_sim_output(n=n,pbd_sim_output)[[1]]
+  plot(species_tree_b, main="C")
+}
+
 demonstrate_sample_species_trees_from_pbd_output_1()
 demonstrate_sample_species_trees_from_pbd_output_2()
+demonstrate_sample_species_trees_from_pbd_output_3()

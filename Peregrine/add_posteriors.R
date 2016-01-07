@@ -58,8 +58,9 @@ add_posteriors <- function(
       
       for (k in seq(1,n_beast_runs)) 
       {
-  
-        posterior_index <- 1 + (k - 1) + ( (j - 1) * n_alignments) +  ((i - 1) * n_species_trees_samples)
+
+        #i <- 2; j <- 2; k<-2; n_alignments<-2; n_species_trees_samples<-2
+        posterior_index <- 1 + (k - 1) + ((j - 1) * n_alignments) + ((i - 1) * n_alignments * n_species_trees_samples)
         assert(posterior_index >= 1)
         assert(posterior_index <= length(file$posteriors))
         
@@ -74,16 +75,15 @@ add_posteriors <- function(
         print(paste("   * Creating posterior #", k, " for alignment #",j," for species tree #",i," at posterior_index #", posterior_index, sep=""))
         basefilename <- paste(basename(file_path_sans_ext(filename)),"_",i,"_",j,"_",k,sep="")
         print(paste("   * Creating posterior using basefilename '", basefilename, "'", sep=""))
-        
+
         posterior <- convert_alignment_to_beast_posterior(
           alignment = alignment,
           base_filename = basefilename,
           mcmc_chainlength = mcmc_chainlength,
           rng_seed = new_seed
         )
-  
         assert(is_beast_posterior(posterior))
-  
+          
         print(paste("   * Storing posterior #", k, " for alignment #",j," for species tree #",i," at posterior_index #", posterior_index, sep=""))
         file$posteriors[[posterior_index]] <- list(posterior)
         assert(is_beast_posterior(file$posteriors[[posterior_index]][[1]]))
