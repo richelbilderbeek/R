@@ -22,9 +22,9 @@ do_analyze_multi_create_nltt_stats_histogram <- function(filenames) {
   data <- data.frame()
   
   for (filename in filenames) {
-    file <- read_file(filename)
+    file <- load_parameters_from_file(filename)
 
-    trees_filename <- paste(get_base_filename(filename),"_1_1.trees",sep="")
+    trees_filename <- paste(get_base_filename(filename),"_1_1_1.trees",sep="")
     all_trees <- beast2out.read.trees(trees_filename)
     
     all_nltt_stats <- NULL
@@ -55,7 +55,7 @@ do_analyze_multi_create_average_nltts <- function(filenames) {
   png(paste("average_nltts.png",sep=""))
   for (i in c(1,length(filenames))) {
     
-    trees_filename <- paste(get_base_filename(filenames[i]),"_1_1.trees",sep="")
+    trees_filename <- paste(get_base_filename(filenames[i]),"_1_1_1.trees",sep="")
     all_trees <- beast2out.read.trees(trees_filename)
     do_replot <- FALSE #A new plot is started
     if (i == 1)  {

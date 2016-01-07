@@ -38,51 +38,56 @@ add_posteriors <- function(
   print(paste("add_posteriors: n_beast_runs: ",n_beast_runs,sep=""))
   
   # For each alignment, create n_beast_runs posteriors
-  for (i in seq(1:n_alignments)) {
-
-    assert(i >= 1)
-    assert(i <= length(file$alignments))
-
-    # Obtain the alignment
-    alignment <- file$alignments[[i]][[1]]
-
-    if (!is_alignment(alignment)) {
-      print(paste("alignments[[", i, "]] is NA. Terminating 'add_posteriors'",sep=""))
-      return ()
-    }
-    assert(is_alignment(alignment))
-    
-    for (j in seq(1:n_beast_runs)) {
+  n_species_trees_samples <- as.numeric(file$parameters$n_species_trees_samples[2])
+  n_alignments <- as.numeric(file$parameters$n_alignments[2])
+  n_beast_runs <- as.numeric(file$parameters$n_beast_runs[2])
   
-      index <- 1 + (j - 1) + ( (i - 1) * n_alignments)
-      assert(index >= 1)
-      assert(index <= length(file$posteriors))
-      
-      if(is_beast_posterior(file$posteriors[[index]][[1]])) {
-        print(paste("   * Posterior #", j, " for alignment #",i," at index #", index, " already has a posterior", sep=""))
-         next 
+  for (i in seq(1,n_species_trees_samples)) 
+  {
+    for (j in seq(1,n_alignments)) 
+    {
+      alignment_index <- 1 + (j - 1) + ((i - 1) * n_species_trees_samples)
+      assert(alignment_index >= 1)
+      assert(alignment_index <= length(file$alignments))
+      alignment <- file$alignments[[alignment_index]][[1]]
+      if (!is_alignment(alignment)) {
+        print(paste("alignments[[", i, "]] is NA. Terminating 'add_posteriors'",sep=""))
+        return ()
       }
-      print(paste("   * Setting seed to ", rng_seed + j, sep=""))
-      set.seed(rng_seed + j) #Every alignment is made with a different RNG
-    
-      print(paste("   * Creating posterior #", j, " for alignment #",i," at index #", index, sep=""))
-      basefilename <- paste(basename(file_path_sans_ext(filename)),"_",i,"_",j, sep="")
-      print(paste("   * Creating posterior using basefilename '", basefilename, "'", sep=""))
-      
       assert(is_alignment(alignment))
-      posterior <- convert_alignment_to_beast_posterior(
-        alignment = alignment,
-        base_filename = basefilename,
-        mcmc_chainlength = mcmc_chainlength,
-        rng_seed = rng_seed + j
-      )
-
-      assert(is_beast_posterior(posterior))
-
-      print(paste("   * Storing posterior #", j, " for alignment #",i," at index #", index, sep=""))
-      file$posteriors[[index]] <- list(posterior)
-      assert(is_beast_posterior(file$posteriors[[index]][[1]]))
       
+      for (k in seq(1,n_beast_runs)) 
+      {
+  
+        posterior_index <- 1 + (k - 1) + ( (j - 1) * n_alignments) +  ((i - 1) * n_species_trees_samples)
+        assert(posterior_index >= 1)
+        assert(posterior_index <= length(file$posteriors))
+        
+        if(is_beast_posterior(file$posteriors[[posterior_index]][[1]])) {
+          print(paste("   * Posterior #", k, " for alignment #",j," for species tree #",i," at posterior_index #", posterior_index, " already has a posterior", sep=""))
+           next 
+        }
+        new_seed <- rng_seed + k
+        print(paste("   * Setting seed to ", new_seed, sep=""))
+        set.seed(new_seed) #Every BEAST2 run is made with a different RNG
+      
+        print(paste("   * Creating posterior #", k, " for alignment #",j," for species tree #",i," at posterior_index #", posterior_index, sep=""))
+        basefilename <- paste(basename(file_path_sans_ext(filename)),"_",i,"_",j,"_",k,sep="")
+        print(paste("   * Creating posterior using basefilename '", basefilename, "'", sep=""))
+        
+        posterior <- convert_alignment_to_beast_posterior(
+          alignment = alignment,
+          base_filename = basefilename,
+          mcmc_chainlength = mcmc_chainlength,
+          rng_seed = new_seed
+        )
+  
+        assert(is_beast_posterior(posterior))
+  
+        print(paste("   * Storing posterior #", k, " for alignment #",j," for species tree #",i," at posterior_index #", posterior_index, sep=""))
+        file$posteriors[[posterior_index]] <- list(posterior)
+        assert(is_beast_posterior(file$posteriors[[posterior_index]][[1]]))
+      } 
     }
   }
   

@@ -43,7 +43,8 @@ do_analyze_single <- function(filename) {
     nLTT.plot(file$species_trees_with_outgroup[[1]][[1]], main = paste(base_filename,"species tree with outgroup",i))
     dev.off()
   }
-  
+
+
   n_alignments <- as.numeric(file$parameters$n_alignments[2])
   for (i in seq(1,n_species_trees_samples)) {
     for (j in seq(1,n_alignments)) {
@@ -54,7 +55,7 @@ do_analyze_single <- function(filename) {
   }
 
   n_beast_runs <- as.numeric(file$parameters$n_beast_runs[2])
-  trees_filename <- paste(base_filename,"_1_1.trees",sep="")
+  trees_filename <- paste(base_filename,"_1_1_1.trees",sep="")
   
   # Analyse posterior
   # Read all trees from the BEAST2 posterior

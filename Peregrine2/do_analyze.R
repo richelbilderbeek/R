@@ -11,11 +11,13 @@ for (filename in commandArgs(TRUE)) {
   }
 }
 
-source("~/GitHubs/R/Peregrine2/do_analyze_single.R")
-source("~/GitHubs/R/Peregrine2/do_analyze_multi.R")
 
 if (length(commandArgs(TRUE)) == 1) {
+  print("Analyzing one parameter file")
+  source("~/GitHubs/R/Peregrine2/do_analyze_single.R")
   do_analyze_single(commandArgs(TRUE)[1])
 } else {
+  print("Analyzing multiple parameter files")
+  source("~/GitHubs/R/Peregrine2/do_analyze_multi.R")
   do_analyze_multi(commandArgs(TRUE))
 }
