@@ -20,8 +20,8 @@ do
           n_alignments=2
           mcmc_length=1000000
           n_beast_runs=2
-          filename=$b_index'_'$lambda_index'_'$mu_index'_'$r_index'_'$l_index'.txt'
-          echo Rscript create_parameter_file.R $rng_seed $b $b $lambda $mu $mu $crown_age $n_species_trees $r $n_alignments $l $mcmc_length $n_beast_runs $filename
+          filename='article_'$b_index'_'$lambda_index'_'$mu_index'_'$r_index'_'$l_index'.txt'
+          Rscript create_parameter_file.R $rng_seed $b $b $lambda $mu $mu $crown_age $n_species_trees $r $n_alignments $l $mcmc_length $n_beast_runs $filename
           l_index=$((l_index+1))
         done # l
         r_index=$((r_index+1))
