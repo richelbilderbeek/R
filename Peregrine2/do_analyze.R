@@ -21,3 +21,5 @@ if (length(commandArgs(TRUE)) == 1) {
   source("~/GitHubs/R/Peregrine2/do_analyze_multi.R")
   do_analyze_multi(commandArgs(TRUE))
 }
+
+warnings()

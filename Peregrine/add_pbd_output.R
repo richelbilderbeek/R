@@ -2,13 +2,9 @@ source("~/GitHubs/R/Peregrine/read_libraries.R")
 source("~/GitHubs/R/Peregrine/read_file.R")
 source("~/GitHubs/R/Phylogenies/is_pbd_sim_output.R")
 
-# InstallLibraries()
 read_libraries()
 
-add_pbd_output <- function(
-  filename,
-  do_plot = FALSE
-) {
+add_pbd_output <- function(filename) {
   file <- read_file(filename)
   assert(mode(file) == "list")
   
@@ -24,7 +20,6 @@ add_pbd_output <- function(
   assert(!is.null(file$species_trees_with_outgroup))
   assert(!is.null(file$alignments))
   assert(!is.null(file$posteriors))
-  
   assert(!is.null(file$parameters))
   assert(is.na(file$pbd_output[1])) # This changes here
   assert(is.na(file$species_trees_with_outgroup[1]))
@@ -33,36 +28,25 @@ add_pbd_output <- function(
 
   # Read parameters
   parameters <- file$parameters
-  rng_seed <- as.numeric(parameters$rng_seed[2]) # the extinction rate of incipient species 
+  rng_seed <- as.numeric(parameters$rng_seed[2])
   species_initiation_rate_good_species  <- as.numeric(parameters$species_initiation_rate_good_species[2])
-  species_initiation_rate_incipient_species  <- as.numeric(parameters$species_initiation_rate_incipient_species[2]) # the speciation-initiation rate of incipient species 
-  speciation_completion_rate <- as.numeric(parameters$speciation_completion_rate[2]) # the speciation-completion rate 
-  extinction_rate_good_species <- as.numeric(parameters$extinction_rate_good_species[2]) # the extinction rate of good species 
-  extinction_rate_incipient_species <- as.numeric(parameters$extinction_rate_incipient_species[2]) # the extinction rate of incipient species 
+  species_initiation_rate_incipient_species  <- as.numeric(parameters$species_initiation_rate_incipient_species[2])
+  speciation_completion_rate <- as.numeric(parameters$speciation_completion_rate[2])
+  extinction_rate_good_species <- as.numeric(parameters$extinction_rate_good_species[2])
+  extinction_rate_incipient_species <- as.numeric(parameters$extinction_rate_incipient_species[2])
   age <- as.numeric(parameters$age[2]) 
   
   # Create the tree without outgroup
   print(paste(" * Setting seed ", rng_seed, sep=""))
   set.seed(rng_seed)
+  pbd_output <- pbd_sim(c(species_initiation_rate_good_species,speciation_completion_rate,species_initiation_rate_incipient_species,extinction_rate_good_species,extinction_rate_incipient_species),age=as.numeric(parameters$age[2]),soc=2,plot=FALSE)
 
-  #do_plot <- FALSE
-  pbd_output <- pbd_sim(c(species_initiation_rate_good_species,speciation_completion_rate,species_initiation_rate_incipient_species,extinction_rate_good_species,extinction_rate_incipient_species),age=as.numeric(parameters$age[2]),soc=2,plot=do_plot)
   assert(is_pbd_sim_output(pbd_output))
 
-  if (do_plot) {
-    par(mfrow=c(1,1)) # Bug fix of https://github.com/richelbilderbeek/Wip/issues/20
-  }
-  
   phylogeny <- pbd_output$tree
   
   assert(is.rooted(phylogeny))
   assert(is.ultrametric(phylogeny))
-  if (do_plot) {
-    plot(phylogeny,main="Gene tree")
-    add.scale.bar()
-  }
-  
-  
   assert(!is_pbd_sim_output(file$pbd_output))
   file$pbd_output <- pbd_output
   assert(is_pbd_sim_output(file$pbd_output))

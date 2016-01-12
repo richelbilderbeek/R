@@ -10,18 +10,11 @@ if (!file.exists(filename)) {
   stop()
 }
 
-if (1==2) {
-  setwd("~/GitHubs/R/Peregrine2")
-  filename <- "example_4.RDa"
-  assert(file.exists(filename))
-}
-
 source("~/GitHubs/R/Peregrine/add_pbd_output.R")
 add_pbd_output(filename)  
-
 source("~/GitHubs/R/Peregrine/add_species_trees_with_outgroup.R")
-source("~/GitHubs/R/Peregrine/add_alignments.R")
-source("~/GitHubs/R/Peregrine/add_posteriors.R")
 add_species_trees_with_outgroup(filename)  
+source("~/GitHubs/R/Peregrine/add_alignments.R")
 add_alignments(filename, do_plot = FALSE)  
+source("~/GitHubs/R/Peregrine/add_posteriors.R")
 add_posteriors(filename)
