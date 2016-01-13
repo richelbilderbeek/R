@@ -1,19 +1,17 @@
-source("~/GitHubs/R/Peregrine/read_libraries.R")
+source("~/GitHubs/R/Peregrine/is_valid_file.R")
+source("~/GitHubs/R/Peregrine/read_file.R")
+source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_alignment.R")
+library(testit)
 
 add_alignments <- function(filename) 
 {
+  assert(is_valid_file(filename))
   file <- read_file(filename)
-  assert(mode(file) == "list")
   
   if(is.na(file$species_trees_with_outgroup[1])) {
     print(paste("file ",filename," needs a species_trees_with_outgroup",sep=""))
     return ()
   }
-  
-  assert(!is.null(file$parameters))
-  assert(!is.null(file$pbd_output))
-  assert(!is.null(file$species_trees_with_outgroup))
-  assert(!is.null(file$alignments))
 
   parameters <- file$parameters
   rng_seed <- as.numeric(parameters$rng_seed[2]) # the extinction rate of incipient species 

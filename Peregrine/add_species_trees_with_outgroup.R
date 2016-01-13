@@ -1,11 +1,12 @@
-source("~/GitHubs/R/Peregrine/read_libraries.R")
+source("~/GitHubs/R/Peregrine/is_valid_file.R")
+source("~/GitHubs/R/Peregrine/read_file.R")
+source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
+source("~/GitHubs/R/Phylogenies/sample_species_trees_from_pbd_sim_output.R")
+library(testit)
 
 add_species_trees_with_outgroup <- function(filename) {
+  assert(is_valid_file(filename))
   file <- read_file(filename)
-  assert(typeof(file) == "list")
-  assert(!is.null(file$parameters))
-  assert(!is.null(file$pbd_output))
-  assert(!is.null(file$species_trees_with_outgroup))
 
   if(is.na(file$pbd_output[1])) {
     print(paste("file ",filename," needs a pbd_output",sep=""))

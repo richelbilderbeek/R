@@ -1,4 +1,8 @@
-source("~/GitHubs/R/Peregrine/read_libraries.R")
+source("~/GitHubs/R/Peregrine/is_valid_file.R")
+source("~/GitHubs/R/Peregrine/read_file.R")
+source("~/GitHubs/R/Phylogenies/is_beast_posterior.R")
+source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_posterior.R")
+library(testit)
 
 add_posteriors <- function(filename)
 {
