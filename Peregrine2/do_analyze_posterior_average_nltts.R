@@ -11,7 +11,7 @@ do_analyze_posterior_average_nltts <- function(filename) {
       for (k in seq(1,n_beast_runs)) {
         trees_filename <- paste(base_filename,"_",i,"_",j,"_",k,".trees",sep="")
         all_trees <- beast2out.read.trees(trees_filename)
-        png(paste(base_filename,"_posterior_average_nltt_",i,"_",j,"_",k,".png",sep=""))
+        png(paste(base_filename,"_posterior_average_nltts_",i,"_",j,"_",k,".png",sep=""))
         get_average_nltt(all_trees)
         dev.off()
       }

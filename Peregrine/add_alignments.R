@@ -1,12 +1,6 @@
 source("~/GitHubs/R/Peregrine/read_libraries.R")
 
-# InstallLibraries()
-read_libraries()
-
-add_alignments <- function(
-  filename,
-  do_plot = FALSE
-) 
+add_alignments <- function(filename) 
 {
   file <- read_file(filename)
   assert(mode(file) == "list")
@@ -20,7 +14,6 @@ add_alignments <- function(
   assert(!is.null(file$pbd_output))
   assert(!is.null(file$species_trees_with_outgroup))
   assert(!is.null(file$alignments))
-  assert(!is.null(file$posteriors))
 
   parameters <- file$parameters
   rng_seed <- as.numeric(parameters$rng_seed[2]) # the extinction rate of incipient species 
@@ -62,10 +55,7 @@ add_alignments <- function(
       }
 
       new_seed <- rng_seed - 1 + j + ((i -1) * n_species_trees_samples)
-      print(paste("   * Setting seed to", new_seed))
-      set.seed(new_seed) # Each species tree is already generated from its own RNG seed
-      
-      print(paste("   * Creating alignment #", j, " for species tree #",i,sep=""))
+      set.seed(new_seed)
       
       alignment <- convert_phylogeny_to_alignment(
         phylogeny = species_tree,
@@ -76,9 +66,6 @@ add_alignments <- function(
       assert(is_alignment(alignment))
 
       print(paste("   * Created alignment #", j, " for species tree #",i,sep=""))
-      if (do_plot) {
-        image(alignment)
-      }
 
       print(paste("   * Storing alignment #", j, " for species tree #",i," at index #", index, sep=""))
       file$alignments[[index]] <- list(alignment)

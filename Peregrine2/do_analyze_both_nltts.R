@@ -11,8 +11,6 @@ do_analyze_both_nltts <- function(filename) {
         trees_filename <- paste(base_filename,"_",i,"_",j,"_",k,".trees",sep="")
         all_trees <- beast2out.read.trees(trees_filename)
         last_tree <- tail(all_trees,n=1)[[1]]
-        
-        # Both nLTT
         png(paste(base_filename,"_both_nltts_",i,"_",j,"_",k,".png",sep=""))
         nLTT.plot(file$species_trees_with_outgroup[[1]][[1]],
           main=paste(base_filename,"species tree with outgroup nLTTs",i,j,k), lwd = 2

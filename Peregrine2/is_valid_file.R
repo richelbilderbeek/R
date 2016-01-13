@@ -1,0 +1,26 @@
+source("~/GitHubs/R/Peregrine/read_file.R")
+
+is_valid_file <- function(filename) {
+  if (!file.exists(filename)) return (FALSE)
+  file <- read_file(filename)
+  if (mode(file) != "list") return (FALSE)
+  if (is.null(file$parameters)) return (FALSE)
+  if (is.null(file$pbd_output)) return (FALSE)
+  if (is.null(file$species_trees_with_outgroup)) return (FALSE)
+  if (is.null(file$alignments)) return (FALSE)
+  if (is.null(file$posteriors)) return (FALSE)
+  parameters <- file$parameters
+  if (as.numeric(parameters$species_initiation_rate_good_species[2]) < 0.0) return (FALSE)
+  if (as.numeric(parameters$species_initiation_rate_incipient_species[2]) < 0.0) return (FALSE)
+  if (as.numeric(parameters$speciation_completion_rate[2]) < 0.0) return (FALSE)
+  if (as.numeric(parameters$extinction_rate_good_species[2]) < 0.0) return (FALSE)
+  if (as.numeric(parameters$extinction_rate_incipient_species[2]) < 0.0) return (FALSE)
+  if (as.numeric(parameters$age[2]) <= 0.0) return (FALSE)
+  if (as.numeric(parameters$n_species_trees_samples[2]) < 1) return (FALSE)
+  if (as.numeric(parameters$mutation_rate[2]) <= 0.0) return (FALSE)
+  if (as.numeric(parameters$n_alignments[2]) < 1) return (FALSE)
+  if (as.numeric(parameters$sequence_length[2]) < 1) return (FALSE)
+  if (as.numeric(parameters$n_beast_runs[2]) < 1) return (FALSE)
+  if (as.numeric(parameters$mcmc_chainlength[2]) < 1) return (FALSE)
+  return (TRUE)
+}

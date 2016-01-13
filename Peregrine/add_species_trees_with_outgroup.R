@@ -1,43 +1,23 @@
-# From a single pbd_sim_output,
-# create n_species_trees_samples species_trees_with_outgroup
-
-library(testit)
-
-source("~/GitHubs/R/Peregrine/read_file.R")
 source("~/GitHubs/R/Peregrine/read_libraries.R")
-source("~/GitHubs/R/Phylogenies/sample_species_trees_from_random_protracted_tree.R")
-source("~/GitHubs/R/Phylogenies/add_outgroup_to_phylogeny.R")
-# InstallLibraries()
-read_libraries()
 
-add_species_trees_with_outgroup <- function(
-  filename,
-  do_plot = FALSE
-) {
-  #filename <- "0.RDa"
+add_species_trees_with_outgroup <- function(filename) {
   file <- read_file(filename)
   assert(typeof(file) == "list")
-
   assert(!is.null(file$parameters))
   assert(!is.null(file$pbd_output))
   assert(!is.null(file$species_trees_with_outgroup))
-  assert(!is.null(file$alignments))
-  assert(!is.null(file$posteriors))
-
-  # Read parameters
-  parameters <- file$parameters
-  n_species_trees_samples <- as.numeric(parameters$n_species_trees_samples[2])
-  rng_seed <- as.numeric(parameters$rng_seed[2]) # the extinction rate of incipient species 
 
   if(is.na(file$pbd_output[1])) {
     print(paste("file ",filename," needs a pbd_output",sep=""))
     return ()
   }
+
+  parameters <- file$parameters
+  n_species_trees_samples <- as.numeric(parameters$n_species_trees_samples[2])
+  rng_seed <- as.numeric(parameters$rng_seed[2])
+
   print(paste("Adding species_trees_with_outgroup to file ",filename,sep=""))
 
-  assert(!is.null(file$parameters))
-  assert(!is.na(file$pbd_output[1]))
-  
   for (i in seq(1:n_species_trees_samples)) {
     if (!is.na(file$species_trees_with_outgroup[i])) 
     { 
@@ -46,15 +26,10 @@ add_species_trees_with_outgroup <- function(
     }
     print(paste(" * Adding species_trees_with_outgroup[",i,"]",sep=""))
     print("   * sample_species_trees_from_pbd_sim_output")
-
     print(paste("   * Setting seed to ", (rng_seed + i), sep=""))
     set.seed(rng_seed + i) # Each species tree is generated from its own RNG seed
-
     species_tree <- sample_species_trees_from_pbd_sim_output(n = 1,file$pbd_output)[[1]]
-
     print("   * add_outgroup_to_phylogeny")
-
-    
     species_tree_with_outgroup <- add_outgroup_to_phylogeny(species_tree,stem_length = 0)
     print("   * write to file")
     assert(class(species_tree_with_outgroup) == "phylo")
@@ -66,6 +41,5 @@ add_species_trees_with_outgroup <- function(
   # Read the file again to check integrity
   file_again <- readRDS(filename)
   assert(all.equal(file_again$species_trees_with_outgroup,file$species_trees_with_outgroup))
-  assert(!is.null(file$species_trees_with_outgroup))
   print(paste("Added species_trees_with_outgroup to file ",filename,sep=""))
 }

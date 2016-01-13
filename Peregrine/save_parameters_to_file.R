@@ -1,34 +1,18 @@
 library(testit)
+source("~/GitHubs/R/Peregrine2/is_valid_file.R")
 
 save_parameters_to_file <- function(
   rng_seed,
-  species_initiation_rate_good_species,
+  species_initiation_rate_good_species, 
   species_initiation_rate_incipient_species,
   speciation_completion_rate,
   extinction_rate_good_species,
   extinction_rate_incipient_species,
-  age,
-  n_species_trees_samples,
-  mutation_rate,
-  n_alignments,
-  sequence_length,
-  mcmc_chainlength,
-  n_beast_runs,
-  filename
+  age, n_species_trees_samples,
+  mutation_rate, n_alignments,
+  sequence_length, mcmc_chainlength,
+  n_beast_runs, filename
 ) {
-  assert(species_initiation_rate_good_species >= 0.0)
-  assert(species_initiation_rate_incipient_species >= 0.0)
-  assert(speciation_completion_rate >= 0.0)
-  assert(extinction_rate_good_species >= 0.0)
-  assert(extinction_rate_incipient_species >= 0.0)
-  assert(age > 0)
-  assert(n_species_trees_samples > 0)
-  assert(mutation_rate >= 0.0)
-  assert(n_alignments > 0)
-  assert(sequence_length > 0)
-  assert(mcmc_chainlength > 0)
-  assert(n_beast_runs > 0)
-
   my_table <- data.frame( row.names = c("Description","Value"))
   my_table[, "rng_seed"] <- c("Random number generate seed",rng_seed)
   my_table[, "species_initiation_rate_good_species"] <- c("Speciation initiation rate of good species",species_initiation_rate_good_species)
@@ -60,42 +44,11 @@ save_parameters_to_file <- function(
     "alignments",
     "posteriors"
   )
-  assert(my_list$parameters == my_table)
-  
-  assert(!is.null(my_list$parameters))
-  assert(!is.null(my_list$pbd_output))
-  assert(!is.null(my_list$species_trees_with_outgroup))
-  assert(!is.null(my_list$alignments))
-  assert(!is.null(my_list$posteriors))
-
-  assert(!is.null(my_list$parameters))
-  assert(is.na(my_list$pbd_output[1]))
-  assert(is.na(my_list$species_trees_with_outgroup[1]))
-  assert(is.na(my_list$alignments[1]))
-  assert(is.na(my_list$posteriors[1]))
-
   assert(length(my_list$pbd_output) == 1)
   assert(length(my_list$species_trees_with_outgroup) == n_species_trees_samples)
   assert(length(my_list$alignments) == n_species_trees_samples * n_alignments)
   assert(length(my_list$posteriors) == n_species_trees_samples * n_alignments * n_beast_runs)
 
   saveRDS(my_list,file=filename)
-  assert(file.exists(filename))
-  
-  my_list_again <- readRDS(filename)
-  # Check that the original and loaded data frame were identical
-  assert(length(my_list) == length(my_list_again))
-  assert(my_list$parameters == my_list_again$parameters)
-
-  assert(rng_seed == as.numeric(my_list$parameters$rng_seed[2]))
-  assert(species_initiation_rate_good_species  == as.numeric(my_list$parameters$species_initiation_rate_good_species[2]))
-  assert(species_initiation_rate_incipient_species  == as.numeric(my_list$parameters$species_initiation_rate_incipient_species[2]))
-  assert(speciation_completion_rate == as.numeric(my_list$parameters$speciation_completion_rate[2]))
-  assert(extinction_rate_good_species == as.numeric(my_list$parameters$extinction_rate_good_species[2]))
-  assert(extinction_rate_incipient_species == as.numeric(my_list$parameters$extinction_rate_incipient_species[2]))
-  assert(age == as.numeric(my_list$parameters$age[2]))
-  assert(n_alignments == as.numeric(my_list$parameters$n_alignments[2]))
-  assert(mutation_rate == as.numeric(my_list$parameters$mutation_rate[2]))
-  assert(sequence_length == as.numeric(my_list$parameters$sequence_length[2]))
-  assert(mcmc_chainlength == as.numeric(my_list$parameters$mcmc_chainlength[2]))
+  assert(is_valid_file(filename))
 }
