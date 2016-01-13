@@ -4,7 +4,6 @@ if (length(commandArgs(TRUE)) != 1) {
 }
 
 filename <- commandArgs(TRUE)[1]
-filename <- "1.RDa"
 
 if (!file.exists(filename)) {
   print("Please supply the filename of an existing file" )
