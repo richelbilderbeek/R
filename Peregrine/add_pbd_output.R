@@ -1,4 +1,4 @@
-source("~/GitHubs/R/Peregrine2/is_valid_file.R")
+source("~/GitHubs/R/Peregrine/is_valid_file.R")
 source("~/GitHubs/R/Peregrine/read_file.R")
 source("~/GitHubs/R/Phylogenies/is_pbd_sim_output.R")
 library(testit)

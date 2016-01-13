@@ -1,5 +1,5 @@
 library(testit)
-source("~/GitHubs/R/Peregrine2/is_valid_file.R")
+source("~/GitHubs/R/Peregrine/is_valid_file.R")
 
 save_parameters_to_file <- function(
   rng_seed,
