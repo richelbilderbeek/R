@@ -4,7 +4,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --ntasks=1
 #SBATCH --mem=100000
-#SBATCH --job-name=real_job_2
+#SBATCH --job-name=article
 #SBATCH --mail-type=BEGIN,END
 module load R Beast
-Rscript run.R
+Rscript do_simulation.R $1
