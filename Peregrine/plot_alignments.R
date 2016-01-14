@@ -1,5 +1,10 @@
-do_analyze_alignments <- function(filename) {
-  assert(file.exists(filename))
+library(testit)
+source("~/GitHubs/R/Peregrine/is_valid_file.R")
+source("~/GitHubs/R/FileIo/get_base_filename.R")
+source("~/GitHubs/R/Peregrine/read_file.R")
+
+plot_alignments <- function(filename) {
+  assert(is_valid_file(filename))
   base_filename <- get_base_filename(filename)
   file <- read_file(filename)
   n_species_trees_samples <- as.numeric(file$parameters$n_species_trees_samples[2])

@@ -6,10 +6,10 @@ source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.treeannotator.R")
 source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/script.beast.R")
-library(nLTT)
 library(ape)
 library(ggplot2)
 library(gridExtra)
+library(nLTT)
 library(testit)
 
 do_analyze_multi <- function(filenames) {

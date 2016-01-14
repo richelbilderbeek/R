@@ -1,8 +1,7 @@
-do_analyze_posterior_samples <- function(filename) {
+do_analyze_posterior_average_nltt <- function(filename) {
   assert(file.exists(filename))
   base_filename <- get_base_filename(filename)
   file <- read_file(filename)
-
   n_species_trees_samples <- as.numeric(file$parameters$n_species_trees_samples[2])
   n_alignments <- as.numeric(file$parameters$n_alignments[2])
   n_beast_runs <- as.numeric(file$parameters$n_beast_runs[2])
@@ -11,12 +10,14 @@ do_analyze_posterior_samples <- function(filename) {
       for (k in seq(1,n_beast_runs)) {
         trees_filename <- paste(base_filename,"_",i,"_",j,"_",k,".trees",sep="")
         all_trees <- beast2out.read.trees(trees_filename)
-        last_tree <- tail(all_trees,n=1)[[1]]
-        
-        png(paste(base_filename,"_posterior_sample_",i,"_",j,"_",k,".png",sep=""))
-        plot(last_tree,main=paste(base_filename,"last tree in posterior",i,j,k))
+        png(paste(base_filename,"_posterior_average_nltt_",i,"_",j,"_",k,".png",sep=""))
+        get_average_nltt(all_trees,replot = FALSE,lty=3,lwd = 2, main=paste(base_filename," posterior average nLTT"))
+        get_average_nltt(
+          list(file$species_trees_with_outgroup[[1]][[1]],
+          file$species_trees_with_outgroup[[1]][[1]]),
+          replot = TRUE,lty=1,lwd = 2)
         dev.off()
-      }
+      } 
     }
   }
 }

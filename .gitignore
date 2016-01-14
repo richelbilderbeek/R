@@ -39,3 +39,5 @@ _parameters.txt
 *.out
 /Peregrine2/example*
 article_*
+.nfs*
+example_*.png

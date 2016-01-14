@@ -1,8 +1,14 @@
-do_analyze_posterior_average_nltt <- function(filename) {
-  assert(file.exists(filename))
+library(testit)
+source("~/GitHubs/R/Peregrine/is_valid_file.R")
+source("~/GitHubs/R/FileIo/get_base_filename.R")
+source("~/GitHubs/R/Peregrine/read_file.R")
+source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
+source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
+
+plot_posterior_average_nltts <- function(filename) {
+  assert(is_valid_file(filename))
   base_filename <- get_base_filename(filename)
   file <- read_file(filename)
-
   n_species_trees_samples <- as.numeric(file$parameters$n_species_trees_samples[2])
   n_alignments <- as.numeric(file$parameters$n_alignments[2])
   n_beast_runs <- as.numeric(file$parameters$n_beast_runs[2])
@@ -18,7 +24,7 @@ do_analyze_posterior_average_nltt <- function(filename) {
           file$species_trees_with_outgroup[[1]][[1]]),
           replot = TRUE,lty=1,lwd = 2)
         dev.off()
-      } 
+      }
     }
   }
 }
