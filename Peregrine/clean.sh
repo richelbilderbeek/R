@@ -3,6 +3,7 @@ mkdir old
 mv *.RDa old/
 mv *.txt old/
 mv *.out old/
+mv *.fasta old/
 mv *.png old/
 mv *.trees old/
 mv *.xml old/
