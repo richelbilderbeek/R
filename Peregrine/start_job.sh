@@ -1,1 +1,0 @@
-sbatch ./job.sh
