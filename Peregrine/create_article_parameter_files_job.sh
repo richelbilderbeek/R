@@ -7,4 +7,4 @@
 #SBATCH --job-name=parameters
 #SBATCH --mail-type=BEGIN,END
 module load R
-./create_article_parameter_files
+./create_article_parameter_files.sh
