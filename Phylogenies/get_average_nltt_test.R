@@ -1,5 +1,6 @@
 #rm(list = ls())
 source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
+library(ape)
 library(nLTT)
 
 get_average_nltt_test <- function()
