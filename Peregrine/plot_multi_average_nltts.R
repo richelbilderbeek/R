@@ -20,7 +20,6 @@ plot_multi_average_nltts <- function(filenames) {
         for (k in seq(1,n_beast_runs)) {
           base_filename <- get_base_filename(filename)
           trees_filename <- paste(base_filename,"_",i,"_",j,"_",k,".trees",sep="")
-          print(trees_filename)
           assert(file.exists(trees_filename))
           all_trees <- beast2out.read.trees(trees_filename)
           linetype <- ifelse(h == 1, 1, 3)
@@ -40,7 +39,3 @@ plot_multi_average_nltts <- function(filenames) {
   )   
   dev.off()
 }
-
-#setwd("~/GitHubs/R/Peregrine")
-#plot_multi_average_nltts(c("toy_example_3.RDa","toy_example_4.RDa"))
-#get_average_nltt
