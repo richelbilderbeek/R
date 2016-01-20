@@ -6,6 +6,5 @@
 #SBATCH --mem=100000
 #SBATCH --job-name=article
 #SBATCH --mail-type=BEGIN,END
-#SBATCH --output=$1_slurm.log
 module load R Beast
 Rscript do_analyse.R $1
