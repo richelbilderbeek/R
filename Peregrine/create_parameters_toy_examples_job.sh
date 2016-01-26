@@ -7,4 +7,4 @@
 #SBATCH --job-name=create_parameters_toy_example
 #SBATCH --mail-type=BEGIN,END
 module load R
-./create_parameters_toy_example.sh
+./create_parameters_toy_examples.sh
