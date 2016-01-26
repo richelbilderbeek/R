@@ -4,7 +4,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --ntasks=1
 #SBATCH --mem=100000
-#SBATCH --job-name=create_parameters_article
+#SBATCH --job-name=create_parameters_toy_example
 #SBATCH --mail-type=BEGIN,END
 module load R
-./create_parameters_article.sh
+./create_parameters_toy_example.sh
