@@ -14,10 +14,10 @@ for (filename in args) {
 
 if (length(args) == 1) {
   print("Analyzing one parameter file")
-  source("~/GitHubs/R/Peregrine/do_analyze_single.R")
-  do_analyze_single(args[1])
+  source("~/GitHubs/R/Peregrine/analyse_single.R")
+  analyse_single(args[1])
 } else {
   print("Analyzing multiple parameter files")
-  source("~/GitHubs/R/Peregrine/do_analyze_multi.R")
-  do_analyze_multi(args)
+  source("~/GitHubs/R/Peregrine/analyse_multi.R")
+  analyse_multi(args)
 }

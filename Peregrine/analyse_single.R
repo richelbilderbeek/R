@@ -7,7 +7,7 @@ source("~/GitHubs/R/Peregrine/plot_posterior_samples.R")
 source("~/GitHubs/R/Peregrine/plot_posterior_sample_nltts.R")
 source("~/GitHubs/R/Peregrine/plot_posterior_nltt_stats_histogram.R")
 
-do_analyze_single <- function(filename) {
+analyse_single <- function(filename) {
   if (!file.exists(filename)) {
     print(paste(filename,": not found"))
     stop()
