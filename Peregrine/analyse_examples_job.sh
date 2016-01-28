@@ -6,5 +6,6 @@
 #SBATCH --mem=100000
 #SBATCH --job-name=analyse_examples
 #SBATCH --mail-type=BEGIN,END
+#SBATCH --output=analyse_examples_job.log
 module load R
 ./analyse_examples.sh
