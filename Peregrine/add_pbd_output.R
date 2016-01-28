@@ -1,8 +1,7 @@
-library(PBD)
 source("~/GitHubs/R/Peregrine/is_valid_file.R")
 source("~/GitHubs/R/Peregrine/read_file.R")
-source("~/GitHubs/R/Peregrine/pbd_sim_safe.R")
 source("~/GitHubs/R/Phylogenies/is_pbd_sim_output.R")
+library(PBD)
 library(testit)
 
 add_pbd_output <- function(filename) {
@@ -22,13 +21,13 @@ add_pbd_output <- function(filename) {
   age <- as.numeric(parameters$age[2]) 
   set.seed(rng_seed)
   #pbd_output <- pbd_sim(c(
-  file$pbd_output <- pbd_sim_safe(c(
+  file$pbd_output <- pbd_sim(c(
     species_initiation_rate_good_species,
     speciation_completion_rate,
     species_initiation_rate_incipient_species,
     extinction_rate_good_species,
     extinction_rate_incipient_species
-  ),age=as.numeric(parameters$age[2]),soc=2,plot=FALSE, max_id = 1000)
+  ),age=as.numeric(parameters$age[2]),soc=2,plot=FALSE)
   #phylogeny <- pbd_output$tree
   #file$pbd_output <- pbd_output
   saveRDS(file,file=filename)

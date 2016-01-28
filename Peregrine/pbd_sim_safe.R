@@ -1,5 +1,6 @@
-pbd_sim_safe = function(pars,age,soc = 2,plotit = FALSE,max_id = -1)
+pbd_sim_safe = function(pars,age,soc = 2,plotit = FALSE,max_events = 10000000)
 {
+print("pbd_sim_safe #1")
 la1 = pars[1]
 la2 = pars[2]
 la3 = pars[3]
@@ -7,6 +8,7 @@ mu1 = pars[4]
 mu2 = pars[5]
 
 i = 1
+
 while(i <= soc)
 {
    t = 0
@@ -37,8 +39,9 @@ while(i <= soc)
    probs = probs/denom
    t = t - log(runif(1))/denom
 
-   while(t <= age && id != max_id)
+   while(t <= age)
    {
+      print(t)
       event = sample2(1:5,size = 1,prob = probs)
       if(event == 1)
       {
