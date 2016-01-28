@@ -15,7 +15,7 @@ do
         for l in 1000 10000 10000
         do
           rng_seed=1
-          crown_age=15
+          crown_age=5
           n_species_trees=2
           n_alignments=2
           mcmc_length=1000000
