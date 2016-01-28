@@ -5,7 +5,7 @@ then
   mkdir MyFavoritePackages
 fi
 
-PBD_FILE=PBD_1.0.tar.gz
+PBD_FILE=PBD_1.1.tar.gz
 
 if [ ! -e MyFavoritePackages/$PBD_FILE ]
 then

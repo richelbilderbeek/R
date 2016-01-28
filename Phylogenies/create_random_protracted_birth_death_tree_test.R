@@ -6,7 +6,7 @@ demonstrate_create_random_protracted_birth_death_tree <- function() {
   
   # Simulate a tree from a protracted birth-death model 
   # that stops after a certain length of time
-  pbd_sim_out <- CreateRandomProtractedBirthDeathTree(
+  pbd_sim_out <- create_random_protracted_birth_death_tree(
     speciation_initiation_rate_good_species = 0.2,
     speciation_completion_rates = 0.1,
     speciation_initiation_rate_incipient_species = 0.2,
