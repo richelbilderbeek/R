@@ -1,21 +1,21 @@
 #!/bin/bash
 b_index=0
-for b in 0.1 0.2 0.4 0.8
+for b in 0.1 0.5 1.0
 do
   lambda_index=0
-  for lambda in 0.0 0.1 0.2 0.4 0.8 1000000
+  for lambda in 0.1 0.3 1.0 1000000
   do
     mu_index=0
-    for mu in 0.0 0.1 0.2 0.4 0.8
+    for mu in 0.0 0.1 0.2 0.4
     do
       r_index=0
       for r in 0.1 0.01 0.001
       do
         l_index=0
-        for l in 1000 10000 10000
+        for l in 1000 10000 100000
         do
           rng_seed=1
-          crown_age=5
+          crown_age=15
           n_species_trees=2
           n_alignments=2
           mcmc_length=1000000
