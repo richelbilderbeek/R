@@ -2,19 +2,21 @@
 
 My notes on the R programming language
 
- * [Biology](Biology/README.md)
- * [Create](Create/README.md)
- * [Functions](Function/README.md)
- * [Phylogenies](Phylogenies/README.md)
- * [Plot](Plot/README.md)
- * [Scripting](Scripting/README.md)
- * [Statistics](Statistics/README.md)
- * [Stochastic](Stochastic/README.md)
- * [Strings](Strings/README.md)
- * [Syntax](Syntax/README.md)
- * [Tables](Tables/README.md)
- * [Top-Predator-Prey system](TopPredPrey/README.md)
+## I want to collaborate
 
+Awesome!
+
+Feel invited to post an Issue and/or submit a Poll Request in this GitHub its coding standard.
+
+This GitHub follows the guidelines from the codings standard(s) of [R-CodingStandard](https://github.com/richelbilderbeek/R-CodingStandard).
+
+This means 
+ * A function that foos a bar is named `foo_bar`
+ * That function is put in a file called `foo_bar.R`
+ * Its test is in `foo_bar_test.R`
+
+There is some older code that pre-dates the R coding standard(s), you are welcome to clean 
+that up :-)
 
 ## Hack to let `plyr` work on R 3.0.2
 
