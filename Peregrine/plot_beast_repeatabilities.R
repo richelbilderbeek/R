@@ -9,7 +9,9 @@ source("~/GitHubs/R/MyFavoritePackages/olli_rBEAST/R/fun.beast2output.R")
 plot_beast_repeatabilities <- function() {
   # How well do two BEAST2 runs on the same alignment match?
   
-  # Filenames how the form 'article_a_b_c_d_e_f_g.trees'
+  # Filenames have the form:
+  # * 'article_a_b_c_d_e_f_g.trees'
+  # * 'example_i_e_f_g.trees'
   # a: 0-base index of birth rate
   # b: 0-base index of lambda
   # c: 0-base index of mu
@@ -18,6 +20,7 @@ plot_beast_repeatabilities <- function() {
   # f: 1-base index of species tree sampled from gene tree
   # g: 1-base index of alignment simulated from species tree
   # h: 1-base index of BEAST2 run on an alignment
+  # i: 1-base index of the example
   for (trees_filename in list.files(path = ".", pattern = "^(toy_example|example|article)_.*_1\\.trees")) {  
     other_trees_filename <- gsub("_1.trees","_2.trees", trees_filename)
     if (!file.exists(other_trees_filename)) next
