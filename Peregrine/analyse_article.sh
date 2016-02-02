@@ -11,3 +11,9 @@ Rscript plot_beast_repeatabilities.R
 
 # Compare alignments: how similar are two alignments?
 Rscript plot_alignment_repeatabilities.R
+
+# Compare species trees: how similar are species trees?
+Rscript plot_species_tree_repeatabilities.R
+
+# Compare species trees: count the number of paraphylies
+Rscript plot_paraphyly_count.R
