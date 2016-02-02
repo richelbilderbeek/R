@@ -23,7 +23,7 @@ plot_paraphyly_count <- function() {
   # g: 1-base index of alignment simulated from species tree
   # h: 1-base index of BEAST2 run on an alignment
   # i: 1-base index of the example
-  for (trees_filename in list.files(path = ".", pattern = "^(toy_example|example|arXticle)_.*_1_1_1\\.trees")) {  
+  for (trees_filename in list.files(path = ".", pattern = "^(toy_example|example|article)_.*_1_1_1\\.trees")) {  
     trees_filename_1 <- trees_filename
     trees_filename_2 <- gsub("_1_1_1.trees","_1_1_2.trees", trees_filename)
     trees_filename_3 <- gsub("_1_1_1.trees","_1_2_1.trees", trees_filename)

@@ -17,3 +17,6 @@ Rscript plot_species_tree_repeatabilities.R
 
 # Compare species trees: count the number of paraphylies
 Rscript plot_paraphyly_count.R
+
+# Observe the effect of sampling from a (optionally paraphyletic) gene tree
+Rscript plot_gene_tree_to_species_trees.R
