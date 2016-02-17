@@ -1,0 +1,1 @@
+install.packages(c("ape","testit","PBD","geiger","phangorn"), repos="http://cran.r-project.org")
