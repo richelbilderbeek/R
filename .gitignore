@@ -45,3 +45,4 @@ old/
 Peregrine/Rplots.pdf
 toy_example*.png
 .nfs*
+*.R.save
