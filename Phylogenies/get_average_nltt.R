@@ -105,11 +105,31 @@ get_average_nltt_new <- function(
   #  ylab: label on y axis
   #  replot: if FALSE, a new plot is started, if TRUE, the lines is drawn over an assumed-to-be-present plot
   #  ...
-  for (i in seq(1,2))
+  for (i in seq(1,length(phylogenies)))
   {
-    phylogenies[[i]] <- rescale(phylogenies[[i]], model = "depth", depth = 1.0)
+    t <- ltt.plot.coords(phylogenies[[i]])
+    t
+    crown_age <- -t[1,1]
+    crown_age
+    t[,1] <- (t[,1] / crown_age) + 1
+    t
+    n_lineages <- t[nrow(t),2]
+    t[,2] <- t[,2] / n_lineages
+    t
+    if (i == 1) {
+      plot(t, type='l',col='gray',xlab="time",ylab="number of species")
+    } else {
+      lines(t, type='l',col='gray')
+    }
   }
-
+  LTT.
+  class(t)
+  LTT.plot.gen(phylogenies[[1]])
+  plot(
+    LTT.average.root(phylogenies) + 1,
+    type='l',col='black',xlab="time",ylab="number of species"
+  )
+  
   # Set the shape of the plot
   if (replot == FALSE) {
     plot(
@@ -120,14 +140,13 @@ get_average_nltt_new <- function(
       ylab = "Normalized Lineages"
     )
   }
-  
+
   # Draw the nLTTS plots used
   if (plot_nltts == TRUE) {
-    lines.default(
-      LTT.average.root(phylogenies),
-      type='l',
-      col="grey"
-    )
+    for (phylogeny in phylogenies)
+    {
+      nLTT.lines(phylogeny)
+    }
   }  
   
   # Redraw the average nLTT plot
