@@ -1,5 +1,7 @@
 source("~/GitHubs/R/Phylogenies/get_phylogeny_nltt_matrix.R")
 source("~/GitHubs/R/Phylogenies/stretch_nltt_matrix.R")
+source("~/GitHubs/R/MyFavoritePackages/TreeSim/R/LTT.general.R")
+source("~/GitHubs/R/MyFavoritePackages/TreeSim/R/LTT.average.root.R")
 
 library(ape)
 library(geiger)
@@ -85,5 +87,53 @@ get_average_nltt <- function(
     xlim=c(0,1),
     ylim=c(0,1),
     ...
+  )
+}
+
+get_average_nltt_new <- function(
+  phylogenies, 
+  plot_nltts = FALSE,
+  xlab = "Normalized Time", 
+  ylab = "Normalized Lineages",
+  replot = FALSE,
+  ...
+) {
+  #  phylogenies, 
+  #  dt: delta t, resolution of the averaged nLTT, where smaller is a higher resolution
+  #  plot_nltts = FALSE,
+  #  xlab: label on x axis
+  #  ylab: label on y axis
+  #  replot: if FALSE, a new plot is started, if TRUE, the lines is drawn over an assumed-to-be-present plot
+  #  ...
+  for (i in seq(1,2))
+  {
+    phylogenies[[i]] <- rescale(phylogenies[[i]], model = "depth", depth = 1.0)
+  }
+
+  # Set the shape of the plot
+  if (replot == FALSE) {
+    plot(
+      LTT.average.root(phylogenies),
+      type='l',
+      col='black',
+      xlab = "Normalized Time", 
+      ylab = "Normalized Lineages"
+    )
+  }
+  
+  # Draw the nLTTS plots used
+  if (plot_nltts == TRUE) {
+    lines.default(
+      LTT.average.root(phylogenies),
+      type='l',
+      col="grey"
+    )
+  }  
+  
+  # Redraw the average nLTT plot
+  lines.default(
+    LTT.average.root(phylogenies),
+    type='l',
+    col='black'
   )
 }

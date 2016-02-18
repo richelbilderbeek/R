@@ -2,6 +2,7 @@
 source("~/GitHubs/R/Phylogenies/get_average_nltt.R")
 library(ape)
 library(nLTT)
+library(TreeSim)
 
 get_average_nltt_test <- function()
 {
@@ -36,9 +37,48 @@ get_average_nltt_test <- function()
   get_average_nltt(
     phylogenies,
     plot_nltts = TRUE,
-    main = "Average LTT of 100 coalescent trees"
+    main = "Average nLTT of 100 coalescent trees"
+    
+  )
+  get_average_nltt_new(
+    phylogenies,
+    plot_nltts = FALSE,
+    main = "Average nLTT of 100 coalescent trees (new)"
+    
+  )
+  get_average_nltt_new(
+    phylogenies,
+    plot_nltts = TRUE,
+    main = "Average nLTT of 100 coalescent trees (new)"
     
   )
 }
 
 get_average_nltt_test()
+
+newick1 <- "((((XD:1,ZD:1):1,CE:2):1,(FE:2,EE:2):1):4,((AE:1,BE:1):1,(WD:1,YD:1):1):5);"
+phylogeny1 <- read.tree(text = newick1)
+plot(phylogeny1)
+add.scale.bar()
+phylogeny1_rescaled <- rescale(phylogeny1, model = "depth", depth = 1.0)
+plot(phylogeny1_rescaled)
+add.scale.bar()
+newick2 <- "((A:0.3,B:0.3):0.7,(C:0.6,D:0.6):0.4);"
+phylogeny2 <- read.tree(text = newick2)
+phylogenies <- c(phylogeny1,phylogeny2)
+for (i in seq(1,2))
+{
+  phylogenies[[i]] <- rescale(phylogenies[[i]], model = "depth", depth = 1.0)
+}
+plot(phylogenies[[1]])
+add.scale.bar()
+plot(phylogenies[[2]])
+add.scale.bar()
+??LTT.average.root
+source("~/GitHubs/R/MyFavoritePackages/TreeSim/R/LTT.general.R")
+source("~/GitHubs/R/MyFavoritePackages/TreeSim/R/LTT.average.root.R")
+
+plot(
+  LTT.average.root(phylogenies),
+  type='l',col='black',log="y",xlab="time",ylab="number of species")
+)

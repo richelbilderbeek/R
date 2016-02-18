@@ -1,1 +1,1 @@
-install.packages(c("ape","testit","PBD","geiger","phangorn"), repos="http://cran.r-project.org")
+install.packages(c("ape","phytools","DDD","testit","PBD","geiger","phangorn","nLTT", "treeSim","swirl"), repos="http://cran.r-project.org")
