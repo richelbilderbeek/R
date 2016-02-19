@@ -10,12 +10,12 @@ assert(all.equal( z[ z > 2  &&  z < 5 ] , c(0) ) )
 say_hello <- function() 
 {
   print("Hello")
-  return (1)
+  return (TRUE)
 }
 
 # say_hello should not be called
 # operator& evaluates all arguments, even if the first one is false
-# operator&& evaluates the arguments until it founds a false (and thus can never be true anymore)
+# operator&& evaluates the arguments until it finds a false (and thus can never be true anymore)
 if (1 + 1 == 3  & say_hello()) { }
 if (1 + 1 == 3 && say_hello()) { }
 
