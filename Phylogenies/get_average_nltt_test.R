@@ -25,7 +25,7 @@ get_average_nltt_test <- function()
   nLTT.lines(phylogeny2,col = "gray")
   
   # Combine these at different resolutions
-  phylogenies <- list(phylogeny1,phylogeny2)
+-  phylogenies <- list(phylogeny1,phylogeny2)
   for (dt in c(0.2,0.05,0.01)) {
     get_average_nltt(phylogenies,dt = dt,main=paste("dt:",dt))
     nLTT.lines(phylogeny1,col="red")
@@ -103,4 +103,9 @@ r[,1] <- r[,1]+1
 r[,2]
 r
 
+nLTT.lines
+nLTT.lines(phy = phylogenies[[1]])
+library(nLTT)
 ??LTT.average.root
+nLTT.lines
+
