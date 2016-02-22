@@ -43,40 +43,9 @@ a <- convert_phylogeny_to_alignment(
 )
 image(a)
 
-plot(p)
 # Convert to NEXUS, as *BEAST needs this format
-source("~/GitHubs/R/Phylogenies/convert_phylogeny_to_nexus.R")
+source("~/GitHubs/R/Phylogenies/convert_alignment_to_nexus.R")
 convert_alignment_to_nexus(
-  phylogeny = p,
-  filename = "~/ProgressReport2016_7_1.nexus"
+  alignment = a,
+  filename = "~/ProgressReport2016_8_1.nexus"
 )
-
-
-# source("~/GitHubs/R/Phylogenies/convert_alignment_to_fasta.R")
-# convert_alignment_to_fasta(
-#   alignment = a,
-#   filename = "~/ProgressReport2016_7_1.fasta"
-# )
-
-
-# source("~/GitHubs/R/Phylogenies/convert_alignment_to_beast_input_file.R")
-# convert_alignment_to_beast_input_file(
-#   alignment = a,
-#   mcmc_chainlength = 1000000,
-#   rng_seed = 42,
-#   beast_filename = "~/ProgressReport2016_7_1.xml",
-#   temp_fasta_filename = "~/ProgressReport2016_7_1_temp.fasta"
-# )
-
-
-
-
-
-
-
-# pbd$igtree.extant
-# ?ape
-# ?tiplabels
-# 
-
-?write.nexus
