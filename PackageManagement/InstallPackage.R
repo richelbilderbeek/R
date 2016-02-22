@@ -2,4 +2,4 @@ install.packages("ape")
 install.packages(DDD)
 install.packages(plyr)
 install.packages(geiger)
-install.packages(phangorn);
+install.packages(phangorn)

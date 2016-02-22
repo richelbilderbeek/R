@@ -9,4 +9,6 @@
 ./DownloadPhangorn.sh
 ./DownloadPhyloch.sh
 ./DownloadPlyr.sh
+./DownloadTreeSim.sh
 ./InstallApe.sh
+./InstallTreeSim.sh
