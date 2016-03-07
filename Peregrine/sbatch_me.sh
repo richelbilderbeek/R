@@ -4,7 +4,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --ntasks=1
-#SBATCH --mem=100000
+#SBATCH --mem=10G
 #SBATCH --job-name=article
 #SBATCH --mail-type=BEGIN,END
 module load R Beast
