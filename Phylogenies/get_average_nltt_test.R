@@ -62,7 +62,7 @@ get_average_nltt_test()
 
 newick1 <- "((((XD:1,ZD:1):1,CE:2):1,(FE:2,EE:2):1):4,((AE:1,BE:1):1,(WD:1,YD:1):1):5);"
 phylogeny1 <- read.tree(text = newick1)
-phylogeny1_rescaled <- rescale(phylogeny1, model = "depth", depth = 1.0)
+#phylogeny1_rescaled <- rescale(phylogeny1, model = "depth", depth = 1.0)
 newick2 <- "((A:0.3,B:0.3):0.7,(C:0.6,D:0.6):0.4);"
 phylogeny2 <- read.tree(text = newick2)
 phylogenies <- c(phylogeny1,phylogeny2)
@@ -107,5 +107,10 @@ nLTT.lines
 nLTT.lines(phy = phylogenies[[1]])
 library(nLTT)
 ??LTT.average.root
+<<<<<<< HEAD
 nLTT.lines
+=======
+
+
+>>>>>>> 25e75944198ce79b8d3e145b167a4d9ce027bb63
 
