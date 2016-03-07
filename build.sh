@@ -12,3 +12,6 @@
 ./DownloadTreeSim.sh
 ./InstallApe.sh
 ./InstallTreeSim.sh
+
+cd ..
+git clone https://github.com/richelbilderbeek/BeastScripter

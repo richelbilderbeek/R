@@ -24,7 +24,9 @@ convert_alignment_to_beast_posterior <- function(
   alignment_dnabin,
   mcmc_chainlength,
   base_filename,
-  rng_seed = 42
+  rng_seed = 42,
+  beast_bin_path = "~/Programs/beast/bin/beast",
+  beast_jar_path = "~/Programs/beast/lib/beast.jar"
 ) {
   assert(is_alignment(alignment_dnabin))
   assert(is_whole_number(mcmc_chainlength))
@@ -35,8 +37,7 @@ convert_alignment_to_beast_posterior <- function(
   # File paths
   #base_filename <- "test_output_1"
   beast_filename <- paste(base_filename,".xml",sep="");
-  beast_bin_path <- "~/Programs/BEAST2/bin/beast"
-  beast_jar_path <- "~/Programs/BEAST2/lib/beast.jar"
+  
   beast_log_filename <- paste(base_filename,".log",sep="");
   beast_trees_filename <- paste(base_filename,".trees",sep="");
   beast_state_filename <- paste(base_filename,".xml.state",sep="");
