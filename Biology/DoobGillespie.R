@@ -19,7 +19,7 @@ while (t < t_max && N > 0 && N < N_max)
     N = N + 1
   } else {
     N = N - 1
-  }  
+  }
   #text = paste(c("t: ",t,", N:",N),collapse="")
   #print (text)
   points(t,N)
