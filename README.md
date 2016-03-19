@@ -2,6 +2,12 @@
 
 My notes on the R programming language
 
+```
+This repository is being phased out
+```
+
+The contents of this repository will move into [the ribir package](https://github.com/richelbilderbeek/ribir).
+
 ## I want to collaborate
 
 Awesome!
