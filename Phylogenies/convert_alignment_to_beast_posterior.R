@@ -88,6 +88,7 @@ convert_alignment_to_beast_posterior <- function(
       "beast", 
       " -seed ",rng_seed,
       " ", beast_filename,
+      " -beagle_instances 4 -threads 4"
       sep=""
     )
     system(cmd)
@@ -119,6 +120,7 @@ convert_alignment_to_beast_posterior <- function(
       beast_bin_path, 
       " -seed ",rng_seed,
       " ", beast_filename,
+      " -beagle_instances 4 -threads 4"
       sep=""
     )
     system(cmd)
@@ -142,6 +144,7 @@ convert_alignment_to_beast_posterior <- function(
       "java -jar ", beast_jar_path, 
       " -seed ", rng_seed,
       " ", beast_filename,
+      " -beagle_instances 4 -threads 4"
       sep = ""
     )
     system(cmd)
