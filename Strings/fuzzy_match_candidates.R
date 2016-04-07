@@ -28,6 +28,28 @@ for (name in names1)
   text <- c(text, line)
 }
 
+for (name in names2)
+{
+  # Find the max.distance that still yields at least one hit
+  good_distance <- -1
+  for (distance in seq(1,1000))
+  {
+    if (length(agrep(name, names1, max.distance = distance)) > 0)
+    {
+      good_distance <- distance
+      break
+    }
+  }
+  # Show the hits
+  match_names <- names1[ agrep(name, names1, max.distance = good_distance) ]
+  line <- paste(
+      name,
+      good_distance,
+      match_names, sep = ","
+    )
+  text <- c(text, line)
+}
+
 my_file <- file("fuzzy_match_candidates_result.csv")
 writeLines(text, my_file)
 close(my_file)
