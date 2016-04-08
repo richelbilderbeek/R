@@ -76,27 +76,52 @@ testthat::expect_equal(ncol(names2), 2)
 
 text <- NULL
 
-names <- names1
-candidates <- names2
-
-for (row in seq(1,nrow(names)))
+for (i in c(1,2))
 {
-  testthat::expect_equal(ncol(names), 2)
-  testthat::expect_equal(ncol(candidates), 2)
-  species_name <- names[row, ]
-  results <- get_best_species_name_match(species_name,candidates)
-  line <- paste(
-      species_name,
-      results$match_genus$distance,
-      candidates[results$match_genus$match_indices, ],
-      results$match_species$distance,
-      candidates[results$match_species$match_indices, ],
-      results$match_both$distance,
-      candidates[results$match_both$match_indices, ],
-    sep = ","
-  )
-  print(line)
-  text <- c(text, line)
+  if (i == 1)
+  {
+    names <- names1
+    candidates <- names2
+  }
+  else
+  {
+    names <- names2
+    candidates <- names1
+  }
+
+  for (row in seq(1,nrow(names)))
+  #for (row in seq(1,3))
+  {
+    testthat::expect_equal(ncol(names), 2)
+    testthat::expect_equal(ncol(candidates), 2)
+    species_name <- names[row, ]
+    results <- get_best_species_name_match(species_name,candidates)
+
+    sub_line_genus <- candidates[results$match_genus$match_indices, ]
+    sub_line_genus <- paste(sub_line_genus[, 1], sub_line_genus[, 2])
+    testthat::expect_equal(ncol(sub_line_genus), NULL)
+
+    sub_line_species <- candidates[results$match_species$match_indices, ]
+    sub_line_species <- paste(sub_line_species[, 1], sub_line_species[, 2])
+    testthat::expect_equal(ncol(sub_line_species), NULL)
+
+    sub_line_both <- candidates[results$match_both$match_indices, ]
+    sub_line_both <- paste(sub_line_both[, 1], sub_line_both[, 2])
+    testthat::expect_equal(ncol(sub_line_both), NULL)
+
+    line <- paste(
+        paste(species_name, collapse = " "),
+        results$match_genus$distance,
+        paste(sub_line_genus, collapse = " "),
+        results$match_species$distance,
+        paste(sub_line_species, collapse = " "),
+        results$match_both$distance,
+        paste(sub_line_both, collapse = " "),
+      sep = ","
+    )
+    #print(line)
+    text <- c(text, line)
+  }
 }
 
 my_file <- file("fuzzy_match_candidates_result.csv")
