@@ -1,4 +1,3 @@
-remove_file_extension <- function(filename) 
-{
-  return (strsplit(filename, "\\.")[[1]][1])
+remove_file_extension <- function(filename) {
+  return(tools::file_path_sans_ext(filename))
 }
