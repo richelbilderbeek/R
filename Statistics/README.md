@@ -1,4 +1,3 @@
 # Statistics
  
- * [Test for normality](TestForNormality.md)
-
+ * [test for normality](https://github.com/richelbilderbeek/ribir)
