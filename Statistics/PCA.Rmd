@@ -1,0 +1,32 @@
+---
+title: "PCA"
+author: "Richel Bilderbeek"
+date: "August 10, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```
+df <- data.frame(x = seq(1,5), y = runif(n = 50), z = rnorm(n = 5))
+prcomp(df, scale = TRUE)
+prcomp(df, scale = TRUE)
+plot(prcomp(df))
+biplot(prcomp(df))
+```
+
+```{r}
+## signs are random
+require(graphics)
+
+## the variances of the variables in the
+## USArrests data vary by orders of magnitude, so scaling is appropriate
+prcomp(USArrests)  # inappropriate
+prcomp(USArrests, scale = TRUE)
+prcomp(~ Murder + Assault + Rape, data = USArrests, scale = TRUE)
+plot(prcomp(USArrests))
+summary(prcomp(USArrests, scale = TRUE))
+biplot(prcomp(USArrests, scale = TRUE))
+```
