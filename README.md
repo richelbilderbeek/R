@@ -15,6 +15,22 @@ sudo apt-get install openjdk-8-*
 sudo R CMD javareconf
 ```
 
+Do so with RStudio closed.
+
+## libjvm.so: cannot open shared object file: No such file or directory
+
+```
+error: unable to load shared object '/home/richel/R/i686-pc-linux-gnu-library/3.2/rJava/libs/rJava.so':
+  libjvm.so: cannot open shared object file: No such file or directory
+```
+
+Close RStudio, then:
+
+```
+sudo R CMD javareconf
+```
+
+
 ## I want to collaborate
 
 Awesome!
