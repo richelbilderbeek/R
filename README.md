@@ -8,6 +8,13 @@ This repository is being phased out
 
 The contents of this repository will move into [the ribir package](https://github.com/richelbilderbeek/ribir).
 
+## install rJava
+
+```
+sudo apt-get install openjdk-8-*
+sudo R CMD javareconf
+```
+
 ## I want to collaborate
 
 Awesome!
