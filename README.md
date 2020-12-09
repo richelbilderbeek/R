@@ -2,88 +2,22 @@
 
 Repository                                                    |[GitHub Actions](https://github.com/informalr/informalr/actions)                                             |[![Codecov logo](man/figures/Codecov.png)](https://www.codecov.io)
 --------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
+[`babette`](https://github.com/ropensci/babette)|![R-CMD-check](https://github.com/ropensci/babette/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/babette/coverage.svg?branch=master)](https://codecov.io/github/ropensci/babette/branch/master)
+[`beastier`](https://github.com/ropensci/beastier)|![R-CMD-check](https://github.com/ropensci/beastier/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/beastier/coverage.svg?branch=master)](https://codecov.io/github/ropensci/beastier/branch/master)
+[`beautier`](https://github.com/ropensci/beautier)|![R-CMD-check](https://github.com/ropensci/beautier/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/beautier/coverage.svg?branch=master)](https://codecov.io/github/ropensci/beautier/branch/master)
+[`bbbq`](https://github.com/richelbilderbeek/bbbq)|![R-CMD-check](https://github.com/richelbilderbeek/bbbq/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/bbbq/branch/master)
+[`cobaltr`](https://github.com/richelbilderbeek/cobaltr)|![R-CMD-check](https://github.com/richelbilderbeek/cobaltr/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/cobaltr/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/cobaltr/branch/master)
 [`informalr`](https://github.com/informalr/informalr)         |![R-CMD-check](https://github.com/informalr/informalr/workflows/R-CMD-check/badge.svg?branch=master)         |[![codecov.io](https://codecov.io/github/informalr/informalr/coverage.svg?branch=master)](https://codecov.io/github/informalr/informalr/branch/master)
+[`mauricer`](https://github.com/ropensci/mauricer)|![R-CMD-check](https://github.com/ropensci/mauricer/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/mauricer/coverage.svg?branch=master)](https://codecov.io/github/ropensci/mauricer/branch/master)
+[`mcbette`](https://github.com/ropensci/mcbette)|![R-CMD-check](https://github.com/ropensci/mcbette/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/mcbette/coverage.svg?branch=master)](https://codecov.io/github/ropensci/mcbette/branch/master)
+[`mhcnuggetsr`](https://github.com/richelbilderbeek/mhcnuggetsr)|![R-CMD-check](https://github.com/richelbilderbeek/mhcnuggetsr/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/mhcnuggetsr/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/mhcnuggetsr/branch/master)
+[`ncbi`](https://github.com/richelbilderbeek/ncbi)|![R-CMD-check](https://github.com/richelbilderbeek/ncbi/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/ncbi/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/ncbi/branch/master)
+[`netmhc2pan`](https://github.com/richelbilderbeek/netmhc2pan)|![R-CMD-check](https://github.com/richelbilderbeek/netmhc2pan/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/netmhc2pan/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/netmhc2pan/branch/master)
+[`peregrine`](https://github.com/richelbilderbeek/peregrine)|![R-CMD-check](https://github.com/richelbilderbeek/peregrine/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/peregrine/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/peregrine/branch/master)
 [`pureseqtmr`](https://github.com/richelbilderbeek/pureseqtmr)|![R-CMD-check](https://github.com/richelbilderbeek/pureseqtmr/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/pureseqtmr/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/pureseqtmr/branch/master)
+[`tmhmm`](https://github.com/richelbilderbeek/tmhmm)|![R-CMD-check](https://github.com/richelbilderbeek/tmhmm/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/tmhmm/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/tmhmm/branch/master)
+[`tracerer`](https://github.com/ropensci/tracerer)|![R-CMD-check](https://github.com/ropensci/tracerer/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/tracerer/coverage.svg?branch=master)](https://codecov.io/github/ropensci/tracerer/branch/master)
 
+Build statuses for my R packages.
 
-My notes on the R programming language
-
-```
-This repository is being phased out
-```
-
-The contents of this repository will move into [the ribir package](https://github.com/richelbilderbeek/ribir).
-
-## install rJava
-
-```
-sudo apt-get install openjdk-8-*
-sudo R CMD javareconf
-```
-
-Do so with RStudio closed.
-
-## libjvm.so: cannot open shared object file: No such file or directory
-
-```
-error: unable to load shared object '/home/richel/R/i686-pc-linux-gnu-library/3.2/rJava/libs/rJava.so':
-  libjvm.so: cannot open shared object file: No such file or directory
-```
-
-Close RStudio, then:
-
-```
-sudo R CMD javareconf
-```
-
-
-## I want to collaborate
-
-Awesome!
-
-Feel invited to post an Issue and/or submit a Poll Request in this GitHub its coding standard.
-
-This GitHub follows the guidelines from the codings standard(s) of [R-CodingStandard](https://github.com/richelbilderbeek/R-CodingStandard).
-
-This means 
- * A function that foos a bar is named `foo_bar`
- * That function is put in a file called `foo_bar.R`
- * Its test is in `foo_bar_test.R`
-
-There is some older code that pre-dates the R coding standard(s), you are welcome to clean 
-that up :-)
-
-## Hack to let `plyr` work on R 3.0.2
-
-This is _not_ a recommended procedure. 
-
-This procedure:
-
- * Download the `plyr` tarball
- * Unpacks the `plyr` tarball
- * Modified the `plyr/DESCRPTION` file to depend on R 3.0.2
- * Delete the original `plyr` tarball
- * Packs the hacked tarball
-
-The hacked tarball can then be installed in R. Sure, the MD5 checksum will fail :-)
-
-```
-PLYR_FILE=plyr_1.8.3.tar.gz
-
-# Download the `plyr` tarball
-wget https://cran.r-project.org/src/contrib/$PLYR_FILE
-
-# Unpacks the `plyr` tarball
-tar zxvf $PLYR_FILE
-
-# Modified the `plyr/DESCRPTION` file to depend on R 3.0.2
-sed -i plyr/DESCRIPTION -e 's/Depends: R (>= 3.1.0)/Depends: R (>= 3.0.2)/'
-
-# Delete the original `plyr` tarball
-rm $PLYR_FILE
-
-# Packs the hacked tarball
-tar cvzf $PLYR_FILE plyr/*
-```
-
-This is the bare-bone version of the full script in [DownloadPlyr.sh](DownloadPlyr.sh).
+ * [My presentations about R](https://github.com/richelbilderbeek/PresentationsAboutR)
