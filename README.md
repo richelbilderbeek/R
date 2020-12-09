@@ -1,8 +1,9 @@
 # R
 
-Repo       |[GitHub Actions](https://github.com/informalr/informalr/actions)                                     |[![Codecov logo](man/figures/Codecov.png)](https://www.codecov.io)
------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
-`informalr`|![R-CMD-check](https://github.com/informalr/informalr/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/informalr/informalr/coverage.svg?branch=master)](https://codecov.io/github/informalr/informalr/branch/master)
+Repository                                           |[GitHub Actions](https://github.com/informalr/informalr/actions)                                     |[![Codecov logo](man/figures/Codecov.png)](https://www.codecov.io)
+-----------------------------------------------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
+[`informalr`](https://github.com/informalr/informalr)|![R-CMD-check](https://github.com/informalr/informalr/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/informalr/informalr/coverage.svg?branch=master)](https://codecov.io/github/informalr/informalr/branch/master)
+
 
 My notes on the R programming language
 
