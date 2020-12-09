@@ -1,5 +1,11 @@
 # R
 
+My notes about R.
+
+ * [My presentations about R](https://github.com/richelbilderbeek/PresentationsAboutR)
+
+## Build statuses
+
 Repository                                                      |[GitHub Actions](https://github.com/informalr/informalr/actions)                                             |[![Codecov logo](man/figures/Codecov.png)](https://www.codecov.io)
 ----------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------
 [`babette`](https://github.com/ropensci/babette)                |![R-CMD-check](https://github.com/ropensci/babette/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/babette/coverage.svg?branch=master)](https://codecov.io/github/ropensci/babette/branch/master)
@@ -21,4 +27,3 @@ Repository                                                      |[GitHub Actions
 
 Build statuses for my R packages.
 
- * [My presentations about R](https://github.com/richelbilderbeek/PresentationsAboutR)
