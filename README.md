@@ -2,7 +2,34 @@
 
 My notes about R.
 
- * [My presentations about R](https://github.com/richelbilderbeek/PresentationsAboutR)
+## [Presentations](https://github.com/richelbilderbeek/PresentationsAboutR)
+
+[My presentations about R](https://github.com/richelbilderbeek/PresentationsAboutR)
+
+## Professional publications
+
+ * [Raising Your Code to Professional Standards](https://sdjournal.org/raising-code-professional-standards):
+   a free (that is, it can be read without paying) article for [SDJournal](https://sdjournal.org).
+   Also available at 
+   [https://github.com/richelbilderbeek/sdj_raising_your_code_to_professional_standards](https://github.com/richelbilderbeek/sdj_raising_your_code_to_professional_standards)
+ * [Methods.blog post: The babette R Package: How to Sooth the Phylogenetic BEAST2](https://methodsblog.wordpress.com/2018/06/25/babette-beast2/)
+ * [rOpenSci blog post: Call BEAST2 for Bayesian evolutionary analysis from R](https://ropensci.org/blog/2020/01/28/babette/)
+ * [rOpenSci blog post: Selecting the Best Phylogenetic Evolutionary Model](https://ropensci.org/blog/2020/12/01/mcbette-selecting-the-best-inference-model/)
+
+## Academic publications
+
+ * Bilderbeek (2020) 
+   mcbette: model comparison using babette. 
+   Journal of Open Source Software 5.54: 2762. 
+   [https://doi.org/10.21105/joss.02762](https://doi.org/10.21105/joss.02762)
+ * Bilderbeek, Laudanno and Etienne (2020) 
+   Quantifying the impact of an inference model in Bayesian phylogenetics. 
+   Methods in Ecology and Evolution. 
+   [https://doi.org/10.1111/2041-210X.13514](https://doi.org/10.1111/2041-210X.13514)
+ * Bilderbeek and Etienne (2018) 
+   babette: BEAUti 2, BEAST2 and Tracer for R. 
+   Methods in Ecology and Evolution 9, no. 9: 2034-2040. 
+   [https://doi.org/10.1111/2041-210X.13032](https://doi.org/10.1111/2041-210X.13032)
 
 ## Build statuses
 
