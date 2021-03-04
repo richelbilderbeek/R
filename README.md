@@ -41,7 +41,6 @@ Repository                                                             |[![GitHu
 [`bbbq`](https://github.com/richelbilderbeek/bbbq)                     |![R-CMD-check](https://github.com/richelbilderbeek/bbbq/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/bbbq/branch/master) [4]
 [`bbbq_1_fast`](https://github.com/richelbilderbeek/bbbq_1_fast)       |![R-CMD-check](https://github.com/richelbilderbeek/bbbq_1_fast/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/bbbq_1_fast/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/bbbq_1_fast/branch/master)
 [`cobaltr`](https://github.com/richelbilderbeek/cobaltr)               |![R-CMD-check](https://github.com/richelbilderbeek/cobaltr/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/cobaltr/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/cobaltr/branch/master) [3]
-[`informalr`](https://github.com/informalr/informalr)                  |![R-CMD-check](https://github.com/informalr/informalr/workflows/R-CMD-check/badge.svg?branch=master)         |[![codecov.io](https://codecov.io/github/informalr/informalr/coverage.svg?branch=master)](https://codecov.io/github/informalr/informalr/branch/master) [5]
 [`k3reviews`](https://github.com/richelbilderbeek/k3reviews)           |![R-CMD-check](https://github.com/richelbilderbeek/k3reviews/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/richelbilderbeek/k3reviews/coverage.svg?branch=master)](https://codecov.io/github/richelbilderbeek/k3reviews/branch/master)
 [`mauricer`](https://github.com/ropensci/mauricer)                     |![R-CMD-check](https://github.com/ropensci/mauricer/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/mauricer/coverage.svg?branch=master)](https://codecov.io/github/ropensci/mauricer/branch/master)
 [`mcbette`](https://github.com/ropensci/mcbette)                       |![R-CMD-check](https://github.com/ropensci/mcbette/workflows/R-CMD-check/badge.svg?branch=master) |[![codecov.io](https://codecov.io/github/ropensci/mcbette/coverage.svg?branch=master)](https://codecov.io/github/ropensci/mcbette/branch/master)
@@ -60,7 +59,6 @@ Repository                                                             |[![GitHu
  * [2] Cannot get 100% code coverage, because all tests do not fit within one hour yet
  * [3] Cannot get 100% code coverage, because installing COBALT is a +750 MB download: I will need to do some trick to test install/uninstall errors :+1:
  * [4] Cannot get 100% code coverage, due to using untested code from other dev
- * [5] Work in progress
 
 Build statuses for my R packages.
 
