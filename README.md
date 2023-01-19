@@ -70,3 +70,6 @@ Repository                                                                     |
  * [4] Cannot get 100% code coverage, due to using untested code from other dev
 
 
+## Links
+
+ * [My rpkg.net profile](https://scholar.rpkg.net/aut/Richel+Bilderbeek)
