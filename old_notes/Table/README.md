@@ -1,6 +1,6 @@
 # Table
 
- * [Add a column](AddColumn.md)
+ * [Add a column](AddColumn.R)
  * [Append a row](AppendRow.md)
  * [Merge columns and average](MergeColumnsAndAverage.md)
  * [Remove absent levels](RemoveAbsentLevels.md)
